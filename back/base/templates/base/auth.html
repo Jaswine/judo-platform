@@ -1,0 +1,43 @@
+{% include 'main.html' %}
+{% load static %}
+
+{% block title %}
+   <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+   {% if page_type == 'login' %}
+      <title>Login</title>
+   {% else %}
+      <title>Registration</title>
+   {% endif %}
+{% endblock title %}
+
+
+{% block content %}
+   <div class="pre__form">
+      <form action="" method="POST">
+         {% csrf_token %}
+
+         {% if page_type == 'login' %}
+            <h2>Login</h2>
+         {% else %}
+            <h2>Registration</h2>
+
+            <div class="form__component">
+               <label for="">Your email</label>
+               <input type="text" name="email">
+            </div>
+         {% endif %}
+         
+         <div class="form__component">
+            <label for="">Your name</label>
+            <input type="text" name="name">
+         </div>
+         
+         <div class="form__component">
+            <label for="">Your password</label>
+            <input type="text" name="password">
+         </div>
+
+         <button type="submit" class="btn">continue</button>
+      </form>
+   </div>
+{% endblock content %}
