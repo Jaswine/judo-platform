@@ -3,7 +3,7 @@ django + drf
 
 <hr>
 
-<h3>Databases: </h3>
+<h3>Structure: </h3>
 https://www.figma.com/file/aGrxCdayLYa6mRNcPfMERS/JudoShaiai-2.0?node-id=7-428&t=mvCvCDXmergH4kq9-0
 
 <hr>
