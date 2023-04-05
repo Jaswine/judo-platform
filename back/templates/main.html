@@ -11,11 +11,22 @@
    {% block title %}{% endblock title %}
 </head>
 <body>
+   {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class='message'>
+                    {{message}}
+                    <i class="fa-solid fa-xmark message_close"></i>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
    {% include 'header.html' %}
    {% block content %}{% endblock content %}
    {% include 'footer.html' %}
 
-   <script src="{% static 'js/app.js' %}"></script>
+   <script src="{% static 'js/message.js' %}"></script>
    <script src="https://kit.fontawesome.com/0b77448ae5.js" crossorigin="anonymous"></script>
 </body>
 </html>

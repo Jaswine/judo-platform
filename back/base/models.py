@@ -4,22 +4,22 @@ from django.contrib.auth.models import User
 # Auto Add
 class Profile(models.Model):
    TASKS = (
-      ('Админ ', 'Админ'),
-      ('Секретарь ', 'Секретарь'),
+      ('Админ', 'Админ'),
+      ('Секретарь', 'Секретарь'),
       ('Свободный', 'Свободный')
    )
-   user = models.ForeignKey(User, on_delete=models.CASCADE, choices=TASKS)
+   user = models.ForeignKey(User, on_delete=models.CASCADE)
    
-   fullName = models.CharField(max_length=100)
-   phone = models.CharField(max_length=12)
-   userType = models.CharField(max_length=20)
+   fullName = models.CharField(max_length=100, blank=True)
+   phone = models.CharField(max_length=12, blank=True)
+   userType = models.CharField(max_length=20, choices=TASKS)
    image = models.ImageField(upload_to='profile_avatars', blank=True)
    
    created = models.DateTimeField(auto_now_add=True)
    updated = models.DateTimeField(auto_now=True)
    
    def __str__(self):
-      return self.user
+      return self.user.username
    
 # Logotips Gallery
 class Logos(models.Model):
@@ -79,6 +79,7 @@ class Tournament(models.Model):
       ('командный', 'командный')
    )
    
+   user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
    title = models.CharField(max_length=100)
    slug = models.SlugField(max_length=100, unique=True)
    logos = models.ManyToManyField(Logos, default=[], blank=True)

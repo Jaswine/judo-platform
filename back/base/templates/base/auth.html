@@ -13,29 +13,38 @@
 
 {% block content %}
    <div class="pre__form">
-      <form action="" method="POST">
+      <form method="POST">
          {% csrf_token %}
 
          {% if page_type == 'login' %}
             <h2>Login</h2>
+
+            <div class = "form__component">
+               <label>Username:</label>
+               <input type="text" name="username" id="username" >
+            </div>
+
+            <div class = "form__component">
+               <label>Password:</label>
+               <input type="password" name="password" id="username" >
+            </div>
          {% else %}
             <h2>Registration</h2>
 
-            <div class="form__component">
-               <label for="">Your email</label>
-               <input type="text" name="email">
-            </div>
+            {% for field in form  %}
+               <div class = "form__component">
+                  {% if field.errors %}
+                  <ul class="errorlist">
+                     {% for error in field.errors %}
+                     <li>{{ error }}</li>
+                     {% endfor %}
+                  </ul>
+                  {% endif %}
+                  {{ field.label_tag }} {{ field }}
+               </div>
+            {% endfor %}
+
          {% endif %}
-         
-         <div class="form__component">
-            <label for="">Your name</label>
-            <input type="text" name="name">
-         </div>
-         
-         <div class="form__component">
-            <label for="">Your password</label>
-            <input type="text" name="password">
-         </div>
 
          <button type="submit" class="btn">continue</button>
       </form>

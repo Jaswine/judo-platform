@@ -1,0 +1,142 @@
+{% include 'main.html' %}
+{% load static %}
+
+{% block title %}
+   <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+   <title>{{user.username}}</title>
+{% endblock title %}
+
+
+{% block content %}
+   <div class="home">
+      <div class="home__card">
+
+         <div class="home__card__left">
+            <div class="home__card__left__about">
+               <img src="http://127.0.0.1:8000/static/media/{{profile.image}}" alt="{{profile.fullName}}">
+               {% if profile.fullName %}
+                  <h4>{{profile.fullName}}</h4>
+               {% else %}
+                  <h4>{{user.username}}</h4>
+               {% endif %}
+            </div>
+            <span class="home__card__span"></span> 
+            <div class="home__card__left__menu">
+               <a 
+                  href="{% url 'base:show_profile' user.username %}" 
+                  class="home__card__left__about" 
+               >
+                  <i class="fa-regular fa-user"></i>
+                  <h4>Info</h4>
+               </a>
+               {% if request.user.is_authenticated %}
+                  {% if request.user.username == user.username %}
+                     <a href="{% url 'base:edit_profile' request.user.username %}" 
+                        class="home__card__left__about">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <h4>Edit</h4>
+                     </a>
+                     <a href="{% url 'base:logout' %}" class="home__card__left__about" >
+                        <i class="fa-solid fa-door-open"></i>
+                        <h4>Logout</h4>
+                     </a>
+                  {% endif %}
+               {% endif %}
+            </div>
+         </div>
+
+         <div class="home__card__right">
+            {% if page_type == 'view_profile' %}
+               {% if profile.image %}
+                  <img src="http://127.0.0.1:8000/static/media/{{profile.image}}" alt="{{profile.image}}" class="home__card__right__image">
+                  <span class="home__card__span"></span>
+               {% endif %}
+               <div class="home__card__right__title">
+                  <h3> 
+                     <i class="fa-regular fa-user"></i>
+                     Personal Data
+                  </h3>
+                  <h3>
+                     {% if request.user.is_authenticated %}
+                        {% if request.user.username == user.username %}
+                           <a href="{% url 'base:edit_profile' request.user.username %}" class="fa-regular fa-pen-to-square update__icon"></a>
+                        {% endif %}
+                     {% endif %}
+                  </h3>
+               </div>
+               <div class="home__card__right__info">
+                  {% if profile.fullName %}
+                     <div class="">
+                        <b>FullName: </b>
+                        {{profile.fullName}}
+                     </div>
+                  {% endif %}
+                  {% if profile.phone %}
+                     <div class="">
+                        <b>Phone: </b>
+                        {{profile.phone}}
+                     </div>
+                  {% endif %}
+                  {% if user.email %}
+                     <div class="">
+                        <b>Phone: </b>
+                        {{user.email}}
+                     </div>
+                  {% endif %}
+                  {% if profile.userType %}
+                     <div class="">
+                        <b>User Type: </b>
+                        {{profile.userType}}
+                     </div>
+                  {% endif %}
+               </div>
+            </div>
+            {% elif page_type == 'edit_profile' %}
+               {% if request.user.username == user.username %}
+                  <form method="post" enctype="multipart/form-data">
+                     {% csrf_token %}
+                     <h3>Update Info</h3>
+                     {% for field in user_form %}
+                        <div class = "form__component">
+                           {% if field.errors %}
+                           <ul class="errorlist">
+                              {% for error in field.errors %}
+                              <li>{{ error }}</li>
+                              {% endfor %}
+                           </ul>
+                           {% endif %}
+                           {{ field.label_tag }} {{ field }}
+                        </div>
+                     {% endfor %}
+
+                     {% for field in profile_form %}
+                        <div class = "form__component">
+                           {% if field.errors %}
+                           <ul class="errorlist">
+                                 {% for error in field.errors %}
+                              <li>{{ error }}</li>
+                              {% endfor %}
+                           </ul>
+                           {% endif %}
+                           {{ field.label_tag }} {{ field }}
+                        </div>
+                     {% endfor %}
+
+                     <div class="profile__danger">
+                        <label for="">Danger Zone</label>
+                        <div class="profile__right__passwords">
+                           <h3> 
+                              Change Password
+                           </h3>
+                           <a href="" class="fa-solid fa-right-long"></a>
+                        </div>
+                              
+                     </div>
+                     
+                     <button type="submit" class="btn">continue</button>
+                  </form>
+               {% endif %}
+            {% endif %}
+      </div>
+   </div>
+{% endblock content %}

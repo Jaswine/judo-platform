@@ -39,14 +39,3 @@ form h2 {
    margin-bottom: 6px;
    min-width: 100%;
 }
-.btn {
-   padding: 6px 10px;
-   font-size: 16px;
-   cursor: pointer;
-   background-color: transparent;
-   transition: all .3s linear;
-   /* border-radius: 5px; */
-}
-.btn:hover {
-   background-color: #FBD46D;
-}

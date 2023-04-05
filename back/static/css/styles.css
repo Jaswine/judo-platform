@@ -20,7 +20,9 @@ body {
    font-family: monospace;
    overflow-x: hidden;
 }
-
+img {
+   object-fit: cover;
+}
 nav {
    display: flex;
    justify-content: space-between;
@@ -67,4 +69,68 @@ nav .link:hover {
 ::-webkit-scrollbar-thumb {
    background-color: var(--lightblue);
    border-radius: 10px;
+}
+
+.message {
+   position: fixed;
+
+   top: 60px;
+   width: 100%;
+   height: 40px;
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 5px 10%;
+   background-color: var(--gold);
+   color: darkred
+}
+.message_close {
+   padding: 10px 20px;
+}
+.message_close:hover {
+   background-color: darkred;
+   color: var(--gold);
+}
+
+/* btn */
+.btn {
+   font-size: 16px;
+   padding: 13px 30px 13px;
+   border: 1px solid black;
+   cursor: pointer;
+   position: relative;
+   background-color: rgba(0, 0, 0, 0);
+   user-select: none;
+   -webkit-user-select: none;
+   touch-action: manipulation;
+   
+ }
+ 
+ .btn:after {
+   content: "";
+   background-color: #FBD46D  ;
+   width: 100%;
+   z-index: -1;
+   position: absolute;
+   height: 100%;
+   top: 7px;
+   left: 7px;
+   transition: 0.2s;
+ }
+ 
+ .btn:hover:after {
+   top: 0px;
+   left: 0px;
+ }
+ 
+ @media (min-width: 800px) {
+   .btn {
+     padding: 13px 30px 13px;
+   }
+ }
+
+.errorlist li {
+   color: red;
+   list-style-type: none;
 }
