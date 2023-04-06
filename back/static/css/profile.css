@@ -1,3 +1,5 @@
+@import './variables.css';
+
 .home {
    display: flex;
    justify-content: center;
@@ -19,7 +21,7 @@
    margin-bottom: 5%;
    margin-top: 60px;
 
-   background-color: white;
+   background-color:  var(--white);
    border-radius: 5px;
    box-shadow: 1px 1px 10px rgb(20,20,20, .1);
 }
@@ -61,7 +63,7 @@
    font-weight: bold;
 }
 .home__card__left__menu a:hover {
-   color: #4F8A8B;
+   color:  var(--lightblue);
 }
 .home__card__span {
    display: block;
@@ -88,7 +90,7 @@
    width: 100%;
 }
 .update__icon {
-   color: black;
+   color:  var(--black);
    padding: 4px 6px;
    border-radius: 10px;
    transition: all .3s linear;
@@ -133,16 +135,76 @@ form h3 {
 
 .profile__right__passwords {
    display: flex;
-   justify-content: space-between;
+   justify-content: space-around;
    align-items: center;
    width: 100%;
    padding: 10px 0;
    margin-bottom: 10px;
+   gap: 10px
 }
+
+.profile__danger {
+   border: 2px solid darkred;
+   margin: 10px 0 20px;
+}
+.profile__danger__name {
+   background-color: darkred;
+   width: 100%;
+   
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 10px;
+   color: rgb(255, 186, 186)
+}
+.profile__right__passwords {
+   padding: 5px 10px;
+   border-radius: 5px;
+}
+
+/* Danger Zone Buttons */
 .profile__right__passwords a {
    font-size: 18px;
-   color:#000;
+   margin: 4px 0;
+   color: darkred;
+   background-color: rgb(255, 186, 186);
+   padding: 10px 10%;
+   border: 2px solid darkred;
+   transition: all .3s linear;
 }
-.profile__danger {
-   border: 2px solid red;
+.profile__right__passwords a:hover {
+   color: rgb(255, 186, 186);
+   background-color: darkred;
+   border-color: rgb(255, 186, 186);
+   cursor: pointer;
+}
+.delete__Account {
+   font-size: 18px;
+   margin: 4px 0;
+   padding: 10px 10%;
+   transition: all .3s linear;
+   color: rgb(255, 186, 186) !important;
+   background-color: darkred !important;
+   border-color: rgb(255, 186, 186) !important;
+   cursor: pointer;
+}
+.delete__Account:hover {
+   color: darkred !important;
+   background-color: rgb(255, 186, 186) !important;
+   border: 2px solid darkred !important;
+}
+
+/*  Delete Account */
+.delete__account__choices {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;   
+}
+.delete__account__choices a {
+   color: var(--black);
+   transition:  all .3s linear;
+}
+.delete__account__choices a:hover {
+   color: var(--lightblue);
 }

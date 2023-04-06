@@ -3,6 +3,9 @@
 
 {% block title %}
    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+   {% if page_type == 'edit_password' %}
+   <link rel="stylesheet" href="{% static 'css/PasswordChange.css' %}">
+   {% endif %}
    <title>{{user.username}}</title>
 {% endblock title %}
 
@@ -123,19 +126,42 @@
                      {% endfor %}
 
                      <div class="profile__danger">
-                        <label for="">Danger Zone</label>
+                        <div class="profile__danger__name">Danger Zone</div>
                         <div class="profile__right__passwords">
-                           <h3> 
-                              Change Password
-                           </h3>
-                           <a href="" class="fa-solid fa-right-long"></a>
+                           <a href="{% url "base:edit_password_profile" user.username %}" class="">Change Password</a>
+                           <a href="{% url "base:delete_profile" user.username %}" class="delete__Account">Delete Account</a> 
                         </div>
-                              
                      </div>
-                     
-                     <button type="submit" class="btn">continue</button>
+                     <button type="submit" class="btn">save</button>
                   </form>
                {% endif %}
+            {% elif page_type == 'edit_password' %}
+               <form method="post">
+                  <h3>Update Password</h3>
+                  {% csrf_token %}
+
+                  <div class = "form__component">
+                     <label>Password:</label>
+                     <input type="password" name="password">
+                  </div>
+      
+                  <div class = "form__component">
+                     <label>Password Confirmation:</label>
+                     <input type="password" name="password_confirmation" >
+                  </div>
+
+                  <button type="submit" class="btn">continue</button>
+               </form>
+            {% elif page_type == 'delete_account' %}
+               <form method="post">
+                  <h3>Delete Account</h3>
+                  {% csrf_token %}
+
+                  <div class="delete__account__choices">
+                     <a class="" href="{{request.META.HTTP_REFERER}}">Go to back</a>
+                     <button type="submit" class="delete__Account">Delete</button>
+                  </div>
+               </form>
             {% endif %}
       </div>
    </div>
