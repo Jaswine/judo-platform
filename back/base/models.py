@@ -8,7 +8,7 @@ class Profile(models.Model):
       ('Секретарь', 'Секретарь'),
       ('Свободный', 'Свободный')
    )
-   user = models.ForeignKey(User, on_delete=models.CASCADE)
+   user = models.OneToOneField(User, on_delete=models.CASCADE)
    
    fullName = models.CharField(max_length=100, blank=True)
    phone = models.CharField(max_length=12, blank=True)
@@ -63,7 +63,7 @@ class Participant(models.Model):
    
 # Tournir
 class Tournament(models.Model):
-
+   
    RANGS = (
       ('Клубный', 'Клубный'),
       ('Городской', 'Городской'),
@@ -87,17 +87,15 @@ class Tournament(models.Model):
    
    rang = models.CharField(max_length=40,choices=RANGS, blank=True)
    
-   country = models.CharField(max_length=100, blank=True)
-   city = models.CharField(max_length=100, blank=True)
-   address = models.CharField(max_length=100, blank=True)
    place = models.CharField(max_length=100, blank=True)
    
    startData = models.CharField(max_length=100, blank=True)
    finishData = models.CharField(max_length=100, blank=True)
+   startTime = models.CharField(max_length=10, blank=True)
 
    credit = models.CharField(max_length=100, blank=True, choices=CREDIT_TYPE)
    
-   tatamis_count = models.IntegerField(default=0, blank=True)
+   tatamis_count = models.CharField(default=0, blank=True, max_length=2)
    
    weight_categories = models.ManyToManyField(WeightCategory, blank=True, default=[])
    sponsors = models.ManyToManyField(Sponsors, blank=True, default=[])

@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Tournament
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 
 
@@ -21,26 +21,7 @@ class UpdateProfileForm(ModelForm):
       model = Profile
       fields = ['fullName', 'phone', 'image']      
 
-# class UpdateProfilePasswordForm(PasswordChangeForm):
-#    old_password = forms.CharField(
-#       label="Current password",
-#       strip=False,
-#       widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'autofocus': True})
-#    )
-   
-#    new_password1 = forms.CharField(
-#       label="New password",
-#       strip=False,
-#       widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
-#       help_text = "Your password must contain at least 8 characters."
-#    )
-   
-#    new_password2 = forms.CharField(
-#       label="Confirm new password",
-#       strip=False,
-#       widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
-#    )
-   
-#    class Meta:
-#       model = User
-#       fields = ['old_password', 'new_password1', 'new_password2']
+class TournamentForm(ModelForm):
+   class Meta:
+      model = Tournament
+      fields = ['title', 'about', 'rang', 'place', 'startData', 'finishData', 'startTime', 'credit', 'tatamis_count', 'weight_categories', 'chiefJustice', 'chiefSecretary']

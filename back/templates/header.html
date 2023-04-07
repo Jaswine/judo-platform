@@ -1,6 +1,6 @@
 <nav>
    <div class="nav__menu">
-      <a href="" class="link">
+      <a href="{% url "base:show_tournaments" %}" class="link">
          Tournaments
          <i class="fa-solid fa-calendar-days"></i>
       </a>
@@ -19,6 +19,13 @@
    </div>
    <div class="nav__buttons">
       {% if request.user.is_authenticated  %}
+         {% comment %} {% if request.user.is_superuser %} {% endcomment %}
+            {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' %}
+               <a href="{% url "base:create_tournamets" %}" class="link">
+                  <i class="fa-solid fa-plus"></i>
+               </a>
+            {% endif %}
+         {% comment %} {% endif %} {% endcomment %}
          <a href="{% url 'base:show_profile' request.user.username %}" class="link">{{request.user.username}}</a>
          <a href="{% url 'base:logout' %}" class="link">Logout</a>
       {% else %}

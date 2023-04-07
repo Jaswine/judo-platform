@@ -1,0 +1,44 @@
+{% include 'main.html' %}
+{% load static %}
+
+{% block title %}
+<title>Add New Tournaments</title>
+<link rel="stylesheet" href="{% static 'css/tournaments/pre__form__tournaments.css' %}">
+{% endblock title %}
+
+{% block content %}
+<div class="pre__form__tournaments">
+   <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {% for field in form %}
+      {% if field.errors %}
+         <ul class="errorlist">
+               {% for error in field.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+         </ul>
+      {% endif %}
+      <div class="form__field">
+         {{ field.label_tag }}
+         {{ field }}
+      </div>
+      {% endfor %}
+
+      <input 
+         type="text" 
+         style="display:none" 
+         name="logotips" 
+         id="logotips" 
+      >
+      <div class="form__field">
+         <label for="">Upload Images</label>
+         <input type="file" id="logos_upload" >
+      </div>
+      <button class="btn" type="submit" id="button">save</button>
+   </form>  
+</div>
+
+<script src="{% static 'js/field_saver.js' %}"></script>
+<script src="{% static 'js/tourments_logo_load.js' %}"></script>
+{% endblock content %}  
