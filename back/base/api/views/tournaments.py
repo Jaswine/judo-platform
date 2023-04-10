@@ -1,8 +1,10 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 from ..serializers import TournamentSerializer, LogosSerializer, SponsorsSerializer
 
 from ...models import Tournament, Logos, Sponsors
+
 
 @api_view(['POST'])
 def logos_view(request):

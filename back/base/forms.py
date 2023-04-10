@@ -1,7 +1,8 @@
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from .models import Profile, Tournament
+from .models import Profile, Tournament, Logos
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
+from django.forms import FileField, ClearableFileInput
 
 
 # create user
@@ -19,8 +20,9 @@ class UpdateUserForm(ModelForm):
 class UpdateProfileForm(ModelForm):
    class Meta:
       model = Profile
-      fields = ['fullName', 'phone', 'image']      
+      fields = ['fullName', 'phone', 'image']   
 
+# Tournament
 class TournamentForm(ModelForm):
    class Meta:
       model = Tournament

@@ -118,7 +118,11 @@ nav .link:hover {
    left: 7px;
    transition: 0.2s;
  }
- 
+
+ .btn-primary::after {
+   background-color:darkkhaki  ;
+ }
+
  .btn:hover:after {
    top: 0px;
    left: 0px;

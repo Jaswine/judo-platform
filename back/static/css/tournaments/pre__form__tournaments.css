@@ -7,7 +7,7 @@
    padding: 10px;
    width: 100%;
 }
-.pre__form__tournaments form {
+.form__tournaments {
    display: flex;
    justify-content: center;
    align-items: center;
@@ -20,6 +20,13 @@
 .form__field {
    width: 100%;
 }
+#create__images {
+   width: 100% !important;
+}
+form {
+   width: 100%;
+   margin-bottom: 10px;
+}
 input, textarea, select{
    width: 100%;
    padding: 6px;
@@ -31,4 +38,44 @@ input, textarea, select{
 }
 label {
    color: rgb(20, 20, 20, .6);
+}
+
+/* form__field__upload */
+.form__field__upload {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   gap: 1rem   
+}
+
+.form__field__log {
+   height: 100%; 
+   min-height: 20vh;
+   max-height: 30vh;
+}
+.form__field__log option {
+   padding: .1rem .2rem;
+}
+
+.print__logos div {
+   width: 170px;
+   height: 100%;
+   margin: 5px;
+}
+
+.thumbnail {
+   width: 170px;
+   height: 100%;
+   /* object-fit: cover; */
+   border: 1px solid rgb(20, 20, 20, .5);
+}
+.print__logos, #print__sponsors__logos {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-wrap: wrap;
+   width: 100%;
+   margin: 10px 0;
+   gap: 10px;
 }

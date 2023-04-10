@@ -8,37 +8,47 @@
 
 {% block content %}
 <div class="pre__form__tournaments">
-   <form action="" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
+   <div 
+      action="" 
+      method="post" 
+      class="form__tournaments"
+   >
+   
+      <h2>Add New Tournaments</h2>
+      <form action="" method="post" id="create__tournire" enctype="multipart/form-data">
+         {% csrf_token %}
 
-      {% for field in form %}
-      {% if field.errors %}
-         <ul class="errorlist">
-               {% for error in field.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-         </ul>
-      {% endif %}
-      <div class="form__field">
-         {{ field.label_tag }}
-         {{ field }}
-      </div>
-      {% endfor %}
+         <div class="print__logos"></div>
 
-      <input 
-         type="text" 
-         style="display:none" 
-         name="logotips" 
-         id="logotips" 
-      >
-      <div class="form__field">
-         <label for="">Upload Images</label>
-         <input type="file" id="logos_upload" >
-      </div>
-      <button class="btn" type="submit" id="button">save</button>
-   </form>  
+         <div class="form__field">
+            <label for="">Upload Logotips:</label>
+            <input type = "file" multiple name="files" id="logos" required/>
+         </div>
+   
+         {% for field in form %}
+            {% if field.errors %}
+               <ul class="errorlist">
+                  {% for error in field.errors %}
+                     <li>{{ error }}</li>
+                  {% endfor %}
+               </ul>
+            {% endif %}
+            <div class="form__field">{{ field.label_tag }}{{ field }}</div>
+         {% endfor %}
+
+         <div id="print__sponsors__logos"></div>
+
+         <div class="form__field">
+            <label for="">Sponsors Logotips:</label>
+            <input type = "file" multiple name="sponsors-logotips" id="sponsors-logos" required/>
+         </div>
+
+         <button class="btn" type="submit" id="button">save</button>
+      </form>
+   </div>  
 </div>
 
 <script src="{% static 'js/field_saver.js' %}"></script>
 <script src="{% static 'js/tourments_logo_load.js' %}"></script>
+
 {% endblock content %}  

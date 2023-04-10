@@ -23,10 +23,7 @@ class Profile(models.Model):
    
 # Logotips Gallery
 class Logos(models.Model):
-   image = models.FileField(upload_to='tournaments_logos')
-   
-   def __str__(self):
-      return self.image
+   image = models.ImageField(upload_to='tournaments_logos')
    
 # Weight Category
 class WeightCategory(models.Model):
