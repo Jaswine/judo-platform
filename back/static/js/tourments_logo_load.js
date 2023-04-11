@@ -13,6 +13,7 @@ const print__sponsors__logos = document.querySelector('#print__sponsors__logos')
 
 const ShowImages = (objects, output) => {
    objects.addEventListener('change', (e) => {
+      output.innerHTML = "";
       let files = e.target.files
    
       for (let i = 0; i < files.length; i++) {

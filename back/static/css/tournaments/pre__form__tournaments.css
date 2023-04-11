@@ -79,3 +79,6 @@ label {
    margin: 10px 0;
    gap: 10px;
 }
+#id_weight_categories {
+   height: 30vh;
+}

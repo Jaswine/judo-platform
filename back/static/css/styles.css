@@ -138,3 +138,32 @@ nav .link:hover {
    color: red;
    list-style-type: none;
 }
+.link {
+   text-decoration: none;
+   color: var(--black)
+}
+.link:hover {
+   color: var(--lightblue)
+}
+
+
+.form__component {
+   display: flex;
+   justify-content: center;
+   align-items: start;
+   flex-direction: column;
+   width: 100%;
+   max-width: 400px;
+}
+.form__component label {
+   font-size: 14px;
+   color: rgb(83, 83, 83);
+}
+.form__component input {
+   width: 100%;
+   max-width: 400px;
+   padding: 6px 10px;
+   font-size: 16px;
+   margin-bottom: 6px;
+   min-width: 100%;
+}

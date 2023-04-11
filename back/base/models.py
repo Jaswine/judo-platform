@@ -27,17 +27,17 @@ class Logos(models.Model):
    
 # Weight Category
 class WeightCategory(models.Model):
+   slug  = models.CharField(max_length=50, default='')
    category = models.CharField(max_length=20, blank=True)
    gender = models.CharField(max_length=20, blank=True)
    weight = models.CharField(max_length=100, blank=True)
    year = models.CharField(max_length=20, blank=True)
    
    def __str__(self):
-      return self.category 
+      return self.slug 
 
 # Sponsors Emblems or Names
 class Sponsors(models.Model):
-   name = models.CharField(max_length=100,blank=True)
    image = models.ImageField(upload_to='sponsors', blank=True)
 
 # Participants
@@ -79,7 +79,7 @@ class Tournament(models.Model):
    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
    title = models.CharField(max_length=100)
    slug = models.SlugField(max_length=100, unique=True)
-   logos = models.ManyToManyField(Logos, default=[], blank=True)
+   logos = models.ManyToManyField(Logos, default=[], blank=True, related_name='logos')
    about = models.TextField(max_length=1000, blank=True)
    
    rang = models.CharField(max_length=40,choices=RANGS, blank=True)
@@ -95,7 +95,7 @@ class Tournament(models.Model):
    tatamis_count = models.CharField(default=0, blank=True, max_length=2)
    
    weight_categories = models.ManyToManyField(WeightCategory, blank=True, default=[])
-   sponsors = models.ManyToManyField(Sponsors, blank=True, default=[])
+   sponsors = models.ManyToManyField(Sponsors, blank=True, default=[], related_name='sponsors')
    
    chiefJustice = models.CharField(max_length=200, blank=True)
    chiefSecretary = models.CharField(max_length=200, blank=True)

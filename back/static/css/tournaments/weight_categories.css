@@ -1,0 +1,55 @@
+@import './../variables.css';
+
+.categories {
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   width: 100%;
+   padding: 10px;
+   margin-top: 5%;
+   gap: 20px;
+}
+form, table {
+   width: 50%;
+}
+form {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   flex-direction: column;
+   background-color: rgb(79, 138, 139, .1);
+   
+   max-width: 500px;
+   padding: 30px;
+   border-radius: 10px;
+}
+form h2 {
+   margin-bottom: 14px;
+}
+
+.table__head {
+   background-color: var(--lightblue);
+   color: var(--white);
+}
+.table__head th {
+   padding: 5px ;
+}
+.candidates-list {
+   background-color: #fff;
+}
+.candidates-list td {
+   text-align: center;
+   border: 1px solid black;
+   padding: 5px 10px;
+}
+.td_delete {
+   transition: all .3s linear;
+}
+.td_delete a {
+   color: var(--black);
+}
+.td_delete:hover {
+   background-color: var(--gold);
+   cursor: pointer;
+}

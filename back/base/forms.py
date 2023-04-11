@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from .models import Profile, Tournament, Logos
+from .models import Profile, Tournament, Logos, WeightCategory
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.forms import FileField, ClearableFileInput
 
@@ -26,4 +26,9 @@ class UpdateProfileForm(ModelForm):
 class TournamentForm(ModelForm):
    class Meta:
       model = Tournament
-      fields = ['title', 'about', 'rang', 'place', 'startData', 'finishData', 'startTime', 'credit', 'tatamis_count', 'weight_categories', 'chiefJustice', 'chiefSecretary']
+      fields = ['title', 'about', 'rang', 'place', 'startData', 'finishData', 'startTime', 'credit', 'tatamis_count', 'chiefJustice', 'chiefSecretary', 'weight_categories']
+      
+class WeightCategoryForm(ModelForm):
+   class Meta:
+      model = WeightCategory
+      fields = ['category', 'gender', 'weight', 'year']

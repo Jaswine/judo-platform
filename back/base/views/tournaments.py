@@ -3,9 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.forms import modelformset_factory
+from django.shortcuts import get_object_or_404
 
-from ..models import Tournament, Logos
-from ..forms import TournamentForm
+from ..models import Tournament, Logos, WeightCategory, Sponsors
+from ..forms import TournamentForm, WeightCategoryForm
 from ..utils import slug_generator, checking_slug
 from ..services import get_tournaments
 
@@ -21,54 +22,119 @@ def show_tournaments(request):
 @csrf_exempt
 @login_required(login_url= 'base:login')
 def create_tournamets(request):
+   page_type = 'create_tournament__part__one'
+   
    if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
       form = TournamentForm()
-      logos = Logos.objects.all()
-      
-      logo_massive = []
-      sponsor_logo_massive = []
                      
       if request.method == 'POST':
-         logotips = request.FILES.getlist('files')
-         sponsors_logotips = request.FILES.getlist('sponsors-logotips')
-         
-         print('logotips', logotips)
-      
-         for logo in logotips:
-            new_file = Logos(
-               image = logo
-            )
-            
-            new_file.save()
-            logo_massive.append(new_file.id)
-            
-         for logo in sponsors_logotips:
-            new_file = Logos(
-               image = logo
-            )
-            
-            new_file.save()
-            logo_massive.append(new_file.id)
-            
-      
          form = TournamentForm(request.POST)
          
          if form.is_valid():
             slug = checking_slug(slug_generator(form.cleaned_data.get('title')))
-         
-            article = form.save(commit=False)
-            article.user = request.user 
-            article.slug = slug
-            article.logos.set(logo_massive)
-            article.save()
             
-            return redirect('base:tournaments')
+            article = form.save(commit=False)
+            
+            article.user = request.user
+            article.slug = slug
+            
+            article.save()
+            return redirect('base:create_tournamets__images', article.slug)
    
       context = {
          'form': form,
-         'logos': logos
+         'page_type': page_type
       }
       return render(request, 'base/tournaments/create_tournament.html', context)
    else:
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')
+   
+@csrf_exempt
+@login_required(login_url= 'base:login')
+def create_tournamets__images(request, slug):
+   page_type = 'create_tournament__part__two'
+   
+   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+      tournire = get_object_or_404(Tournament, slug=slug)
+      
+      if request.method == 'POST':
+         logotips = request.FILES.getlist('files')
+         sponsors_logotips = request.FILES.getlist('sponsors-logotips')
+         
+          # Add Logotips and Photos
+         for logo in logotips:
+            new_file = Logos(image = logo)
+            
+            new_file.save()  
+            tournire.logos.add(new_file)
+            
+         # Add Sponsor Emblems
+         for logo in sponsors_logotips:
+            new_file = Sponsors(image = logo)
+            
+            new_file.save()
+            tournire.sponsors.add(new_file)
+            return response(request, 'base:show_tournaments')
+   
+      context = {
+         'page_type': page_type,
+         'tournire': tournire
+      }
+      return render(request, 'base/tournaments/create_tournament.html', context)
+   else:
+      messages.error(request, "You don't have permission to create tournament ;)")
+      return redirect('base:show_tournaments')
+
+# Weight Category
+@login_required(login_url='base:login')
+def weight_categories(request):
+   # get data and form
+   weight_categories = WeightCategory.objects.all()
+   form = WeightCategoryForm()
+   
+   # create massive for slug
+   slug = []
+   
+   # get data from form
+   if request.method == 'POST':
+      form = WeightCategoryForm(request.POST)
+      
+      # validation checking
+      if form.is_valid():
+         weight_category = form.save(commit=False)
+         
+         # create slug
+         if form.cleaned_data.get('category'):
+            slug.append(str(form.cleaned_data['category']))
+            
+         if form.cleaned_data.get('gender'):
+            slug.append(str(form.cleaned_data['gender']))
+            
+         if form.cleaned_data.get('weight'):
+            slug.append(str(form.cleaned_data['weight']))
+            
+         if form.cleaned_data.get('year'):
+            slug.append(str(form.cleaned_data['year']))
+         
+         slug = '_'.join(slug)         
+         
+         weight_category.slug = slug
+         weight_category.save()
+         
+         return redirect('base:weighandt_categories')
+   
+   context = {
+      'weight_categories': weight_categories,
+      'form': form
+   }
+   return render(request, 'base/tournaments/weight_categories.html', context)
+
+#Weight Categories Delete
+@login_required(login_url='base:login')
+def weight_categories_delete(request, pk):
+   weight_category = get_object_or_404(WeightCategory, id=pk)
+   
+   # Delete weight category
+   weight_category.delete()
+   return redirect('base:weight_categories')

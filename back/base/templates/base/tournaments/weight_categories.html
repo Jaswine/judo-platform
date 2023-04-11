@@ -1,0 +1,57 @@
+{% include 'main.html' %}
+{% load static %}
+
+{% block title %}
+   <link rel="stylesheet" href="{% static 'css/tournaments/weight_categories.css' %}">
+   {% if page_type == 'login' %}
+      <title>Login</title>
+   {% else %}
+      <title>Registration</title>
+   {% endif %}
+{% endblock title %}
+
+{% block content %}
+   <div class="categories">
+      <form method="POST">
+         {% csrf_token %}
+         <h2>Add New Category</h2>
+
+         {% for field in form  %}
+            <div class = "form__component">
+               {% if field.errors %}
+               <ul class="errorlist">
+                  {% for error in field.errors %}
+                  <li>{{ error }}</li>
+                  {% endfor %}
+               </ul>
+               {% endif %}
+               {{ field.label_tag }} {{ field }}
+            </div>
+         {% endfor %}
+
+         <button type="submit" class="btn btn-primary" id="button">continue</button>
+      </form>
+      <table class="show__all__categories">
+         <thead>
+            <tr class="table__head">
+               <th scope="col">Category</th>
+               <th scope="col">Gender</th>
+               <th scope="col">Weight</th>
+               <th scope="col">Year</th>
+               <th scope="col"></th>
+            </tr>
+         </thead>
+         <tbody>
+         {% for category in weight_categories  %}
+               <tr class="candidates-list">
+                  <td scope="col">{{ category.category }}</td>
+                  <td scope="col" >{{category.gender}}</td>
+                  <td scope="col">{{category.weight}}</td>
+                  <td scope="col">{{category.year}}</td>
+                  <td scope="col" class="td_delete"><a href="{% url 'base:weight_categories_delete' category.id %}" class="fa-solid fa-xmark"></a></td>
+               </tr>
+         {% endfor %}
+         </tbody>
+      </table>
+   </div>
+{% endblock content %}
