@@ -21,7 +21,7 @@ saveInLoacalstorage(inputs)
 saveInLoacalstorage(selects)
 saveInLoacalstorage(textareas)
 
-// button.onclick = () => {
-//    console.log('reset')
-//    localStorage.clear()
-// }
+button.onclick = () => {
+   console.log('reset')
+   localStorage.clear()
+}

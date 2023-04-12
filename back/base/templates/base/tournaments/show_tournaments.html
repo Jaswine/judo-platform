@@ -1,14 +1,46 @@
 {% include 'main.html' %}
+{% load static %}
 
 {% block title %}
+<link rel="stylesheet" href="{% static 'css/tournament.css' %}">
 <title>Tournaments</title>
 {% endblock title %}
 
 {% block content %}
-<h1>Show All Tournaments</h1>
-   {% for tournament in tournaments %}
-      <div class="tournament">
-         {{tournament.title}}
-      </div>
-   {% endfor %}
+<div class="home">
+   <div class="home__filters">
+      Filters
+   </div>
+   <div class="all__tournaments">
+      {% for tournament in tournaments %}
+         <div class="tournament">
+            <div class="tournament__info">
+                     <img src=" /static/media/{{ tournament.logos.all.1.image }}" alt="{{tournament.logos.0.image}}" class="tournament__image">
+               <div class="tournament__content">
+                  <h3>
+                     <a href="{% url 'base:tournamet_show' tournament.slug %}" class="link">{{tournament.title}}</a>
+                  </h3>
+                  <p>   
+                     <i class="fa-solid fa-location-dot"></i> Location: {{tournament.place}}
+                     <i class="fa-solid fa-ranking-star"></i> Rang: {{tournament.rang}}
+                  </p>
+                  <p>
+                     <i class="fa-solid fa-users"></i> Participants: 0
+                  </p>
+                  <p>
+                     <i class="fa-solid fa-calendar-days"></i> 
+                     Data: {{tournament.startData}} - {{tournament.finishData}}
+                     <i class="fa-regular fa-clock"></i>
+                     Time: {{tournament.startTime}}
+                     status
+                  </p>
+               </div>
+            </div>
+            <div class="tournament__menu">
+               <a href="{% url 'base:tournamets_admin_update_info' tournament.slug %}" class="btn btn-primary">Change</a>
+            </div>
+         </div>
+      {% endfor %}
+   </div>   
+</div>
 {% endblock content %}  

@@ -1,0 +1,61 @@
+@import './variables.css';
+
+.home {
+   /* display: grid; */
+   /* grid-template-columns: 1fr 4fr; */
+   display: flex;
+   justify-content: start;
+   align-items: start;
+   width: 100%;
+   padding: 10px 3vw;
+   margin-top: 70px;
+   gap: 20px;
+}
+.home__filters {
+   display: flex;
+   justify-content: start;
+   align-items: start;
+   flex-direction: column;
+
+   width: 20%;
+   background-color:rgb(79, 138, 139, .1);
+   border-radius: 10px;
+   padding: 10px;
+}
+.all__tournaments {
+   width: 80%;
+   display: flex;
+   align-items: start;
+   flex-direction: column;
+}
+
+/* tournament */
+.tournament {
+   width: 100%;
+   margin-bottom: 10px;
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px;
+   gap: 15px;
+   /* background-color: rgb(79, 138, 139, .1); */
+   border-radius: 10px;
+   border-bottom: 1px solid rgb(20,20,20, .1);
+}
+.tournament__info {
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   gap: 15px;
+}
+.tournament__menu {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   padding: 0 10px;
+}
+.tournament__content p {
+   margin-bottom: 5px;
+}

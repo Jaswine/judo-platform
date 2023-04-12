@@ -106,7 +106,9 @@ nav .link:hover {
    touch-action: manipulation;
    
  }
- 
+ a {
+   color: black
+ }
  .btn:after {
    content: "";
    background-color:  var(--gold)  ;
@@ -140,7 +142,8 @@ nav .link:hover {
 }
 .link {
    text-decoration: none;
-   color: var(--black)
+   color: var(--black);
+   transition: all .3s linear
 }
 .link:hover {
    color: var(--lightblue)
@@ -166,4 +169,28 @@ nav .link:hover {
    font-size: 16px;
    margin-bottom: 6px;
    min-width: 100%;
+}
+
+.form__field {
+   max-width: 700px;
+
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: start;
+}
+
+/*  Delete Account */
+.delete__account__choices {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;   
+}
+.delete__account__choices a {
+   color: var(--black);
+   transition:  all .3s linear;
+}
+.delete__account__choices a:hover {
+   color: var(--lightblue);
 }

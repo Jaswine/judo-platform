@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from ..models import Tournament, Logos, WeightCategory, Sponsors
 from ..forms import TournamentForm, WeightCategoryForm
 from ..utils import slug_generator, checking_slug
-from ..services import get_tournaments
+from ..services import get_tournaments, get_all_weight_category
 
 
 def show_tournaments(request):
@@ -18,6 +18,14 @@ def show_tournaments(request):
       'tournaments': tournaments,
    }
    return render(request, 'base/tournaments/show_tournaments.html', context)
+   
+def tournamet_show(request, slug):
+   tournire = get_object_or_404(Tournament, slug=slug)
+   
+   context = {
+      'tournament': tournire,
+   }
+   return render(request, 'base/tournaments/show_tournament.html', context)
 
 @csrf_exempt
 @login_required(login_url= 'base:login')
@@ -75,7 +83,7 @@ def create_tournamets__images(request, slug):
             
             new_file.save()
             tournire.sponsors.add(new_file)
-            return response(request, 'base:show_tournaments')
+            return redirect('base:tournamets_admin_update_info', tournire.slug)
    
       context = {
          'page_type': page_type,
@@ -90,7 +98,7 @@ def create_tournamets__images(request, slug):
 @login_required(login_url='base:login')
 def weight_categories(request):
    # get data and form
-   weight_categories = WeightCategory.objects.all()
+   weight_categories = get_all_weight_category()
    form = WeightCategoryForm()
    
    # create massive for slug
@@ -117,12 +125,12 @@ def weight_categories(request):
          if form.cleaned_data.get('year'):
             slug.append(str(form.cleaned_data['year']))
          
-         slug = '_'.join(slug)         
+         slug = ' '.join(slug)         
          
          weight_category.slug = slug
          weight_category.save()
          
-         return redirect('base:weighandt_categories')
+         return redirect('base:weight_categories')
    
    context = {
       'weight_categories': weight_categories,

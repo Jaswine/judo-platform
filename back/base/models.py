@@ -47,7 +47,9 @@ class Participant(models.Model):
    discharge = models.CharField(max_length=10, blank=True)
    comand = models.CharField(max_length=40, blank=True)
    country = models.CharField(max_length=20, blank=True)
+   
    weightCategory = models.ForeignKey(WeightCategory, on_delete=models.CASCADE, blank=True)
+   
    weight = models.CharField(max_length=100, blank=True)
    age = models.IntegerField(blank=True)
    trainer = models.CharField(max_length=100, blank=True)
@@ -100,8 +102,12 @@ class Tournament(models.Model):
    chiefJustice = models.CharField(max_length=200, blank=True)
    chiefSecretary = models.CharField(max_length=200, blank=True)
    
+   participants = models.ManyToManyField(Participant, blank=True, default=[], related_name='participants')
+   
    created = models.DateTimeField(auto_now_add=True)
    updated = models.DateTimeField(auto_now=True)
+   
+   # public = models.BooleanField(default=True)
    
    class Meta: 
       ordering = ['-updated', '-created']

@@ -1,0 +1,96 @@
+{% include 'main.html' %}
+{% load static %}
+
+{% block title %}
+<title>Add New Tournaments</title>
+<link rel="stylesheet" href="{% static 'css/tournaments/tournament_panel_update_info.css' %}">
+{% endblock title %}
+
+{% block content %}
+<div class="panel">
+
+   <div class="panel__title">
+      <h2>{{ tournire.title }}</h2>
+   </div>
+   <div class="panel__item">
+
+      {% comment %} menu  {% endcomment %}
+      <div class="panel__left">
+        {% include 'base/tournaments/panel/components/Menu.html' %}
+      </div>
+   
+      {% comment %} content {% endcomment %}
+      <div class="panel__right">
+         {% if page_type == 'tournament_panel_update_info' %}
+            <h2>Update The Tournament</h2>
+            <form action="" method="post" id="create__tournire" enctype="multipart/form-data">
+               {% csrf_token %}
+               
+               {% for field in tournament_form %}
+                  {% if field.errors %}
+                     <ul class="errorlist">
+                        {% for error in field.errors %}
+                           <li>{{ error }}</li>
+                        {% endfor %}
+                     </ul>
+                  {% endif %}
+                  <div class="form__field">{{ field.label_tag }}{{ field }}</div>
+               {% endfor %}
+
+               <p>You don't see important category? <a href="{% url 'base:weight_categories' %}" class="link">Add New Category</a></p>   
+                     
+                 <fieldset class="photos">
+                  <legend>Delete Logotips:</legend>
+                     {% for photo in tournire.logos.all %}
+                        <div class="photo">
+                           <input type="checkbox" id="scales" name="scales" class="tournament__input">
+                           <img src="/static/media/{{photo.image}}" alt="{{photo.image}}" class="tournament__image" />
+                        </div>
+                     {% endfor %}
+                 </fieldset>
+
+                  <div class="print__logos"></div>
+                  
+                  <div class="form__field">
+                     <label for="">Upload New Logotips:</label>
+                     <input type = "file" multiple name="files" id="logos"/>
+                  </div>
+      
+                  <fieldset class="photos">
+                     <legend>Delete Sponsors Logotips:</legend>
+                        {% for photo in tournire.sponsors.all %}
+                           <div class="photo">
+                              <input type="checkbox" id="scales" name="scales" class="tournament__input">
+                              <img src="/static/media/{{photo.image}}" alt="{{photo.image}}" class="tournament__image" />
+                           </div>
+                        {% endfor %}
+                  </fieldset>
+
+                  <div id="print__sponsors__logos"></div>
+      
+                  <div class="form__field">
+                     <label for="">Sponsors Logotips:</label>
+                     <input type = "file" multiple name="sponsors-logotips" id="sponsors-logos"/>
+                  </div>
+                  
+               <button class="btn" type="submit" id="button">save</button>
+         </form>
+         {% elif page_type == 'tournamets_admin_delete'  %}
+         <form method="post" class="pre__delete__account__choices">
+               <h3>Delete Tournament</h3>
+               {% csrf_token %}
+
+               <div class="delete__account__choices">
+                  <a class="" href="{{request.META.HTTP_REFERER}}">Go to back</a>
+                  <button type="submit" class="delete__Account">Delete</button>
+               </div>
+            </form>
+         {% endif %}
+      </div>
+
+   </div>
+</div>
+
+<script src="{% static 'js/field_saver.js' %}"></script>
+<script src="{% static 'js/tourments_logo_load.js' %}"></script>
+{% endblock content %}  

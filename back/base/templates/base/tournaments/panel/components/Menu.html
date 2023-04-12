@@ -1,0 +1,20 @@
+<h3>{{ tournire.title }}</h3>
+<span class="home__card__span"></span>
+<a href="{% url 'base:tournamets_admin_update_info' tournire.slug %}" class="link">
+   <i class="fa-solid fa-pen-to-square"></i>
+   Update Info
+</a>
+<a href="/" class="link">
+   <i class="fa-solid fa-plus"></i>
+  Add New Weight Category
+</a>
+{% for category in  tournire.weight_categories.all %}
+   <a href="" class="link">
+      <i class="fa-solid fa-list"></i>
+      {{ category.slug }}
+   </a>
+{% endfor %}
+<a href="{% url 'base:tournamets_admin_delete' tournire.slug %}" class="link delete">
+   <i class="fa-regular fa-trash-can"></i>
+   Delete Tournament
+</a>
