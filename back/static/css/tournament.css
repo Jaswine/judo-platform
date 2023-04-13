@@ -49,6 +49,12 @@
    align-items: center;
    gap: 15px;
 }
+.tournament__info img {
+   width: 100px;
+   height: 100px;
+   object-fit: cover;
+   border-radius: 5px;
+}
 .tournament__menu {
    display: flex;
    justify-content: center;

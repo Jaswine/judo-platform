@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.files.storage import default_storage
+
 from django.contrib.auth.models import User
 
 # Auto Add
@@ -25,6 +27,9 @@ class Profile(models.Model):
 class Logos(models.Model):
    image = models.ImageField(upload_to='tournaments_logos')
    
+   def __str__(self):
+      return self.image.name
+   
 # Weight Category
 class WeightCategory(models.Model):
    slug  = models.CharField(max_length=50, default='')
@@ -39,6 +44,9 @@ class WeightCategory(models.Model):
 # Sponsors Emblems or Names
 class Sponsors(models.Model):
    image = models.ImageField(upload_to='sponsors', blank=True)
+   
+   def __str__(self):
+      return self.image.name
 
 # Participants
 class Participant(models.Model):
@@ -111,6 +119,21 @@ class Tournament(models.Model):
    
    class Meta: 
       ordering = ['-updated', '-created']
+      
+   def delete(self):
+      # Full Delete 
+      logotips = self.logos.all()
+      sponor_emblems = self.sponsors.all()
+      
+      for logotip in logotips:
+         default_storage.delete(logotip.image.path)
+         logotip.delete()
+      
+      for sponor_emblem in sponor_emblems:
+         default_storage.delete(sponor_emblem.image.path)
+         sponor_emblem.delete()
+      
+      super(Tournament, self).delete()    
    
    def __str__(self):
       return self.title

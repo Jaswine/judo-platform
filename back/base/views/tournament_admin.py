@@ -1,12 +1,15 @@
+import os
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from django.core.files.storage import FileSystemStorage
 
 from ..models import Tournament, Logos, WeightCategory, Sponsors
 from ..forms import TournamentForm, WeightCategoryForm
 from ..services import get_tournaments
+
 
 @csrf_exempt
 @login_required(login_url='base:login')
@@ -18,23 +21,35 @@ def tournamets_admin_update_info(request, slug):
       tournament_form = TournamentForm(instance=tournire)
       
       if request.method == 'POST':
-         form = TournamentForm(request.POST, instance=tournire)
+         tournament_form = TournamentForm(request.POST, instance=tournire)
          
-         if form.is_valid():            
-            article = form.save(commit=False)
-                        
+         if tournament_form.is_valid():            
+            article = tournament_form.save(commit=False) 
+                
             logotips = request.FILES.getlist('files')
             sponsors_logotips = request.FILES.getlist('sponsors-logotips')
             
-            print(len(logotips))
+            delete_logotips = request.POST.getlist('delete-logotips')
+            delete_sponsors = request.POST.getlist('delete-logotips')
+           
+            # delete choices logtips
+            if (len(delete_logotips) > 0):
+               for logotip in delete_logotips:
+                  article.logos.remove(logotip)
+                  # article.logos.delete(logotip)
+                  
+            # delete choices logtips
+            if (len(delete_sponsors) > 0):
+               for sponsor in delete_sponsors:
+                  article.logos.remove(sponsor)
+                  # article.sponsors.delete(sponsor)
          
             # Add Logotips and Photos
             if len(logotips) > 0:
-               for logo in logotips:
-                  new_file = Logos(image = logo)
-                  
-                  new_file.save()  
-                  tournire.logos.add(new_file)
+               new_file = Logos(image = logo)
+               
+               new_file.save()  
+               tournire.logos.add(new_file)
                
             # # Add Sponsor Emblems
             if len(sponsors_logotips) > 0:
@@ -64,7 +79,8 @@ def tournamets_admin_delete(request, slug):
    if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       
-      if request.method == 'POST':
+      if request.method == 'POST': 
+           
          tournire.delete()
          return redirect('base:show_tournaments')
       

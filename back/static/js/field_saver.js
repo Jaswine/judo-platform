@@ -1,7 +1,7 @@
 const inputs = document.querySelectorAll('input');
 const selects = document.querySelectorAll('select');
 const textareas = document.querySelectorAll('textarea');
-const button = document.getElementById('button')
+const create__tournire = document.getElementById('create__tournire')
 
 
 // Save in Local Storage and get value from him
@@ -21,7 +21,11 @@ saveInLoacalstorage(inputs)
 saveInLoacalstorage(selects)
 saveInLoacalstorage(textareas)
 
-button.onclick = () => {
-   console.log('reset')
+document.body.addEventListener("mousemove", (e) => {
+   x = e.clientX
+   y = e.clientY
+
+  if (310 < x < 190 && y > 617 && y < 664) {
    localStorage.clear()
-}
+  } 
+})

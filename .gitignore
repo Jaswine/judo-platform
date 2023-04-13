@@ -4,3 +4,5 @@ __pycache__
 profile_avatars
 .vscode
 .vscode/
+back/static/media/
+db.sqlite3

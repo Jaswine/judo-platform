@@ -26,7 +26,7 @@
                <div class="form__field">{{ field.label_tag }}{{ field }}</div>
             {% endfor %}
          <p>You don't see important category? <a href="{% url 'base:weight_categories' %}" class="link">Add New Category</a></p>
-         <button class="btn" type="submit" id="button">continue</button>
+         <button class="btn" type="submit" >continue</button>
          {% endif %}
 
          {% if page_type == 'create_tournament__part__two' %}
@@ -43,7 +43,7 @@
                <label for="">Sponsors Logotips:</label>
                <input type = "file" multiple name="sponsors-logotips" id="sponsors-logos" required/>
             </div>
-         <button class="btn" type="submit" id="button">save</button>
+         <button class="btn" type="submit" id="create__tournire">save</button>
          {% endif %}
       </form>
    </div>  

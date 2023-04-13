@@ -101,33 +101,15 @@ def weight_categories(request):
    weight_categories = get_all_weight_category()
    form = WeightCategoryForm()
    
-   # create massive for slug
-   slug = []
-   
    # get data from form
    if request.method == 'POST':
       form = WeightCategoryForm(request.POST)
       
       # validation checking
       if form.is_valid():
-         weight_category = form.save(commit=False)
+         weight_category = form.save(commit=False)       
          
-         # create slug
-         if form.cleaned_data.get('category'):
-            slug.append(str(form.cleaned_data['category']))
-            
-         if form.cleaned_data.get('gender'):
-            slug.append(str(form.cleaned_data['gender']))
-            
-         if form.cleaned_data.get('weight'):
-            slug.append(str(form.cleaned_data['weight']))
-            
-         if form.cleaned_data.get('year'):
-            slug.append(str(form.cleaned_data['year']))
-         
-         slug = ' '.join(slug)         
-         
-         weight_category.slug = slug
+         weight_category.slug = generate_slug(form)
          weight_category.save()
          
          return redirect('base:weight_categories')

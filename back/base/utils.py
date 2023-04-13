@@ -1,6 +1,8 @@
 from functools import wraps
 from .models import Tournament
+
 import random
+import os
 
 
 # Password checking
@@ -31,3 +33,25 @@ def checking_slug(slug):
 
 # def Admin_Secretary(function=None, login_url=None):
    #if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+
+def generate_slug(form):
+   # create massive for slug
+   slug = []
+   
+   # create slug
+   if form.cleaned_data.get('category'):
+      slug.append(str(form.cleaned_data['category']))
+      
+   if form.cleaned_data.get('gender'):
+      slug.append(str(form.cleaned_data['gender']))
+      
+   if form.cleaned_data.get('weight'):
+      slug.append(str(form.cleaned_data['weight']))
+      
+   if form.cleaned_data.get('year'):
+      slug.append(str(form.cleaned_data['year']))
+   
+   slug = ' '.join(slug)  
+   
+   return slug
+   

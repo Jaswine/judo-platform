@@ -10,7 +10,7 @@
 <div class="panel">
 
    <div class="panel__title">
-      <h2>{{ tournire.title }}</h2>
+      {% comment %} <h2>{{ tournire.title }}</h2> {% endcomment %}
    </div>
    <div class="panel__item">
 
@@ -43,8 +43,16 @@
                   <legend>Delete Logotips:</legend>
                      {% for photo in tournire.logos.all %}
                         <div class="photo">
-                           <input type="checkbox" id="scales" name="scales" class="tournament__input">
-                           <img src="/static/media/{{photo.image}}" alt="{{photo.image}}" class="tournament__image" />
+                           <input 
+                              type="checkbox" 
+                              id="delete-logotips" 
+                              name="delete-logotips" 
+                              value="{{ photo.id }}" 
+                              class="tournament__input" />
+                           <img 
+                           src="/static/media/{{photo.image}}" 
+                           alt="{{photo.image}}" 
+                           class="tournament__image" />
                         </div>
                      {% endfor %}
                  </fieldset>
@@ -60,8 +68,16 @@
                      <legend>Delete Sponsors Logotips:</legend>
                         {% for photo in tournire.sponsors.all %}
                            <div class="photo">
-                              <input type="checkbox" id="scales" name="scales" class="tournament__input">
-                              <img src="/static/media/{{photo.image}}" alt="{{photo.image}}" class="tournament__image" />
+                              <input 
+                                 type="checkbox" 
+                                 id="scales" 
+                                 name="delete-sponsors" 
+                                 value="{{ photo.id }}"
+                                 class="tournament__input" />
+                              <img 
+                                 src="/static/media/{{photo.image}}" 
+                                 alt="{{photo.image}}" 
+                                 class="tournament__image" />
                            </div>
                         {% endfor %}
                   </fieldset>
@@ -91,6 +107,6 @@
    </div>
 </div>
 
-<script src="{% static 'js/field_saver.js' %}"></script>
+{% comment %} <!-- <script src="{% static 'js/field_saver.js' %}"></script> --> {% endcomment %}
 <script src="{% static 'js/tourments_logo_load.js' %}"></script>
 {% endblock content %}  

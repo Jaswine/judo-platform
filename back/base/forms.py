@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, forms
 from django.contrib.auth.models import User
 from .models import Profile, Tournament, Logos, WeightCategory
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm

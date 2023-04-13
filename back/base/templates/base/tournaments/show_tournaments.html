@@ -15,7 +15,7 @@
       {% for tournament in tournaments %}
          <div class="tournament">
             <div class="tournament__info">
-                     <img src=" /static/media/{{ tournament.logos.all.1.image }}" alt="{{tournament.logos.0.image}}" class="tournament__image">
+               <img src=" /static/media/{{ tournament.logos.all.1.image }}" alt="{{tournament.logos.0.image}}" class="tournament__image">
                <div class="tournament__content">
                   <h3>
                      <a href="{% url 'base:tournamet_show' tournament.slug %}" class="link">{{tournament.title}}</a>
