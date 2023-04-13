@@ -2,3 +2,5 @@ __pycache__/
 __pycache__
 *.sqlite3
 profile_avatars
+.vscode
+.vscode/
