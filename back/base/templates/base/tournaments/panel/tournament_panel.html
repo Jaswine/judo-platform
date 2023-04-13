@@ -37,6 +37,21 @@
                   <div class="form__field">{{ field.label_tag }}{{ field }}</div>
                {% endfor %}
 
+               <select name="weight-categories" id="" multiple>
+                  {% for weight_categorie in weight_categories_sorted %}
+                     <option  
+                     {% if weight_categorie.status %}
+                        style = "
+                        background-color: #4F8A8B;
+                        color: #fff;
+                        " 
+                     {% endif %}
+                     value="{{ weight_categorie.data.id }}"
+                     >
+                     {{ weight_categorie.data.slug }}
+                     </option>
+                  {% endfor %}
+               </select>
                <p>You don't see important category? <a href="{% url 'base:weight_categories' %}" class="link">Add New Category</a></p>   
                      
                  <fieldset class="photos">
@@ -66,13 +81,13 @@
       
                   <fieldset class="photos">
                      <legend>Delete Sponsors Logotips:</legend>
-                        {% for photo in tournire.sponsors.all %}
+                        {% for sponsor in tournire.sponsors.all %}
                            <div class="photo">
                               <input 
                                  type="checkbox" 
                                  id="scales" 
                                  name="delete-sponsors" 
-                                 value="{{ photo.id }}"
+                                 value="{{ sponsor.id }}"
                                  class="tournament__input" />
                               <img 
                                  src="/static/media/{{photo.image}}" 

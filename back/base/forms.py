@@ -26,7 +26,7 @@ class UpdateProfileForm(ModelForm):
 class TournamentForm(ModelForm):
    class Meta:
       model = Tournament
-      fields = ['title', 'about', 'rang', 'place', 'startData', 'finishData', 'startTime', 'credit', 'tatamis_count', 'chiefJustice', 'chiefSecretary', 'weight_categories']
+      fields = ['title', 'about', 'rang', 'place', 'startData', 'finishData', 'startTime', 'credit', 'tatamis_count', 'chiefJustice', 'chiefSecretary']
       
 class WeightCategoryForm(ModelForm):
    class Meta:

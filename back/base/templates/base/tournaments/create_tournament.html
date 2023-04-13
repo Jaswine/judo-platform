@@ -25,23 +25,32 @@
                {% endif %}
                <div class="form__field">{{ field.label_tag }}{{ field }}</div>
             {% endfor %}
-         <p>You don't see important category? <a href="{% url 'base:weight_categories' %}" class="link">Add New Category</a></p>
          <button class="btn" type="submit" >continue</button>
          {% endif %}
 
-         {% if page_type == 'create_tournament__part__two' %}
-            <div class="print__logos"></div>
+         {% if page_type == 'create_tournament__part__two' %}            
 
+            <div class="print__logos"></div>
             <div class="form__field">
                <label for="">Upload Logotips:</label>
-               <input type = "file" multiple name="files" id="logos" required/>
+               <input type = "file" multiple name="files" id="logos" />
+            </div>
+
+            <div class="form__field">
+               <label for="">Choose Weight Category:</label>
+               <select name="weight-categories" multiple >
+                  {% for weight_categorie in weight_categories_all %}
+                     <option value={{weight_categorie.id}} >{{weight_categorie.slug}}</option>
+                  {% endfor %}
+               </select>
+               <p>You don't see important category? <a href="{% url 'base:weight_categories' %}" class="link">Add New Category</a></p>
             </div>
 
             <div id="print__sponsors__logos"></div>
 
             <div class="form__field">
                <label for="">Sponsors Logotips:</label>
-               <input type = "file" multiple name="sponsors-logotips" id="sponsors-logos" required/>
+               <input type = "file" multiple name="sponsors-logotips" id="sponsors-logos" />
             </div>
          <button class="btn" type="submit" id="create__tournire">save</button>
          {% endif %}

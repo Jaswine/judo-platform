@@ -65,29 +65,42 @@ def create_tournamets__images(request, slug):
    
    if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
+      weight_categories_all = WeightCategory.objects.all()
       
       if request.method == 'POST':
          logotips = request.FILES.getlist('files')
          sponsors_logotips = request.FILES.getlist('sponsors-logotips')
+         weight_categoriees = request.POST.getlist('weight-categories')
+         
+         # Weight Categories
+         if (len(weight_categoriees) > 0):
+            for weight_category in weight_categoriees:
+               tournire.weight_categories.add(weight_category)
          
           # Add Logotips and Photos
-         for logo in logotips:
-            new_file = Logos(image = logo)
-            
-            new_file.save()  
-            tournire.logos.add(new_file)
+         if (len(logotips) > 0):
+            for logo in logotips:
+               new_file = Logos(image = logo)
+               
+               new_file.save()  
+               tournire.logos.add(new_file)
             
          # Add Sponsor Emblems
-         for logo in sponsors_logotips:
-            new_file = Sponsors(image = logo)
-            
-            new_file.save()
-            tournire.sponsors.add(new_file)
-            return redirect('base:tournamets_admin_update_info', tournire.slug)
+         if (len(sponsors_logotips) > 0):
+            for logo in sponsors_logotips:
+               new_file = Sponsors(image = logo)
+               
+               new_file.save()
+               tournire.sponsors.add(new_file)
+               
+         tournire.save()   
+         return redirect('base:tournamets_admin_update_info', tournire.slug)
    
       context = {
          'page_type': page_type,
-         'tournire': tournire
+         
+         'tournire': tournire,
+         'weight_categories_all': weight_categories_all
       }
       return render(request, 'base/tournaments/create_tournament.html', context)
    else:
