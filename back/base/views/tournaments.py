@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 
 from ..models import Tournament, Logos, WeightCategory, Sponsors
 from ..forms import TournamentForm, WeightCategoryForm
-from ..utils import slug_generator, checking_slug
+from ..utils import slug_generator, checking_slug, generate_slug
 from ..services import get_tournaments, get_all_weight_category
 
 

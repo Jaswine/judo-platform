@@ -178,6 +178,31 @@ nav .link:hover {
    justify-content: center;
    flex-direction: column;
    align-items: start;
+   width: 100%;
+}
+.form__field__category {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   margin-bottom: 10px;
+   border-radius: 5px;
+   padding: 5px;
+   transition: all .3s linear;
+}
+.form__field__category:hover {
+   background-color: rgb(79, 138, 139, .1);
+}
+.form__field__category h3 {
+   font-size: 18px;
+   width: 100%;
+}
+.form__field__category input {
+   max-width: 60px;
+   cursor: pointer;
+   width: 30px;
+   height: 30px;
+   margin: 0 10px;
 }
 
 /*  Delete Account */

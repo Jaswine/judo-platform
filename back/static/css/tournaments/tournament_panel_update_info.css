@@ -180,3 +180,13 @@
 #weight-categories option {
    padding: 4px 10px;
 }
+
+.form__field__category {
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   width: 100%;
+}
+.form__field__category h3 {
+   font-size: 18px;
+}

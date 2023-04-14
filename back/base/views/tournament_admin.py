@@ -23,20 +23,18 @@ def tournamets_admin_update_info(request, slug):
       weight_categories_all = WeightCategory.objects.all()
       tournire_weight_categories = tournire.weight_categories.all()
 
-      weight_categories_sorted = []
+      # Categories choosed for show
+      weight_categories_selected = []
+      weight_categories_unselected = []
       
+      # Sorted weight categories
       for weight_category in weight_categories_all:
          if weight_category in tournire_weight_categories:
-            weight_categories_sorted.append({
-               'data': weight_category,
-               'status': True
-            })
+            weight_categories_selected.append(weight_category)
          else:
-            weight_categories_sorted.append({
-               'data': weight_category,
-               'status': False
-            })
-                  
+            weight_categories_unselected.append(weight_category)
+          
+      # get data from form        
       if request.method == 'POST':
          tournament_form = TournamentForm(request.POST, instance=tournire)
          
@@ -49,53 +47,57 @@ def tournamets_admin_update_info(request, slug):
             delete_logotips = request.POST.getlist('delete-logotips')
             delete_sponsors = request.POST.getlist('delete-sponsors')
             
-            weight_categories = [int(i) for i in request.POST.getlist('weight-categories')]
+            weight_categories_chooised_for_upload = [int(i) for i in request.POST.getlist('weight-categories-chooised-for-upload')]
+            weight_categories_chooised_for_delete = [int(i) for i in request.POST.getlist('weight-categories-chooised-for-delete')]
             
-            weight_categories_validation = True
+            # upload weight categories chooised
+            if len(weight_categories_chooised_for_upload) > 0:
+               for weight_category in weight_categories_chooised_for_upload:
+                  article.weight_categories.add(weight_category)
             
-            for weight_categorie_sorted in weight_categories_sorted:
-               if weight_categorie_sorted['status'] == True:
-                  i = weight_categorie_sorted['data']
-                  if i.id in weight_categories:
-                     continue
-                  else:
-                     weight_categories_validation = False
-                     break
+            # remove weight categories chooised
+            if len(weight_categories_chooised_for_delete) > 0:
+               for weight_category in weight_categories_chooised_for_delete:
+                  article.weight_categories.remove(weight_category)
+ 
            
             # # delete choices logtips
-            # if (len(delete_logotips) > 0):
-            #    for logotip in delete_logotips:
-            #       article.logos.filter(id=int(logotip)).delete()
+            if (len(delete_logotips) > 0):
+               for logotip in delete_logotips:
+                  article.logos.filter(id=int(logotip)).delete()
                   
             # # delete choices logtips
-            # if (len(delete_sponsors) > 0):
-            #    for sponsor in delete_sponsors:
-            #       article.logos.filter(id=int(sponsor)).delete()
+            if (len(delete_sponsors) > 0):
+               for sponsor in delete_sponsors:
+                  article.logos.filter(id=int(sponsor)).delete()
          
             # # Add Logotips and Photos
-            # if len(logotips) > 0:
-            #    new_file = Logos(image = logo)
-               
-            #    new_file.save()  
-            #    tournire.logos.add(new_file)
+            if len(logotips) > 0:
+               for logo in logotips:
+                  new_file = Logos(image = logo)
+                  
+                  new_file.save()  
+                  tournire.logos.add(new_file)
                
             # # # Add Sponsor Emblems
-            # if len(sponsors_logotips) > 0:
-            #    for logo in sponsors_logotips:
-            #       new_file = Sponsors(image = logo)
+            if len(sponsors_logotips) > 0:
+               for logo in sponsors_logotips:
+                  new_file = Sponsors(image = logo)
                   
-            #       new_file.save()
-            #       tournire.sponsors.add(new_file)
+                  new_file.save()
+                  tournire.sponsors.add(new_file)
             
-            # article.save()
+            article.save()
+            return redirect('base:show_tournaments')
          
       context = {
          'page_type': page_type,
          
          'tournire': tournire,
          'tournament_form': tournament_form,
-         'weight_categories_all': weight_categories_all,
-         'weight_categories_sorted': weight_categories_sorted
+         
+         'weight_categories_selected': weight_categories_selected,
+         'weight_categories_unselected': weight_categories_unselected
       }
       return render(request, 'base/tournaments/panel/tournament_panel.html', context)
    else:
