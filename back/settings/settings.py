@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     
     "corsheaders",
     'rest_framework',
+    'django_filters',
     
     'base',
 ]
@@ -37,12 +38,14 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'corsheaders.middleware.CorsMiddleware',
+    # 'django.middleware.async.AsyncMiddleware',
 ]
 
 ROOT_URLCONF = 'settings.urls'
@@ -66,7 +69,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'settings.wsgi.application'
-
+# ASGI_APPLICATION = 'your_project_name.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

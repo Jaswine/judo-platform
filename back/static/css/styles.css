@@ -148,7 +148,21 @@ nav .link:hover {
 .link:hover {
    color: var(--lightblue)
 }
-
+.link-logo {
+   color: aliceblue;
+   margin-left: 3vw;
+   margin-right: 3vw
+}
+.link-logo b {
+   font-weight: bold;
+   font-size: 26px;
+}
+.link-logo  span {
+   font-size: 16px;
+   margin-left: -4px;
+   color: var(--gold);
+   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 
 .form__component {
    display: flex;
@@ -218,4 +232,13 @@ nav .link:hover {
 }
 .delete__account__choices a:hover {
    color: var(--lightblue);
+}
+
+.home__card__span {
+   display: block;
+   content: '';
+   width: 100%;
+   height: 1px;
+   margin: 2% 0;
+   background-color: rgb(20,20,20, .1);
 }

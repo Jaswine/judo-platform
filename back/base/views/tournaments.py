@@ -5,17 +5,24 @@ from django.contrib import messages
 from django.forms import modelformset_factory
 from django.shortcuts import get_object_or_404
 
+import asyncio
+
 from ..models import Tournament, Logos, WeightCategory, Sponsors
 from ..forms import TournamentForm, WeightCategoryForm
 from ..utils import slug_generator, checking_slug, generate_slug
 from ..services import get_tournaments, get_all_weight_category
+from ..filters import TournamentFilter
 
 
 def show_tournaments(request):
    tournaments = get_tournaments()
    
+   filter = TournamentFilter(request.GET, queryset=tournaments)
+   tournaments = filter.qs
+   
    context = {
-      'tournaments': tournaments,
+      'filter': filter,
+      'tournaments': tournaments,     
    }
    return render(request, 'base/tournaments/show_tournaments.html', context)
    
@@ -61,7 +68,7 @@ def create_tournamets(request):
 @csrf_exempt
 @login_required(login_url= 'base:login')
 def create_tournamets__images(request, slug):
-   page_type = 'create_tournament__part__two'
+   page_type = 'create_tournament__part__two'   
    
    if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)

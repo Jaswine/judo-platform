@@ -15,17 +15,17 @@ def logos_view(request):
       
       return Response(LogosSerializer(logo, many=False).data)
    
-@api_view(['GET', 'DELETE'])
-def one_logo_view(request, id):
-   logo = Logos.objects.get(id=id)
+# @api_view(['GET', 'DELETE'])
+# def one_logo_view(request, id):
+#    logo = Logos.objects.get(id=id)
    
-   if logo:
-      if request.method == 'GET':
-         return Response(LogosSerializer(logo, many=False).data)
+#    if logo:
+#       if request.method == 'GET':
+#          return Response(LogosSerializer(logo, many=False).data)
       
-      elif request.method == 'DELETE':
-         sponsors.delete()
-         return Response(status=status.HTTP_204_NO_CONTENT)
+#       elif request.method == 'DELETE':
+#          sponsors.delete()
+#          return Response(status=status.HTTP_204_NO_CONTENT)
       
-   else:
-      return Response(status=status.HTTP_404_NOT_FOUND)
+#    else:
+#       return Response(status=status.HTTP_404_NOT_FOUND)

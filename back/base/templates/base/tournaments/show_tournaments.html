@@ -8,10 +8,16 @@
 
 {% block content %}
 <div class="home">
-   <div class="home__filters">
-      Filters
-   </div>
+   <form class="home__filters" >
+      <h3>Tournament Filter</h3>
+      <span class="home__card__span"></span>
+      {% csrf_token %}
+      {{ filter.form }}
+
+      <button class="btn">Sort</button>
+   </form>
    <div class="all__tournaments">
+      {% if tournaments|length > 0 %}
       {% for tournament in tournaments %}
          <div class="tournament">
             <div class="tournament__info">
@@ -41,6 +47,11 @@
             </div>
          </div>
       {% endfor %}
+      {% else %}
+      <div class="tournaments__not__found">
+         <h2>Tournaments Not Found</h2>
+      </div>
+      {% endif %}
    </div>   
 </div>
 {% endblock content %}  

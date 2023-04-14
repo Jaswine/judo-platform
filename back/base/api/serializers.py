@@ -4,7 +4,7 @@ from ..models import Logos, Sponsors, Tournament
 
 class TournamentSerializer(ModelSerializer):
    class Meta:
-      model = Tournament()
+      model = Tournament
       fields = '__all__'
 
 class LogosSerializer(ModelSerializer):

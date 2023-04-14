@@ -1,10 +1,17 @@
 <nav>
    <div class="nav__menu">
+      <a href="/" class="link-logo">
+         <b>JUDO</b>
+
+         <span>
+            <span>KZ</span>
+         </span>
+      </a>
       <a href="{% url "base:show_tournaments" %}" class="link">
          Tournaments
          <i class="fa-solid fa-calendar-days"></i>
       </a>
-      <a href="" class="link">
+      <!-- <a href="" class="link">
          Medals
          <i class="fa-solid fa-medal"></i>
       </a>
@@ -15,7 +22,7 @@
       <a href="" class="link">
          Judges
          <i class="fa-solid fa-user-group"></i>
-      </a>
+      </a> -->
    </div>
    <div class="nav__buttons">
       {% if request.user.is_authenticated  %}
