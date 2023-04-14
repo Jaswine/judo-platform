@@ -5,8 +5,6 @@ from django.contrib import messages
 from django.forms import modelformset_factory
 from django.shortcuts import get_object_or_404
 
-import asyncio
-
 from ..models import Tournament, Logos, WeightCategory, Sponsors
 from ..forms import TournamentForm, WeightCategoryForm
 from ..utils import slug_generator, checking_slug, generate_slug
@@ -27,10 +25,10 @@ def show_tournaments(request):
    return render(request, 'base/tournaments/show_tournaments.html', context)
    
 def tournamet_show(request, slug):
-   tournire = get_object_or_404(Tournament, slug=slug)
+   tournament = get_object_or_404(Tournament, slug=slug)
    
    context = {
-      'tournament': tournire,
+      'tournament': tournament,
    }
    return render(request, 'base/tournaments/show_tournament.html', context)
 

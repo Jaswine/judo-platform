@@ -1,12 +1,49 @@
 {% include 'main.html' %}
+{% load static %}
 
 {% block title %}
-<title>Tournaments</title>
+<link rel="stylesheet" href="{% static 'css/tournaments/tournament_show.css' %}">
+<title>Tournament</title>
 {% endblock title %}
-
+   
 {% block content %}
-<h1>Show Tournament</h1>
-   <div class="tournament">
-      {{tournament.title}}
+<div class="tournament">
+   <div class="tournament__left">
+      <h3>{{ tournament.title }}</h3>
+      <p>
+         <i class="fa-solid fa-users"></i> Participants: 0
+      </p>
+      <p>
+         <i class="fa-solid fa-calendar-days"></i> 
+         Data: {{tournament.startData}} - {{tournament.finishData}}
+         <i class="fa-regular fa-clock"></i>
+         Time: {{tournament.startTime}}
+         status
+      </p>
+      <p>   
+         <i class="fa-solid fa-location-dot"></i> Location: {{tournament.place}}
+         <i class="fa-solid fa-ranking-star"></i> Rang: {{tournament.rang}}
+      </p>
+      <div class="slider">
+         <button id="slider__left">
+            <i class="fa-solid fa-chevron-left"></i>
+         </button>
+         <img src="" alt="" id="slider__gallery">
+         <button id="slider__right">
+            <i class="fa-solid fa-chevron-right"></i>
+         </button>
+      </div>
+      <div class="tournament__images" id="images__collection">
+         {% for logo in tournament.logos.all %}
+            <img src="/static/media/{{logo.image}}" alt="{{ image.name }}" class="slider__image">
+         {% endfor %}
+      </div>
+      
    </div>
+   <div class="tournament__right">
+
+   </div>
+</div>
+
+<script src="{% static '/js/gallery.js' %}"></script>
 {% endblock content %}  
