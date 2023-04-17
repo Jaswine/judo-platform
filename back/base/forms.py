@@ -1,6 +1,6 @@
 from django.forms import ModelForm, forms
 from django.contrib.auth.models import User
-from .models import Profile, Tournament, Logos, WeightCategory
+from .models import Profile, Tournament, Logos, WeightCategory, Participant
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.forms import FileField, ClearableFileInput
 
@@ -37,3 +37,9 @@ class SortingTournamentForm(ModelForm):
    class Meta:
       model = Tournament
       fields = ['rang']
+      
+# Participant
+class ParticipantForm(ModelForm):
+   class Meta:
+      model = Participant
+      fields = ['fullName', 'data', 'discharge', 'comand', 'country', 'weightCategory', 'weight', 'age', 'trainer']

@@ -191,3 +191,29 @@
    font-size: 18px;
 }
 
+/*  panel__information  */
+.panel__information {
+   background-color: rgb(79, 138, 139, .1);
+   width: 100%;
+   padding: 10px 20px;
+   border-radius: 10px;
+}
+.panel__information h3 {
+   width: 100%;
+   border-bottom: 1px solid rgb(0,0,0,.1);
+}
+.panel__information__info {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.panel__information__left {
+
+}
+.panel__information__left p {
+   font-size: 18px;
+   margin-bottom: 4px;
+}
+.panel__information__right {
+
+}

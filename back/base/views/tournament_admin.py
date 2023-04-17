@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.core.files.storage import FileSystemStorage
 
 from ..models import Tournament, Logos, WeightCategory, Sponsors
-from ..forms import TournamentForm, WeightCategoryForm
+from ..forms import TournamentForm, WeightCategoryForm, ParticipantForm
 from ..services import get_tournaments
 
 
@@ -120,6 +120,29 @@ def tournamets_admin_delete(request, slug):
          'page_type': page_type,
       }
       return render(request, 'base/tournaments/panel/tournament_panel.html',context)
+   else:
+      messages.error(request, "You don't have permission to create tournament ;)")
+      return redirect('base:show_tournaments')
+   
+@csrf_exempt
+@login_required(login_url='base:login')
+def tournamets_admin_category(request, slug, category_slug):
+   page_type = 'tournament_panel_category'
+   
+   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+      tournire = get_object_or_404(Tournament, slug=slug)
+      weight_category = get_object_or_404(WeightCategory, slug=category_slug)
+      form = ParticipantForm()
+      
+      context = {
+         'page_type': page_type,
+         
+         'tournire': tournire,
+         'weight_category': weight_category,
+         
+         'form': form
+      }
+      return render(request, 'base/tournaments/panel/tournament_panel.html', context)
    else:
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')

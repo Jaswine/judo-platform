@@ -141,10 +141,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 CACHES = {
     'default': {
         # охраняет данные в оперативной памяти. Дает наивысшую производительность, но при отключении компьютера содержимое кэша будет потеряно;
-        #!  'BACKEND': 'django.core.cache.backends.locmem.LocMemCache', 
-        'LOCATION ' : ' cachel  ',
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache', 
+        # 'LOCATION ' : ' cachel  ',
         
         # не сохраняет кэшируемые данные.
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
+        # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
     },
 }

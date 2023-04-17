@@ -38,6 +38,10 @@ class WeightCategory(models.Model):
    weight = models.CharField(max_length=100, blank=True)
    year = models.CharField(max_length=20, blank=True)
    
+   registration = models.CharField(max_length=40, blank=True)
+   registration_begin = models.CharField(max_length=40, blank=True)
+   registration_end = models.CharField(max_length=40, blank=True)
+   
    def __str__(self):
       return self.slug 
 

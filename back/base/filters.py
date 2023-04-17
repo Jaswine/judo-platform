@@ -9,8 +9,7 @@ class TournamentFilter(django_filters.FilterSet):
    
    startData = CharFilter(field_name ='startData', lookup_expr='icontains')
    finishData = CharFilter(field_name = 'finishData', lookup_expr='icontains')
-   credit = CharFilter(field_name = 'credit', lookup_expr='icontains')
    
    class Meta: 
       model = Tournament
-      fields = ['rang', 'title', 'startData', 'finishData', 'credit']
+      fields = ['rang', 'title', 'startData', 'finishData']

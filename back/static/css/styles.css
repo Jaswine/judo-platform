@@ -21,11 +21,11 @@ nav {
    display: flex;
    justify-content: space-between;
    align-items: center;
-   background-color: var(--lightblue);
+   background-color: #4F8A8B;
    padding: 0 1%;
    position: fixed;
    top: 0;
-   z-index: 1000;
+   z-index: 10;
    width: 100%;
 }
 nav .link {
@@ -58,7 +58,7 @@ nav .link:hover {
 }
 ::-webkit-scrollbar {
    background-color: rgb(254,254,254,.1);
-   width: 10px;
+   width: 5px;
 }
 ::-webkit-scrollbar-thumb {
    background-color: var(--lightblue);

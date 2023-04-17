@@ -9,7 +9,7 @@
   Add New Weight Category
 </a>
 {% for category in  tournire.weight_categories.all %}
-   <a href="" class="link">
+   <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="link">
       <i class="fa-solid fa-list"></i>
       {{ category.slug }}
    </a>

@@ -117,7 +117,7 @@
                   
                <button class="btn" type="submit" id="button">save</button>
                </form>
-               {% elif page_type == 'tournamets_admin_delete'  %}
+         {% elif page_type == 'tournamets_admin_delete'  %}
                <form method="post" class="pre__delete__account__choices">
                      <h3>Delete Tournament</h3>
                {% csrf_token %}
@@ -127,6 +127,23 @@
                   <button type="submit" class="delete__Account">Delete</button>
                </div>
             </form>
+         {% elif page_type == 'tournament_panel_category' %}
+         <div class="panel__information">
+            <h3>Information</h3>
+           <div class="panel__information__info">
+            <div class="panel__information__left">
+               <p>Category: {{weight_category.category}} </p>
+               <p>Gender: {{weight_category.gender}}</p>
+               <p>Weight {{weight_category.weight}}</p>
+               <p>Registration Time: {{weight_category.weight}}</p>
+            </div>
+            <div class="panel__information__right">
+               <p>Year: {{weight_category.year}} </p>
+               <p>Gender: {{weight_category.gender}}</p>
+               <p>Weight {{weight_category.weight}}</p>
+            </div>
+           </div>
+         </div>
          {% endif %}
       </div>
 
