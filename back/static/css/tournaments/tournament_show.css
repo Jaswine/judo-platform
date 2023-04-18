@@ -29,7 +29,7 @@
    padding: 0 5px;
 }
 .tournament__weight__category:hover {
-   background-color: var(--lightblue);
+   background-color: #4F8A8B;
    color: var(--white)
 }
 .tournament__left {

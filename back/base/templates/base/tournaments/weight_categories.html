@@ -11,7 +11,8 @@
       <form method="POST">
          {% csrf_token %}
          <h2>Add New Category</h2>
-
+         gory
+         Category:
          {% for field in form  %}
             <div class = "form__component">
                {% if field.errors %}
@@ -31,9 +32,11 @@
          <thead>
             <tr class="table__head">
                <th scope="col">Category</th>
-               <th scope="col">Gender</th>
                <th scope="col">Weight</th>
                <th scope="col">Year</th>
+               <th>Registration</th>
+               <th>Registration start</th>
+               <th>Registration end</th>
                <th scope="col"></th>
             </tr>
          </thead>
@@ -41,12 +44,16 @@
          {% for category in weight_categories  %}
                <tr class="candidates-list">
                   <td scope="col">{{ category.category }}</td>
-                  <td scope="col" >{{category.gender}}</td>
                   <td scope="col">{{category.weight}}</td>
                   <td scope="col">{{category.year}}</td>
+                  <td scope="col">{{category.registration}}</td>
+                  <td scope="col">{{category.registration_begin}}</td>
+                  <td scope="col">{{category.registration_end}}</td>
+
                   <td scope="col" class="td_delete"><a href="{% url 'base:weight_categories_delete' category.id %}" class="fa-solid fa-xmark"></a></td>
                </tr>
          {% endfor %}
+         
          </tbody>
       </table>
    </div>

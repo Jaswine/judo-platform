@@ -9,8 +9,11 @@
    margin-top: 5%;
    gap: 20px;
 }
-form, table {
-   width: 50%;
+form {
+   width: 40%;
+}
+table {
+   width: 60%;
 }
 form {
    display: flex;
@@ -20,14 +23,16 @@ form {
    flex-direction: column;
    background-color: rgb(79, 138, 139, .1);
    
-   max-width: 500px;
-   padding: 30px;
+   max-width: 480px;
+   padding: 20px;
    border-radius: 10px;
 }
 form h2 {
    margin-bottom: 14px;
 }
-
+.table {
+   width: 100%;
+}
 .table__head {
    background-color: var(--lightblue);
    color: var(--white);

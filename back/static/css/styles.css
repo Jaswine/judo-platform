@@ -53,7 +53,7 @@ nav .link:hover {
 }
 
 ::selection {
-   background-color: var(--lightblue);
+   background-color: #4F8A8B;
    color: var(--white);
 }
 ::-webkit-scrollbar {
