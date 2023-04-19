@@ -22,146 +22,15 @@
       {% comment %} content {% endcomment %}
       <div class="panel__right">
          {% if page_type == 'tournament_panel_update_info' %}
-            <h2>Update The Tournament</h2>
-            <form action="" method="post" id="create__tournire" enctype="multipart/form-data">
-               {% csrf_token %}
-               
-               {% for field in tournament_form %}
-                  {% if field.errors %}
-                     <ul class="errorlist">
-                        {% for error in field.errors %}
-                           <li>{{ error }}</li>
-                        {% endfor %}
-                     </ul>
-                  {% endif %}
-                  <div class="form__field">{{ field.label_tag }}{{ field }}</div>
-               {% endfor %}
-
-               {% if weight_categories_selected|length %}
-                  <div class="form__field">
-                     <label>Choose Weight Category for delete:</label>
-                     {% for i in weight_categories_selected %}
-                        <div class="form__field__category">
-                           <input type="checkbox" value="{{i.id}}" name="weight-categories-chooised-for-delete">
-                           <h3>{{i.slug}}</h3>
-                        </div>
-                     {% endfor %}
-                  </div>
-               {% endif %} 
-
-               {% if weight_categories_unselected|length > 0 %}
-                  <div class="form__field">
-                     <label for="">Choose Weight Category(CTRL+click on category):</label>
-                     <select name="weight-categories-chooised-for-upload" id="" multiple>
-                        {% for weight_categorie in weight_categories_unselected %}
-                           <option  
-                              value="{{ weight_categorie.id }}"
-                           >
-                           {{ weight_categorie.slug }}
-                           </option>
-                        {% endfor %}
-                     </select>
-                     <p>You don't see important category? <a href="{% url 'base:weight_categories' %}" class="link">Add New Category</a></p>   
-                  </div>
-               {% endif %}
-                                    
-                 <fieldset class="photos">
-                  <legend>Delete Logotips:</legend>
-                     {% for photo in tournire.logos.all %}
-                        <div class="photo">
-                           <input 
-                              type="checkbox" 
-                              id="delete-logotips" 
-                              name="delete-logotips" 
-                              value="{{ photo.id }}" 
-                              class="tournament__input" />
-                           <img 
-                           src="/static/media/{{photo.image}}" 
-                           alt="{{photo.image}}" 
-                           class="tournament__image" />
-                        </div>
-                     {% endfor %}
-                 </fieldset>
-
-                  <div class="print__logos"></div>
-                  
-                  <div class="form__field">
-                     <label for="">Upload New Logotips:</label>
-                     <input type = "file" multiple name="files" id="logos"/>
-                  </div>
-      
-                  <fieldset class="photos">
-                     <legend>Delete Sponsors Logotips:</legend>
-                        {% for sponsor in tournire.sponsors.all %}
-                           <div class="photo">
-                              <input 
-                                 type="checkbox" 
-                                 id="scales" 
-                                 name="delete-sponsors" 
-                                 value="{{ sponsor.id }}"
-                                 class="tournament__input" />
-                              <img 
-                                 src="/static/media/{{sponsor.image}}" 
-                                 alt="{{sponsor.image}}" 
-                                 class="tournament__image" />
-                           </div>
-                        {% endfor %}
-                  </fieldset>
-
-                  <div id="print__sponsors__logos"></div>
-      
-                  <div class="form__field">
-                     <label for="">Sponsors Logotips:</label>
-                     <input type = "file" multiple name="sponsors-logotips" id="sponsors-logos"/>
-                  </div>
-                  
-               <button class="btn" type="submit" id="button">save</button>
-               </form>
+            {% include 'base/tournaments/panel/components/update.html' %}
          {% elif page_type == 'tournamets_admin_delete'  %}
-               <form method="post" class="pre__delete__account__choices">
-                     <h3>Delete Tournament</h3>
-               {% csrf_token %}
-
-               <div class="delete__account__choices">
-                  <a class="" href="{{request.META.HTTP_REFERER}}">Go to back</a>
-                  <button type="submit" class="delete__Account">Delete</button>
-               </div>
-            </form>
+            {% include 'base/tournaments/panel/components/delete.html' %}
          {% elif page_type == 'tournament_panel_category' %}
-         <div class="tournament__category__header">
-            <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn active">Description</a>
-            <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn">Athletes</a>
-            <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}"" class="btn">Toss</a>
-            <a href="" class="btn">Results</a>
-
-         </div>
-         <div class="panel__information">
-            <h3>Information</h3>
-           <div class="panel__information__info">
-            <div class="panel__information__left">
-               <p><b>Category:</b> {{category.category}} </p>
-               <p><b>Gender:</b> {{category.gender}}</p>
-               <p><b>Weight:</b> {{category.weight}}</p>
-               <p><b>Registration Time:</b> {{category.registration}}</p>
-            </div>
-            <div class="panel__information__right">
-               <p><b>Year:</b> {{category.year}} </p>
-               <p><b>Registration Begin:</b> {{category.registration_begin}}</p>
-               <p><b>Registration End: </b> {{category.registration_end}}</p>
-            </div>
-           </div>
-         </div>
-         <p>You don't see important category? <a href="{% url 'base:weight_categories' %}" class="link">Add New Category</a></p>
+            {% include 'base/tournaments/panel/components/category_description.html' %}
          {% elif page_type == 'athletes_admin_category' %}
-         <div class="tournament__category__header">
-            <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn ">Description</a>
-            <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn active" >Athletes</a>
-            <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}" class="btn">Toss</a>
-            <a href="" class="btn">Results</a>
-         </div>
-         <div class="tournament__category__toolbar">
-
-         </div>
+            {% include 'base/tournaments/panel/components/athletes_admin_category.html' %}
+         {% elif page_type == 'add_new_athlete' %}
+            {% include 'base/tournaments/panel/components/add_new_athlete.html' %}
          {% elif page_type == 'toss_admin_category' %}
          <div class="tournament__category__header">
             <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn ">Description</a>

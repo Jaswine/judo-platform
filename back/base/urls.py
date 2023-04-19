@@ -32,8 +32,11 @@ urlpatterns = [
    
    path('tournaments/<str:slug>/panel/categories/<str:category_slug>/', tournament_admin.tournamets_admin_category, name='tournamets_admin_category'),
    path('tournaments/<str:slug>/panel/categories/<str:category_slug>/athletes', tournament_admin.athletes_admin_category, name='athletes_admin_category'),
-    path('tournaments/<str:slug>/panel/categories/<str:category_slug>/toss', tournament_admin.toss_admin_category, name='toss_admin_category'),
-    
+   path('tournaments/<str:slug>/panel/categories/<str:category_slug>/toss', tournament_admin.toss_admin_category, name='toss_admin_category'),
+   path('tournaments/<str:slug>/panel/categories/<str:category_slug>/add-new-athlete', tournament_admin.add_new_athlete, name='add_new_athlete'),
+   path('tournaments/<str:slug>/panel/categories/<str:category_slug>/update-athlete/<int:participant_id>/edit', tournament_admin.update_athlete, name='update_athlete'),
+   path('tournaments/<str:slug>/panel/categories/<str:category_slug>/update-athlete/<int:participant_id>/delete', tournament_admin.delete_athlete, name='delete_athlete'),
+   
    # Weight Categoris
    path('tournaments/weight-categories', tournaments.weight_categories, name='weight_categories'),
    path('tournaments/weight-categories-delete/<int:pk>', tournaments.weight_categories_delete, name='weight_categories_delete')

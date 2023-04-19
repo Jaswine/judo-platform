@@ -1,0 +1,9 @@
+form {
+   width: 100%;
+   max-width: 100% !important;
+}
+input {
+   width: 100%;
+   max-width: 100% !important;
+   font-size: 18px !important;
+}

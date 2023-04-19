@@ -42,4 +42,4 @@ class SortingTournamentForm(ModelForm):
 class ParticipantForm(ModelForm):
    class Meta:
       model = Participant
-      fields = ['fullName', 'data', 'discharge', 'comand', 'country', 'weightCategory', 'weight', 'age', 'trainer']
+      fields = ['fullName', 'data', 'discharge', 'comand', 'city', 'country', 'weight', 'age', 'trainer']

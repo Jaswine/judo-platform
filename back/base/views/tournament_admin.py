@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.core.files.storage import FileSystemStorage
 
-from ..models import Tournament, Logos, WeightCategory, Sponsors
+from ..models import Tournament, Logos, WeightCategory, Sponsors, Participant
 from ..forms import TournamentForm, WeightCategoryForm, ParticipantForm
 from ..services import get_tournaments
 
@@ -132,16 +132,13 @@ def tournamets_admin_category(request, slug, category_slug):
    if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       weight_category = get_object_or_404(WeightCategory, slug=category_slug)
-      form = ParticipantForm()
       
       context = {
          'page_type': page_type,
          
          'tournire': tournire,
          'category': weight_category,
-         
-         'form': form
-      }
+      }         
       return render(request, 'base/tournaments/panel/tournament_panel.html', context)
    else:
       messages.error(request, "You don't have permission to create tournament ;)")
@@ -171,14 +168,56 @@ def athletes_admin_category(request, slug, category_slug):
       return redirect('base:show_tournaments')
    
 @login_required(login_url='base:login')
-def toss_admin_category(request, slug, category_slug):
-   page_type = 'toss_admin_category'
+def add_new_athlete(request, slug, category_slug):
+   page_type = 'add_new_athlete'
    weight_category = get_object_or_404(WeightCategory, slug=category_slug)
    
    if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       
       form = ParticipantForm()
+      
+      if request.method == 'POST':
+         form = ParticipantForm(request.POST)
+         
+         if form.is_valid():
+            athlete =  form.save()
+            weight_category.participants.add(athlete.id)
+            return redirect('base:athletes_admin_category', tournire.slug, weight_category.slug)
+         else:
+            messages.error(request, "Form isn't valid")
+            
+      context = {
+         'page_type': page_type,
+         
+         'category':weight_category,
+         'tournire': tournire,
+         
+         'form': form
+      }
+      return render(request, 'base/tournaments/panel/tournament_panel.html', context)
+   else:
+      messages.error(request, "You don't have permission to create tournament ;)")
+      return redirect('base:show_tournaments')
+   
+@login_required(login_url='base:login')
+def update_athlete(request, slug, category_slug, participant_id):
+   page_type = 'add_new_athlete'
+   weight_category = get_object_or_404(WeightCategory, slug=category_slug)
+   
+   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+      tournire = get_object_or_404(Tournament, slug=slug)
+      participant = get_object_or_404(Participant, id =participant_id)
+      
+      form = ParticipantForm(instance=participant)
+      
+      if request.method == 'POST':
+         form = ParticipantForm(request.POST, instance=participant)
+         
+         if form.is_valid():
+            athlete =  form.save()
+            weight_category.participants.add(athlete.id)
+            return redirect('base:athletes_admin_category', tournire.slug, weight_category.slug)
       
       context = {
          'page_type': page_type,
@@ -187,6 +226,51 @@ def toss_admin_category(request, slug, category_slug):
          'tournire': tournire,
          
          'form': form
+      }
+      return render(request, 'base/tournaments/panel/tournament_panel.html', context)
+   else:
+      messages.error(request, "You don't have permission to create tournament ;)")
+      return redirect('base:show_tournaments')
+
+@login_required(login_url='base:login')
+def delete_athlete(request, slug, category_slug, participant_id):
+   page_type = 'add_new_athlete'
+   weight_category = get_object_or_404(WeightCategory, slug=category_slug)
+   
+   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+      tournire = get_object_or_404(Tournament, slug=slug)
+      participant = get_object_or_404(Participant, id = participant_id)
+      
+      weight_category.participants.remove(participant.id)
+      
+      participant.delete()
+      return redirect('base:athletes_admin_category', tournire.slug, weight_category.slug)
+      
+      context = {
+         'page_type': page_type,
+         
+         'category':weight_category,
+         'tournire': tournire,         
+      }
+      return render(request, 'base/tournaments/panel/tournament_panel.html', context)
+   else:
+      messages.error(request, "You don't have permission to create tournament ;)")
+      return redirect('base:show_tournaments')
+
+   
+@login_required(login_url='base:login')
+def toss_admin_category(request, slug, category_slug):
+   page_type = 'toss_admin_category'
+   weight_category = get_object_or_404(WeightCategory, slug=category_slug)
+   
+   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+      tournire = get_object_or_404(Tournament, slug=slug)
+      
+      context = {
+         'page_type': page_type,
+         
+         'category':weight_category,
+         'tournire': tournire,
       }
       return render(request, 'base/tournaments/panel/tournament_panel.html', context)
    else:

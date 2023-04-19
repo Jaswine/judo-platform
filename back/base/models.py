@@ -30,6 +30,26 @@ class Logos(models.Model):
    def __str__(self):
       return self.image.name
    
+# Participants
+class Participant(models.Model):
+   fullName = models.CharField(max_length=100)
+   data = models.CharField(max_length=30, blank=True)
+   discharge = models.CharField(max_length=40, blank=True)
+   comand = models.CharField(max_length=200, blank=True)
+   country = models.CharField(max_length=100, blank=True)
+   city = models.CharField(max_length=100, blank=True)
+   
+   weight = models.CharField(max_length=100, blank=True, default='0')
+   age = models.IntegerField(blank=True, default=0)
+   trainer = models.CharField(max_length=100, blank=True)
+   
+   created = models.DateTimeField(auto_now_add=True)
+   updated = models.DateTimeField(auto_now=True)
+   
+   def __str__(self):
+      return self.fullName
+   
+   
 # Weight Category
 class WeightCategory(models.Model):
    slug  = models.CharField(max_length=50, default='')
@@ -37,6 +57,8 @@ class WeightCategory(models.Model):
    gender = models.CharField(max_length=20, blank=True)
    weight = models.CharField(max_length=100, blank=True)
    year = models.CharField(max_length=20, blank=True)
+   
+   participants = models.ManyToManyField(Participant, default=[], blank=True)
    
    registration = models.CharField(max_length=40, blank=True)
    registration_begin = models.CharField(max_length=40, blank=True)
@@ -52,26 +74,6 @@ class Sponsors(models.Model):
    def __str__(self):
       return self.image.name
 
-# Participants
-class Participant(models.Model):
-   fullName = models.CharField(max_length=100)
-   data = models.CharField(max_length=30, blank=True)
-   discharge = models.CharField(max_length=10, blank=True)
-   comand = models.CharField(max_length=40, blank=True)
-   country = models.CharField(max_length=20, blank=True)
-   
-   weightCategory = models.ForeignKey(WeightCategory, on_delete=models.CASCADE, blank=True)
-   
-   weight = models.CharField(max_length=100, blank=True)
-   age = models.IntegerField(blank=True)
-   trainer = models.CharField(max_length=100, blank=True)
-   
-   created = models.DateTimeField(auto_now_add=True)
-   updated = models.DateTimeField(auto_now=True)
-   
-   def __str__(self):
-      return self.fullName
-   
 # Tournir
 class Tournament(models.Model):
    

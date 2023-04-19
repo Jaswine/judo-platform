@@ -1,0 +1,56 @@
+{% load static %}
+{% block title %}
+<link rel="stylesheet" href="{% static 'css/tournaments/weight_categories.css' %}">
+
+<link rel="stylesheet" href="{% static 'css/tournaments/athletes_admin_category.css' %}">
+{% endblock %}
+
+<div class="tournament__category__header">
+   <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn ">Description</a>
+   <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn active" >Athletes</a>
+   <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}" class="btn">Toss</a>
+   <a href="" class="btn">Results</a>
+</div>
+
+<div class="tournament__buttons">
+   <div class="tournament__buttons__right">
+      <button class="btn btn-xyz" id="download">Download</button>
+      <button class="btn btn-xyz" id="'upload-list">Uplaod List</button>
+   </div>
+   <a href="{% url 'base:add_new_athlete' tournire.slug category.slug %}" class="btn btn-xyz">Add New Athlete</a>
+</div>
+
+<div class="tournament__category__toolbar">
+   <table class="show__all__categories">
+      <thead>
+         <tr class="table__head">
+            <th>fullName</th>
+            <th>Data</th>
+            <th>Discharge</th>
+            <th>Comand</th>
+            <th>City</th>
+            <th>Country</th>
+            <th></th>
+            <th></th>
+         </tr>
+      </thead>
+      <tbody>
+      {% for participant in category.participants.all  %}
+            <tr class="candidates-list participant">
+               <td scope="col" class="participant" >{{ participant.fullName }}</td>
+               <td scope="col" class="participant">{{participant.data}}</td>
+               <td scope="col" class="participant">{{participant.discharge}}</td>
+               <td scope="col" class="participant">{{participant.comand}}</td>
+               <td scope="col" class="participant">{{participant.country}}</td>
+               <td scope="col" class="participant">{{participant.city}}</td>
+
+               <td scope="col" class="td_delete"><a href="{% url 'base:update_athlete' tournire.slug category.slug participant.id %}" class="fa-solid fa-xmark">C</a></td>
+               
+               <td scope="col" class="td_delete"><a href="{% url 'base:delete_athlete' tournire.slug category.slug  participant.id %}" class="fa-solid fa-xmark">X</a></td>
+            </tr>
+      {% endfor %}
+      
+      </tbody>
+   </table>
+   <script src='{% static "js/upload_athletes.js" %}'></script>
+</div>

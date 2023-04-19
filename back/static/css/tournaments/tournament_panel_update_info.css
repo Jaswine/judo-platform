@@ -208,15 +208,9 @@
    align-items: center;
    margin-bottom: 6px;
 }
-.panel__information__left {
-
-}
 .panel__information__left p {
-   font-size: 14px;
+   font-size: 16px;
    margin-bottom: 2px;
-}
-.panel__information__right {
-
 }
 .tournament__category__header {
    display: flex;justify-content: center;
@@ -245,4 +239,34 @@
    justify-content: start;
    align-items: center;
    gap: 10px
+}
+.table {
+   width: 100%;   
+}
+.add__more__athletes {
+
+}
+.tournament__buttons {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin:2% 0;
+   width: 100%;
+}
+.tournament__buttons__right {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 10px;
+}
+.btn-xyz:hover {
+   background-color: #4F8A8B;
+   color: white;
+   border-color: #4F8A8B   ;
+}
+.candidates-list td {
+   text-align: center;
+   border: 1px solid black;
+   padding: 2px;
+   font-size: 16px;
 }
