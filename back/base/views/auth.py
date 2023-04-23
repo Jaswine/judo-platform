@@ -27,16 +27,16 @@ def registration_view(request):
       if form.is_valid():
          new_user = form.save(commit=False)
          new_user.save()
+         login(request, new_user)
          
+         user = request.user
          # create user profile
-         profile = Profile.objects.create(
-            user = new_user,
+         profile = Profile(
+            user = user, 
             userType = 'Свободный'
          )
-         profile.save()
          
          # login user
-         login(request, new_user)
          return redirect('base:index')
          
    context = {

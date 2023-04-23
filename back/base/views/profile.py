@@ -15,6 +15,13 @@ def show_profile(request, username):
    user = get_user(username)
    profile = get_user_profile(user)
    
+   if request.method == 'POST':
+      user_type = request.POST.get('user_type')
+      
+      if user_type:
+         profile.userType = user_type
+         profile.save()
+   
    context = {
       'page_type': page_type,
       'user': user,

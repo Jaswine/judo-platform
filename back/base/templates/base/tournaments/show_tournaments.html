@@ -43,7 +43,10 @@
                </div>
             </div>
             <div class="tournament__menu">
+            {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser %}
+               
                <a href="{% url 'base:tournamets_admin_update_info' tournament.slug %}" class="btn btn-primary">Change</a>
+               {% endif %}
             </div>
          </div>
       {% endfor %}

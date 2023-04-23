@@ -13,10 +13,10 @@
 </div>
 
 <div class="tournament__buttons">
-   <div class="tournament__buttons__right">
+   <!-- <div class="tournament__buttons__right">
       <button class="btn btn-xyz" id="download">Download</button>
-      <button class="btn btn-xyz" id="'upload-list">Uplaod List</button>
-   </div>
+      <input type="file" class="btn btn-xyz" id="'upload-list">
+   </div> -->
    <a href="{% url 'base:add_new_athlete' tournire.slug category.slug %}" class="btn btn-xyz">Add New Athlete</a>
 </div>
 
@@ -44,9 +44,9 @@
                <td scope="col" class="participant">{{participant.country}}</td>
                <td scope="col" class="participant">{{participant.city}}</td>
 
-               <td scope="col" class="td_delete"><a href="{% url 'base:update_athlete' tournire.slug category.slug participant.id %}" class="fa-solid fa-xmark">C</a></td>
+               <td scope="col" class="td_delete"><a href="{% url 'base:update_athlete' tournire.slug category.slug participant.id %}" class="fa-solid fa-pen-to-square"></a></td>
                
-               <td scope="col" class="td_delete"><a href="{% url 'base:delete_athlete' tournire.slug category.slug  participant.id %}" class="fa-solid fa-xmark">X</a></td>
+               <td scope="col" class="td_delete"><a href="{% url 'base:delete_athlete' tournire.slug category.slug  participant.id %}" class="fa-solid fa-xmark"></a></td>
             </tr>
       {% endfor %}
       

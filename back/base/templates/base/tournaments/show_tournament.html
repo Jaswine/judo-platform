@@ -31,7 +31,7 @@
          status
       </p>
       <p>
-         <i class="fa-solid fa-users"></i> Participants: 0
+         <i class="fa-solid fa-users"></i> Participants: {{person_count }}
       </p>
       <p>   
          <i class="fa-solid fa-location-dot"></i> Location: {{tournament.place}}
@@ -72,7 +72,37 @@
       </p>
    </div>
    <div class="tournament__right">
+      <div class="tournament__right__participants">Registered {{person_count}} participants</div>
+     <h3>Weight Categories:</h3>
+      <div class="tournament__right__weight__categories">
+         {% for tour in tournament.weight_categories.all %}
+            <div class="tour">
+               <div class="tour__header">
+                  start {{tour.registration_begin}}
+               </div>
+               <div class="tour__more">
+                  <span>{{ tour.category }}</span>
+                  <span>{{ tour.year }}</span>
+                  <span>{{ tour.weight }}</span>
+                  <span>{{ tour.weight }}</span>
+                  <span class="tour__more__weight">accreditation/weight-in {{tour.registration}}</span>
+               </div>
+            </div>
+         {% endfor %}
+      </div>
+     <h3>Commands:</h3>
+     <div class="tournament__right__weight__categories">
+      {% for tour in tournament.weight_categories.all %}
+         {% for part in tour.participants.all %}
+            <div class="command">
+               <div class="command__header">
+               {{ part.comand }} - {{ part.country }}
 
+               </div>
+            </div>
+         {% endfor %}
+      {% endfor %}
+   </div>
    </div>
 </div>
 

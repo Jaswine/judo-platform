@@ -82,16 +82,40 @@
                   {% endif %}
                   {% if user.email %}
                      <div class="">
-                        <b>Phone: </b>
+                        <b>Email: </b>
                         {{user.email}}
                      </div>
                   {% endif %}
+                     {% if request.user.is_superuser or profile.userType == 'Админ' %}
+                     <div class="">
+                        {% if profile.userType %}
+                        <b>User Type: </b>
+                        {{profile.userType}}
+                        {% endif %}
+                     
+                        <form action="" method="post">
+                           {% csrf_token %}
+                           <label for="">Change User Status: </label>
+                           <select name="user_type" id="">
+                              <option value = '{{profile.userType}}' selected disabled>{{profile.userType}}</option>
+
+                              <option value = 'Админ'>Админ</option>
+                              <option value = 'Секретарь'>Секретарь</option>
+                              <option value = 'Свободный'>Свободный</option>
+
+                           </select>
+                           <button class="btn">save</button>
+                        </form>
+                     </div>
+                     {% else %}
                   {% if profile.userType %}
                      <div class="">
                         <b>User Type: </b>
                         {{profile.userType}}
                      </div>
+                     {% endif %}
                   {% endif %}
+                  
                </div>
             </div>
             {% elif page_type == 'edit_profile' %}

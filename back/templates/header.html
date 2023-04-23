@@ -1,3 +1,4 @@
+{% load static %}
 <nav>
    <div class="nav__menu">
       <a href="/" class="link-logo">
@@ -7,6 +8,7 @@
             <span>KZ</span>
          </span>
       </a>
+     <span class="computer__menu">
       <a href="{% url "base:show_tournaments" %}" class="link">
          Tournaments
          <i class="fa-solid fa-calendar-days"></i>
@@ -23,16 +25,49 @@
          Judges
          <i class="fa-solid fa-user-group"></i>
       </a> -->
+     </span>
    </div>
    <div class="nav__buttons">
       {% if request.user.is_authenticated  %}
-         {% comment %} {% if request.user.is_superuser %} {% endcomment %}
-            {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' %}
+            {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser %}
                <a href="{% url "base:create_tournamets" %}" class="link">
                   <i class="fa-solid fa-plus"></i>
                </a>
             {% endif %}
-         {% comment %} {% endif %} {% endcomment %}
+         <a href="{% url 'base:show_profile' request.user.username %}" class="link">{{request.user.username}}</a>
+         <a href="{% url 'base:logout' %}" class="link">Logout</a>
+      {% else %}
+         <a href="{% url 'base:registration' %}" class="link">Registration</a>
+         <a href="{% url 'base:login' %}" class="link">Login</a>
+      {% endif %}
+   </div>
+   <div class="nav__menu__button">
+      <i class="fa-solid fa-bars"></i>
+  </div>
+   <div class="mobile__menu">
+      <a href="{% url "base:show_tournaments" %}" class="link">
+         Tournaments
+         <i class="fa-solid fa-calendar-days"></i>
+      </a>
+      <!-- <a href="" class="link">
+         Medals
+         <i class="fa-solid fa-medal"></i>
+      </a>
+      <a href="" class="link">
+         Favorites
+         <i class="fa-regular fa-star"></i>
+      </a>
+      <a href="" class="link">
+         Judges
+         <i class="fa-solid fa-user-group"></i>
+      </a> -->
+
+      {% if request.user.is_authenticated  %}
+         {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' %}
+            <a href="{% url 'base:create_tournamets' %}" class="link">
+               Add New Tournament
+            </a>
+         {% endif %}
          <a href="{% url 'base:show_profile' request.user.username %}" class="link">{{request.user.username}}</a>
          <a href="{% url 'base:logout' %}" class="link">Logout</a>
       {% else %}
@@ -41,3 +76,5 @@
       {% endif %}
    </div>
 </nav>
+
+<script src="{% static 'js/header.js' %}"></script>

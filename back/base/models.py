@@ -14,9 +14,9 @@ class Profile(models.Model):
    
    fullName = models.CharField(max_length=100, blank=True)
    phone = models.CharField(max_length=12, blank=True)
-   userType = models.CharField(max_length=20, choices=TASKS)
+   userType = models.CharField(max_length=20, choices=TASKS, default='Свободный')
    image = models.ImageField(upload_to='profile_avatars', blank=True)
-   
+      
    created = models.DateTimeField(auto_now_add=True)
    updated = models.DateTimeField(auto_now=True)
    

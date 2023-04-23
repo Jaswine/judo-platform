@@ -93,3 +93,25 @@ input {
    width: 100%;
    height: 100px;
 }
+
+@media screen and (max-width: 500px) {
+   .home {
+      flex-direction: column;
+   }
+   .home__filters {
+      width: 100%;
+      padding-bottom: 8%;
+   }
+   .all__tournaments {
+      width: 100%;
+   }
+   .tournament {
+      flex-direction: column;
+   }
+   .tournament__info {
+      flex-direction: column;
+   }
+   .tournament__menu {
+      
+   }
+}

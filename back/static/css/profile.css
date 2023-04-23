@@ -208,3 +208,9 @@ form h3 {
 .delete__account__choices a:hover {
    color: var(--lightblue);
 }
+select {
+   background-color: transparent;
+   border: 1px solid rgb(0,0,0,.1);
+   padding: 4px 8px;
+   font-size: 18px;
+}

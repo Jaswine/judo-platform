@@ -26,9 +26,15 @@ def show_tournaments(request):
    
 def tournamet_show(request, slug):
    tournament = get_object_or_404(Tournament, slug=slug)
+   person_count = 0
+   
+   for tournamen in tournament.weight_categories.all():
+      person_count += tournamen.participants.count()
    
    context = {
       'tournament': tournament,
+      
+      'person_count': person_count
    }
    return render(request, 'base/tournaments/show_tournament.html', context)
 
