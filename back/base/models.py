@@ -115,9 +115,7 @@ class Tournament(models.Model):
    
    chiefJustice = models.CharField(max_length=200, blank=True)
    chiefSecretary = models.CharField(max_length=200, blank=True)
-   
-   participants = models.ManyToManyField(Participant, blank=True, default=[], related_name='participants')
-   
+      
    created = models.DateTimeField(auto_now_add=True)
    updated = models.DateTimeField(auto_now=True)
    

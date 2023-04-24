@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n  %}
 <nav>
    <div class="nav__menu">
       <a href="/" class="link-logo">
@@ -10,21 +10,9 @@
       </a>
      <span class="computer__menu">
       <a href="{% url "base:show_tournaments" %}" class="link">
-         Tournaments
+         {% trans 'Tournaments' %}
          <i class="fa-solid fa-calendar-days"></i>
       </a>
-      <!-- <a href="" class="link">
-         Medals
-         <i class="fa-solid fa-medal"></i>
-      </a>
-      <a href="" class="link">
-         Favorites
-         <i class="fa-regular fa-star"></i>
-      </a>
-      <a href="" class="link">
-         Judges
-         <i class="fa-solid fa-user-group"></i>
-      </a> -->
      </span>
    </div>
    <div class="nav__buttons">
@@ -40,30 +28,36 @@
          <a href="{% url 'base:registration' %}" class="link">Registration</a>
          <a href="{% url 'base:login' %}" class="link">Login</a>
       {% endif %}
+      <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+         <input name="next" type="hidden" value="{{ redirect_to }}">
+         <select name="language">
+             {% get_current_language as LANGUAGE_CODE %}
+             {% get_available_languages as LANGUAGES %}
+             {% get_language_info_list for LANGUAGES as languages %}
+             {% for language in languages %}
+                 <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+                         selected{% endif %}>
+                     {{ language.name_local }} ({{ language.code }})
+                 </option>
+             {% endfor %}
+         </select>
+         <button type="submit" class="btn">Translate</button>
+     </form>
    </div>
+
    <div class="nav__menu__button">
       <i class="fa-solid fa-bars"></i>
   </div>
+
+  <!-- ! mobile -->
    <div class="mobile__menu">
       <a href="{% url "base:show_tournaments" %}" class="link">
          Tournaments
          <i class="fa-solid fa-calendar-days"></i>
       </a>
-      <!-- <a href="" class="link">
-         Medals
-         <i class="fa-solid fa-medal"></i>
-      </a>
-      <a href="" class="link">
-         Favorites
-         <i class="fa-regular fa-star"></i>
-      </a>
-      <a href="" class="link">
-         Judges
-         <i class="fa-solid fa-user-group"></i>
-      </a> -->
 
       {% if request.user.is_authenticated  %}
-         {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' %}
+         {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser %}
             <a href="{% url 'base:create_tournamets' %}" class="link">
                Add New Tournament
             </a>

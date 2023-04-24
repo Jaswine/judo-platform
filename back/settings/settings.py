@@ -1,4 +1,6 @@
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext
 import os
 
 
@@ -21,6 +23,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +48,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     # 'django.middleware.async.AsyncMiddleware',
 ]
 
@@ -104,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
@@ -148,3 +152,17 @@ CACHES = {
         # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
     },
 }
+
+# django-admin makemessages -l ru -e html
+#django-admin compilemessages
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('ru', gettext('Russia')),
+    # ('kz', gettext('  Kazakh')),
+)
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]

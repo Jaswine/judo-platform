@@ -51,6 +51,17 @@ nav .link:hover {
    justify-content: center;
    align-items: center;
 }
+.nav__buttons form select  {
+   background-color: transparent;
+   color: white;
+   border: 1px solid white;
+   padding: 4px 6px;
+   font-size: 16px;
+}
+.nav__buttons form select option {
+   color: black;
+   font-size: 16px;
+}
 .mobile__menu {
    display: none;
 }
