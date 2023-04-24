@@ -43,7 +43,7 @@ def tournamet_show(request, slug):
 def create_tournamets(request):
    page_type = 'create_tournament__part__one'
    
-   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser):
       form = TournamentForm()
                      
       if request.method == 'POST':
@@ -74,7 +74,7 @@ def create_tournamets(request):
 def create_tournamets__images(request, slug):
    page_type = 'create_tournament__part__two'   
    
-   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       weight_categories_all = WeightCategory.objects.all()
       

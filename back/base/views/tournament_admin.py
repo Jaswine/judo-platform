@@ -15,7 +15,7 @@ from ..services import get_tournaments
 def tournamets_admin_update_info(request, slug):
    page_type = 'tournament_panel_update_info'
    
-   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       tournament_form = TournamentForm(instance=tournire)
       
@@ -129,7 +129,7 @@ def tournamets_admin_delete(request, slug):
 def tournamets_admin_category(request, slug, category_slug):
    page_type = 'tournament_panel_category'
    
-   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       weight_category = get_object_or_404(WeightCategory, slug=category_slug)
       
@@ -149,7 +149,7 @@ def athletes_admin_category(request, slug, category_slug):
    page_type = 'athletes_admin_category'
    weight_category = get_object_or_404(WeightCategory, slug=category_slug)
    
-   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       
       form = ParticipantForm()
@@ -172,7 +172,7 @@ def add_new_athlete(request, slug, category_slug):
    page_type = 'add_new_athlete'
    weight_category = get_object_or_404(WeightCategory, slug=category_slug)
    
-   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       
       form = ParticipantForm()
@@ -205,7 +205,7 @@ def update_athlete(request, slug, category_slug, participant_id):
    page_type = 'add_new_athlete'
    weight_category = get_object_or_404(WeightCategory, slug=category_slug)
    
-   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       participant = get_object_or_404(Participant, id =participant_id)
       
@@ -237,7 +237,7 @@ def delete_athlete(request, slug, category_slug, participant_id):
    page_type = 'add_new_athlete'
    weight_category = get_object_or_404(WeightCategory, slug=category_slug)
    
-   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       participant = get_object_or_404(Participant, id = participant_id)
       
@@ -263,7 +263,7 @@ def toss_admin_category(request, slug, category_slug):
    page_type = 'toss_admin_category'
    weight_category = get_object_or_404(WeightCategory, slug=category_slug)
    
-   if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
+   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       
       context = {
