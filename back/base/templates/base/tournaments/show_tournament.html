@@ -1,9 +1,9 @@
 {% include 'main.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournaments/tournament_show.css' %}">
-<title>Tournament</title>
+<title>{% trans 'Tournament' %}</title>
 {% endblock title %}
    
 {% block content %}
@@ -11,7 +11,7 @@
    <div class="tournament__menu">
       
       <a class="tournament__weight__category__link" href="{% url 'base:tournamet_show' tournament.slug %}">
-         Info Page
+         {% trans 'Info Page' %}
       </a>
       
       {% for weight_category in tournament.weight_categories.all %}
@@ -25,17 +25,17 @@
       <h3>{{ tournament.title }}</h3>
       <p>
          <i class="fa-solid fa-calendar-days"></i> 
-         Data: {{tournament.startData}} - {{tournament.finishData}}
+         {% trans 'Date' %}: {{tournament.startData}} - {{tournament.finishData}}
          <i class="fa-regular fa-clock"></i>
-         Time: {{tournament.startTime}}
-         status
+         {% trans 'Time' %}: {{tournament.startTime}}
+         {% trans 'status' %}
       </p>
       <p>
-         <i class="fa-solid fa-users"></i> Participants: {{person_count }}
+         <i class="fa-solid fa-users"></i> {% trans 'Participants' %}: {{person_count }}
       </p>
       <p>   
-         <i class="fa-solid fa-location-dot"></i> Location: {{tournament.place}}
-         <i class="fa-solid fa-ranking-star"></i> Rang: {{tournament.rang}}
+         <i class="fa-solid fa-location-dot"></i> {% trans 'Location' %}: {{tournament.place}}
+         <i class="fa-solid fa-ranking-star"></i> {% trans 'Rang' %}: {{tournament.rang}}
       </p>
       <div class="slider">
          <button id="slider__left" >
@@ -54,55 +54,25 @@
          {% endfor %}
       </div>
       <p>
-         <i class="fa-solid fa-user-tie"></i> Chief Justice: {{ tournament.chiefJustice}}
+         <i class="fa-solid fa-user-tie"></i>{% trans 'Chief Justice' %}: {{ tournament.chiefJustice}}
       </p>
       <p>
-         <i class="fa-solid fa-user"></i> Chief Secretary: {{ tournament.chiefSecretary }}
+         <i class="fa-solid fa-user"></i> {% trans 'Chief Secretary' %}: {{ tournament.chiefSecretary }}
       </p>
       <p>   
-         <i class="fa-solid fa-highlighter"></i> About: {{tournament.about}}
+         <i class="fa-solid fa-highlighter"></i>{% trans 'About' %}: {{tournament.about}}
       </p>
       <p class="tournament__sponsors">
          <span>
             <i class="fa-solid fa-users"></i>
-            Sponsors: </span>
+            {% trans 'Sponsors' %}: </span>
          {% for sponsor in tournament.sponsors.all %}
          <img src="/static/media/{{sponsor.image}}" alt="{{ sponsor.name }}">
          {% endfor %}
       </p>
    </div>
    <div class="tournament__right">
-      <div class="tournament__right__participants">Registered {{person_count}} participants</div>
-     <h3>Weight Categories:</h3>
-      <div class="tournament__right__weight__categories">
-         {% for tour in tournament.weight_categories.all %}
-            <div class="tour">
-               <div class="tour__header">
-                  start {{tour.registration_begin}}
-               </div>
-               <div class="tour__more">
-                  <span>{{ tour.category }}</span>
-                  <span>{{ tour.year }}</span>
-                  <span>{{ tour.weight }}</span>
-                  <span>{{ tour.weight }}</span>
-                  <span class="tour__more__weight">accreditation/weight-in {{tour.registration}}</span>
-               </div>
-            </div>
-         {% endfor %}
-      </div>
-     <h3>Commands:</h3>
-     <div class="tournament__right__weight__categories">
-      {% for tour in tournament.weight_categories.all %}
-         {% for part in tour.participants.all %}
-            <div class="command">
-               <div class="command__header">
-               {{ part.comand }} - {{ part.country }}
-
-               </div>
-            </div>
-         {% endfor %}
-      {% endfor %}
-   </div>
+      <div class="tournament__right__participants">{% trans 'Registered' %} {{person_count}} {% trans 'participants' %}</div>
    </div>
 </div>
 

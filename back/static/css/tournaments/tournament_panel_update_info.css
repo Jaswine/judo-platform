@@ -1,35 +1,32 @@
 @import '../variables.css';
 @import './pre__form__tournaments.css';
 
-.panel {
+.home {
    display: flex;
-   justify-content: space-between;
+   justify-content: center;
    align-items: center;
    flex-direction: column;
-
-   padding: 0 6vw;
-   margin-top: 70px;
    width: 100%;
+   padding: 10px 5vw;
+   height: 100%;
 }
-
-.panel__title {
-   margin-bottom: 5px;
-}
-
-.panel__item {
+.home__card {
    display: grid;
    grid-template-columns: 1fr 3fr;
    justify-content: space-between;
    align-items: start;
-   width: 100%;
-   border-radius: 5px ;
 
-   max-width: 1400px;
+   width: 100%;
+   max-width: 1600px;
+   height: 100%;
    margin-bottom: 5%;
-   background-color:  white;
-   border-radius: 5px;  
+   margin-top: 30px;
+
+   background-color:  var(--white);
+   border-radius: 5px;
    box-shadow: 1px 1px 10px rgb(20,20,20, .1);
 }
+
 @media screen and (max-width: 1600px) {
    .panel__item {
       max-width: 1100px;
@@ -37,36 +34,56 @@
 }
 
 .panel__left {
-   background-color: rgb(79, 138, 139, .1);
-   padding: 10px;
+   max-width: 300px;
    height: 100%;
    width: 100%;
+
+   padding: 5px;
+   background-color: rgba(87, 127, 220, 0.06);
+   padding: 10px;
+   border-radius: 5px 0 0 5px;
 }
 .panel__left a {
-   font-size: 20px;
-   font-weight: 700;
-
    display: flex;
    justify-content: start;
    align-items: center;
-   gap: 10px;
-   margin-bottom: 8px;
+   width: 100%;
+   padding: 6px 10px;
+   background-color: rgb(20,20,20,.05);
+   border-radius: 10px;
+   margin-bottom: 10px;
+   gap:10px;
+   font-size: 18px;
+   transition: all .3s linear;
+}
+.panel__left a:hover {
+   background-color: rgba(87, 127, 220, 0.1);
+   color: rgba(87, 127, 220, 1);
 }
 .panel__left h3 {
    margin-bottom: 10px;
 }
 .delete {
-   color: rgb(255, 4, 4);
-   margin-top: 10%;
+   background-color: rgba(220, 87, 87, 0.05) !important;
+}
+.delete:hover {
+   background-color: rgba(220, 87, 87, 0.1) !important;
+   color: rgb(220, 87, 87) !important;
 }
 .panel__right {
    width: 100%;
    padding: 10px;
 
    display: flex;
-   justify-content: center;
-   align-items: center;
+   justify-content: start;
+   align-items: start;
    flex-direction: column;
+}
+.form__component input {
+   width: 100%;
+}
+.panel__right h2 {
+   margin-bottom: 10px;
 }
 .panel__right form {
    display: flex;
@@ -140,7 +157,6 @@
    align-items: center;
    flex-wrap: wrap;
    width: 100%;
-   max-width: 590px;
    margin: 2% 0;
 }
 .photo {
@@ -185,10 +201,15 @@
    display: flex;
    justify-content: start;
    align-items: center;
-   width: 100%;
+   width:100%;
+}
+.form__field__category input {
+   width: 40px !important;
+   min-width: 40px;
 }
 .form__field__category h3 {
    font-size: 18px;
+   width: 100% !important;
 }
 
 /*  panel__information  */

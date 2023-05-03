@@ -6,6 +6,7 @@ from django.contrib import messages
 from ..services import get_user, get_user_profile
 from ..forms import UpdateUserForm, UpdateProfileForm
 from ..utils import password_checking
+from ..models import Participant
 
 
 @login_required(login_url='base:login')
@@ -16,11 +17,16 @@ def show_profile(request, username):
    profile = get_user_profile(user)
    
    if request.method == 'POST':
-      user_type = request.POST.get('user_type')
+      form_type = request.POST.get('form_type')
+      print('form_type_____________',form_type)
       
-      if user_type:
-         profile.userType = user_type
-         profile.save()
+      if form_type == 'change__status':
+         user_type = request.POST.get('user_type')
+         print('user_type_________', user_type)
+         
+         if user_type:
+            profile.userType = user_type
+            profile.save()
    
    context = {
       'page_type': page_type,
@@ -118,5 +124,24 @@ def delete_account(request, username):
       
       'user': user,
       'profile': profile,
+   }
+   return render(request, 'base/profile.html', context)
+
+def show_all_athletes_profile(request, username):
+   page_type = 'show_all_athletes'
+   
+   user = get_user(username)
+   profile = get_user_profile(user)
+   
+   participants = Participant.objects.filter(user=user) 
+   # participants_count = Participant.objects.filter(user=user).count()  
+   
+   context =  {
+      'page_type': page_type,
+      
+      'user': user,
+      'profile': profile,
+      
+      'participants': participants
    }
    return render(request, 'base/profile.html', context)

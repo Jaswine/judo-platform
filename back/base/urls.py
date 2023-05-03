@@ -3,6 +3,7 @@ from django.urls import path
 from .views import auth as views
 from .views import profile
 from .views import tournaments, tournament_admin
+from .views import athletes
 
 app_name = 'base'
 
@@ -16,9 +17,15 @@ urlpatterns = [
    
    # Profile
    path('profile/<str:username>/', profile.show_profile, name='show_profile'),
+   path('profile/<str:username>/athletes', profile.show_all_athletes_profile, name='show_all_athletes'),
    path('profile/<str:username>/edit', profile.edit_profile, name='edit_profile'),
    path('profile/<str:username>/edit-password', profile.edit_password_profile, name='edit_password_profile'),
    path('profile/<str:username>/delete', profile.delete_account, name='delete_profile'),
+   
+   # Athletes
+   path('athletes/create', athletes.add_new_athlete, name = 'add_new_athlete'),
+   path('athletes/<int:athlete_id>/update', athletes.update_athlete, name = 'update_athlete'),
+   path('athletes/<int:athlete_id>/delete', athletes.delete_athlete, name = 'delete_athlete'),
    
    # Tournaments
    path('tournaments', tournaments.show_tournaments, name='show_tournaments'),
@@ -33,9 +40,6 @@ urlpatterns = [
    path('tournaments/<str:slug>/panel/categories/<str:category_slug>/', tournament_admin.tournamets_admin_category, name='tournamets_admin_category'),
    path('tournaments/<str:slug>/panel/categories/<str:category_slug>/athletes', tournament_admin.athletes_admin_category, name='athletes_admin_category'),
    path('tournaments/<str:slug>/panel/categories/<str:category_slug>/toss', tournament_admin.toss_admin_category, name='toss_admin_category'),
-   path('tournaments/<str:slug>/panel/categories/<str:category_slug>/add-new-athlete', tournament_admin.add_new_athlete, name='add_new_athlete'),
-   path('tournaments/<str:slug>/panel/categories/<str:category_slug>/update-athlete/<int:participant_id>/edit', tournament_admin.update_athlete, name='update_athlete'),
-   path('tournaments/<str:slug>/panel/categories/<str:category_slug>/update-athlete/<int:participant_id>/delete', tournament_admin.delete_athlete, name='delete_athlete'),
    
    # Weight Categoris
    path('tournaments/weight-categories', tournaments.weight_categories, name='weight_categories'),

@@ -1,58 +1,92 @@
 {% include 'main.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournament.css' %}">
-<title>Tournaments</title>
+<title>{% trans 'Tournaments' %}</title>
 {% endblock title %}
 
 {% block content %}
+<h2 class="title">{% trans 'List of competitions' %}</h2>
 <div class="home">
    <form class="home__filters" >
-      <h3>Tournament Filter</h3>
+      <h3>{% trans 'Tournament filter' %}</h3>
       <span class="home__card__span"></span>
       {% csrf_token %}
       {{ filter.form }}
 
-      <button class="btn">Sort</button>
+      <button class="btn">{% trans 'Sort' %}</button>
    </form>
    <div class="all__tournaments">
       {% if tournaments|length > 0 %}
       {% for tournament in tournaments %}
+         {% if tournament.public %}
          <div class="tournament">
-            <div class="tournament__info">
-               <img src=" /static/media/{{ tournament.logos.all.1.image }}" alt="{{tournament.logos.0.image}}" class="tournament__image">
-               <div class="tournament__content">
-                  <h3>
-                     <a href="{% url 'base:tournamet_show' tournament.slug %}" class="link">{{tournament.title}}</a>
-                  </h3>
-                  <p>   
-                     <i class="fa-solid fa-location-dot"></i> Location: {{tournament.place}}
-                     <i class="fa-solid fa-ranking-star"></i> Rang: {{tournament.rang}}
-                  </p>
-                  <p>
-                     <i class="fa-solid fa-users"></i> Participants: 0
-                  </p>
-                  <p>
-                     <i class="fa-solid fa-calendar-days"></i> 
-                     Data: {{tournament.startData}} - {{tournament.finishData}}
-                     <i class="fa-regular fa-clock"></i>
-                     Time: {{tournament.startTime}}
-                     status
-                  </p>
+            <div class="tourname__header">
+               <img src="/static/media/{{tournament.logo}}" alt="{{tournament.logo}}">
+               <a href="{% url 'base:tournamet_show' tournament.slug %}">{{tournament.title}}</a>
+            </div>
+            <div class="tournament__description">
+               <div class="tournament__description__line">
+                     <h4><i class="fa-solid fa-city"></i>{%  trans 'Place' %}:</h4>
+                   {{tournament.place}}
+               </div>
+               <div class="tournament__description__line">
+                  <h4>  <i class="fa-solid fa-earth-americas"></i>{% trans 'Rang' %}:</h4>
+                  {{tournament.rang}}
+               </div>
+               <div class="tournament__description__line">
+                     <h4><i class="fa-solid fa-calendar-days"></i>{% trans 'Date' %}:</h4>
+                  {{tournament.startData}} - {{tournament.finishData}}
+               </div>
+               <div class="tournament__description__line"
+               >
+                  <h4><i class="fa-solid fa-square-pen"></i>{% trans 'Status' %}: </h4>
+                  <span
+                  {% if status == "Регистрация_завершенa" %} 
+                     style="color: #ff8181 "
+                  {% else %} 
+                     style="color: #81a7ff;"
+                  {% endif %}
+                  >
+                     {{tournament.status}}
+                  </span>
+               </div>
+               <div class="tournament__description__line">
+                  <i class="fa-solid fa-users"></i>{{tournament.participants.count}}
                </div>
             </div>
-            <div class="tournament__menu">
-            {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser %}
-               
-               <a href="{% url 'base:tournamets_admin_update_info' tournament.slug %}" class="btn btn-primary">Change</a>
-               {% endif %}
+            <div class="tournament__categories">
+               {% for tournament__category in tournament.weight_categories.all  %}
+               <div 
+                  class="tournament__category"
+                  {% if tournament__category.gender == 'Мужской' %}
+                     style = "border: 2px solid #81a7ff; color: #81a7ff"
+                  {% else %}
+                     style = "border: 2px solid #ff81a7; color: #ff81a7;"
+                  {% endif %}
+               >
+                  {% if tournament__category.gender == 'Мужской' %}
+                  <i class="fa-solid fa-person"></i>
+                  {% else %}
+                     <i class="fa-solid fa-person-dress"></i>
+                  {% endif %}
+                  {{tournament__category.category}} {{tournament__category.year}}
+               </div>
+               {% endfor %}
+            </div>
+            <div class="tournament__buttons">
+               <a href="" class="btn">{% trans 'Registration' %}</a>
+               {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser  %}
+                  <a href="{% url 'base:tournamets_admin_update_info' tournament.slug %}" class="btn">{% trans 'Change' %}</a>
+               {% endif  %}
             </div>
          </div>
+         {% endif %}
       {% endfor %}
       {% else %}
       <div class="tournaments__not__found">
-         <h2>Tournaments Not Found</h2>
+         <h2>{% trans 'Tournaments Not Found' %}</h2>
       </div>
       {% endif %}
    </div>   

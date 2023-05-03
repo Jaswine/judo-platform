@@ -1,11 +1,12 @@
-{% load static %}
+{% load static i18n %}
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournaments/add_new_athlete.css' %}">
+<title>{% trans 'Add New Athlete' %}</title>
 {% endblock %}
 
 <form method="POST">
    {% csrf_token %}
-   <h2>Add New Athlete</h2>
+   <h2>{% trans 'Add New Athlete' %}</h2>
    {% for field in form  %}
       <div class = "form__component">
          {% if field.errors %}
@@ -19,5 +20,5 @@
       </div>
    {% endfor %}
 
-   <button type="submit" class="btn btn-primary" id="button">save</button>
+   <button type="submit" class="btn btn-primary" id="button">{% trans 'save' %}</button>
 </form>

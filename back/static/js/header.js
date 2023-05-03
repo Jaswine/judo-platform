@@ -1,17 +1,24 @@
-console.log("Header has been loaded")
-const nav__menu__button = document.querySelector('.nav__menu__button');
 const mobile__menu = document.querySelector('.mobile__menu')
 
-nav__menu__button.addEventListener('click', () => {
-   console.log("Header clicked")
-   if (mobile__menu.style.display == 'none') {
-      mobile__menu.style.display = 'flex';
+const header__center = document.querySelector('.header__center')
+const header__right = document.querySelector('.header__right')
+
+mobile__menu.onclick = () => {
+   if (header__center.style.display == 'none') {
+      console.log('open')
+      header__center.style.display = 'flex'
+      header__right.style.display = 'flex';
 
       setTimeout(() => {
-         mobile__menu.style.top = '60px'
-      }, 10)
+         header__right.style.right = '0'
+      }, 300)
    } else {
-      mobile__menu.style.display = 'none';
-      mobile__menu.style.top = '-100%'
+      console.log('close')
+      header__center.style.display = 'none'
+      header__right.style.display = 'none'
    }
-})
+}
+
+document.getElementById("changeLanguage").addEventListener("change", function() {
+   document.getElementById("LanguageForm").submit();
+ });

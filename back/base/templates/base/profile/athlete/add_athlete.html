@@ -1,0 +1,57 @@
+{% load static i18n %}
+{% include 'main.html' %}
+{% block title %}
+<link rel="stylesheet" href="{% static 'css/tournaments/add_new_athlete.css' %}">
+<link rel="stylesheet" href="{% static 'css/tournaments/pre__form__tournaments.css' %}">
+<title>{% trans 'Add New Athlete' %}</title>
+{% endblock %}
+
+<div class="pre__form__tournaments">
+   <div class="form__tournaments">
+      
+      <form method="POST" action=''>
+         {% csrf_token %}
+         {% if page_type == 'add_new_athlete'  %}
+            <h2>{% trans 'Add New Athlete' %}</h2>
+         {% else %}
+         <h2>{% trans 'Update Athlete' %}</h2>
+         {% endif %}
+         {% for field in form  %}
+            <div class = "form__component">
+               {% if field.errors %}
+               <ul class="errorlist">
+                  {% for error in field.errors %}
+                  <li>{{ error }}</li>
+                  {% endfor %}
+               </ul>
+               {% endif %}
+               {{ field.label_tag }} {{ field }}
+            </div>
+         {% endfor %}
+         
+         <div class="form__component">
+            <label>{% trans 'Coach' %}: </label>
+            <input 
+               type="text" 
+               name="coach" 
+               class='coach'
+               {% if page_type == 'add_new_athlete' %}
+                  {% if request.user.profile.fullName %}
+                     value="{{request.user.profile.fullName}}"
+                     placeholder="{{request.user.profile.fullName}}"
+                  {% else %}
+                     value="{{request.user.username}}"
+                     placeholder="{{request.user.username}}"
+                  {% endif %}
+               {% else %}
+                  placeholder="{{request.user.profile.fullName}}"
+                  value = '{{athlete.coach}}'
+               {% endif %}
+               >
+         </div>
+      
+         <button type="submit" class="btn btn-primary" id="button">{% trans 'save' %}</button>
+      </form>
+
+   </div>  
+</div>

@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournaments/weight_categories.css' %}">
 
@@ -6,10 +6,10 @@
 {% endblock %}
 
 <div class="tournament__category__header">
-   <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn ">Description</a>
-   <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn active" >Athletes</a>
-   <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}" class="btn">Toss</a>
-   <a href="" class="btn">Results</a>
+   <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn ">{% trans 'Description' %}</a>
+   <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn active" >{% trans 'Athletes' %}</a>
+   <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}" class="btn">{% trans 'Toss' %}</a>
+   <a href="" class="btn">{% trans 'Results' %}</a>
 </div>
 
 <div class="tournament__buttons">
@@ -17,19 +17,19 @@
       <button class="btn btn-xyz" id="download">Download</button>
       <input type="file" class="btn btn-xyz" id="'upload-list">
    </div> -->
-   <a href="{% url 'base:add_new_athlete' tournire.slug category.slug %}" class="btn btn-xyz">Add New Athlete</a>
+   <a href="{% url 'base:add_new_athlete' tournire.slug category.slug %}" class="btn btn-xyz">{% trans 'Add New Athlete' %}</a>
 </div>
 
 <div class="tournament__category__toolbar">
    <table class="show__all__categories">
       <thead>
          <tr class="table__head">
-            <th>fullName</th>
-            <th>Data</th>
-            <th>Discharge</th>
-            <th>Comand</th>
-            <th>City</th>
-            <th>Country</th>
+            <th>{% trans 'FullName' %}</th>
+            <th>{% trans 'Date' %}</th>
+            <th>{% trans 'Discharge' %}</th>
+            <th>{% trans 'Comand' %}</th>
+            <th>{% trans 'City' %}</th>
+            <th>{% trans 'Country' %}</th>
             <th></th>
             <th></th>
          </tr>

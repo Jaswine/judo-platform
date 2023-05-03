@@ -1,0 +1,42 @@
+{% load static i18n %}
+{% if request.user.username == user.username %}
+   <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <h3>{% trans 'Update Info' %}</h3>
+      {% for field in user_form %}
+         <div class = "form__component">
+            {% if field.errors %}
+            <ul class="errorlist">
+               {% for error in field.errors %}
+               <li>{{ error }}</li>
+               {% endfor %}
+            </ul>
+            {% endif %}
+            {{ field.label_tag }} {{ field }}
+         </div>
+      {% endfor %}
+
+      {% for field in profile_form %}
+         <div class = "form__component">
+            {% if field.errors %}
+            <ul class="errorlist">
+                  {% for error in field.errors %}
+               <li>{{ error }}</li>
+               {% endfor %}
+            </ul>
+            {% endif %}
+            {{ field.label_tag }} {{ field }}
+         </div>
+      {% endfor %}   
+      
+
+      <div class="profile__danger">
+         <div class="profile__danger__name">{% trans 'Danger zone' %}</div>
+         <div class="profile__right__passwords">
+            <a href="{% url "base:edit_password_profile" user.username %}" class="">{% trans 'Change Password' %}</a>
+            <a href="{% url "base:delete_profile" user.username %}" class="delete__Account">{% trans 'Delete Account' %}</a> 
+         </div>
+      </div>
+      <button type="submit" class="btn">{% trans 'save' %}</button>
+   </form>
+{% endif %}

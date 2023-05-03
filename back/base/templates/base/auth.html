@@ -1,12 +1,16 @@
 {% include 'main.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
    {% if page_type == 'login' %}
-      <title>Login</title>
+      <title>
+         {% trans 'Login' %}
+      </title>
    {% else %}
-      <title>Registration</title>
+      <title>
+         {% trans 'Registration' %}
+      </title>
    {% endif %}
 {% endblock title %}
 
@@ -17,19 +21,19 @@
          {% csrf_token %}
 
          {% if page_type == 'login' %}
-            <h2>Login</h2>
+            <h2>{% trans 'Login' %}</h2>
 
             <div class = "form__component">
-               <label>Username:</label>
+               <label>{% trans 'Username' %}:</label>
                <input type="text" name="username" id="username" >
             </div>
 
             <div class = "form__component">
-               <label>Password:</label>
+               <label>{% trans 'Password' %}:</label>
                <input type="password" name="password" id="username" >
             </div>
          {% else %}
-            <h2>Registration</h2>
+            <h2>{% trans 'Registration' %}</h2>
 
             {% for field in form  %}
                <div class = "form__component">
@@ -46,7 +50,7 @@
 
          {% endif %}
 
-         <button type="submit" class="btn">continue</button>
+         <button type="submit" class="btn">{% trans 'Continue' %}</button>
       </form>
    </div>
 {% endblock content %}

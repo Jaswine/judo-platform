@@ -1,23 +1,25 @@
+{% load static i18n %}
+
 <div class="tournament__category__header">
-   <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn active">Description</a>
-   <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn">Athletes</a>
-   <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}"" class="btn">Toss</a>
-   <a href="" class="btn">Results</a>
+   <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn active">{% trans 'Description' %}</a>
+   <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn">{% trans 'Athletes' %}</a>
+   <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}"" class="btn">{% trans 'Toss' %}</a>
+   <a href="" class="btn">{% trans 'Results' %}</a>
 
 </div>
 <div class="panel__information">
-   <h3>Information</h3>
+   <h3>{% trans 'Information' %}</h3>
   <div class="panel__information__info">
    <div class="panel__information__left">
-      <p><b>Category:</b> {{category.category}} </p>
-      <p><b>Weight:</b> {{category.weight}}</p>
-      <p><b>Registration Time:</b> {{category.registration}}</p>
+      <p><b>{% trans 'Category' %}:</b> {{category.category}} </p>
+      <p><b>{% trans 'Weight' %}:</b> {{category.weight}}</p>
+      <p><b>{% trans 'Registration Time' %}:</b> {{category.registration}}</p>
    </div>
    <div class="panel__information__right">
-      <p><b>Year:</b> {{category.year}} </p>
-      <p><b>Registration Begin:</b> {{category.registration_begin}}</p>
-      <p><b>Registration End: </b> {{category.registration_end}}</p>
+      <p><b>{% trans 'Year' %}:</b> {{category.year}} </p>
+      <p><b>{% trans 'Registration Begin' %}:</b> {{category.registration_begin}}</p>
+      <p><b>{% trans 'Registration End' %}: </b> {{category.registration_end}}</p>
    </div>
   </div>
 </div>
-<p>You don't see important category? <a href="{% url 'base:weight_categories' %}" class="link">Add New Category</a></p>
+<p>{% trans "You don't see important category"  %}? <a href="{% url 'base:weight_categories' %}" class="link">{% trans 'Add New Category' %}</a></p>

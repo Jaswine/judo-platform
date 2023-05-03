@@ -1,3 +1,4 @@
+
 from django.forms import ModelForm, forms
 from django.contrib.auth.models import User
 from .models import Profile, Tournament, Logos, WeightCategory, Participant
@@ -26,12 +27,17 @@ class UpdateProfileForm(ModelForm):
 class TournamentForm(ModelForm):
    class Meta:
       model = Tournament
-      fields = ['title', 'about', 'rang', 'place', 'startData', 'finishData', 'startTime', 'credit', 'tatamis_count', 'chiefJustice', 'chiefSecretary']
+      fields = ['title',  'logo', 'about', 'rang', 'place', 'startData', 'finishData', 'startTime', 'credit', 'tatamis_count', 'chiefJustice', 'chiefSecretary', 'status', 'public',]
       
 class WeightCategoryForm(ModelForm):
    class Meta:
       model = WeightCategory
-      fields = ['category', 'weight', 'year', 'registration','registration_begin', 'registration_end']
+      fields = ['category', 
+               'weight', 
+               'year', 
+               'gender',
+               # 'registration','registration_begin', 'registration_end'
+            ]
       
 class SortingTournamentForm(ModelForm):
    class Meta:
@@ -42,4 +48,4 @@ class SortingTournamentForm(ModelForm):
 class ParticipantForm(ModelForm):
    class Meta:
       model = Participant
-      fields = ['fullName', 'data', 'discharge', 'comand', 'city', 'country', 'weight', 'age', 'trainer']
+      fields = ['firstName', 'lastName', 'thirdName', 'year', 'discharge', 'gender']

@@ -1,0 +1,10 @@
+{% load static i18n %}
+<form method="post">
+   <h3>{% trans 'Delete Account' %}</h3>
+   {% csrf_token %}
+
+   <div class="delete__account__choices">
+      <a class="" href="{{request.META.HTTP_REFERER}}">{% trans 'Go To Back' %}</a>
+      <button type="submit" class="delete__Account">{% trans 'Delete' %}</button>
+   </div>
+</form>

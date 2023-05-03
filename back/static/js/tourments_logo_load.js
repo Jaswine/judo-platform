@@ -1,7 +1,4 @@
  
-// let formdata = new FormData();
-// formdata.append("image", fileInput.files[0], "150003.jpg");
-
 // Logotips
 const logos = document.querySelector('#logos')
 const output = document.querySelector(".print__logos");

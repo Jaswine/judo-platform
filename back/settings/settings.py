@@ -153,9 +153,9 @@ CACHES = {
     },
 }
 
+# python manage.py update_translation_fields
 # django-admin makemessages -l ru -e html
-#django-admin compilemessages
-
+# django-admin compilemessages
 gettext = lambda s: s
 LANGUAGES = (
     ('en', gettext('English')),

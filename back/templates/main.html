@@ -7,6 +7,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 
    {% block title %}{% endblock title %}
 </head>
@@ -21,12 +22,14 @@
             {% endfor %}
         </div>
     {% endif %}
+        {% include 'header.html' %}
+        {% block content %}{% endblock content %}
 
-   {% include 'header.html' %}
-   {% block content %}{% endblock content %}
-   {% include 'footer.html' %}
+   
 
    <script src="{% static 'js/message.js' %}"></script>
+   <script src="{% static 'js/header.js' %}"></script>
    <script src="https://kit.fontawesome.com/0b77448ae5.js" crossorigin="anonymous"></script>
-</body>
+
+    </body>
 </html>

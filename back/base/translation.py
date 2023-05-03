@@ -7,7 +7,7 @@ class ProfileTranslationOptions(TranslationOptions):
    
 @register(Participant)
 class ParticipantTranslationOptions(TranslationOptions):
-   fields = ('fullName', 'discharge', 'comand', 'country', 'city', 'trainer')
+   fields = ('firstName', 'lastName','thirdName', 'discharge')
    
 @register(WeightCategory)
 class WeightCategoryTranslationOptions(TranslationOptions):

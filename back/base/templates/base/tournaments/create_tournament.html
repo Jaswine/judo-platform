@@ -1,8 +1,8 @@
 {% include 'main.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-<title>Add New Tournaments</title>
+<title>{% trans 'Add New Tournaments' %}</title>
 <link rel="stylesheet" href="{% static 'css/tournaments/pre__form__tournaments.css' %}">
 {% endblock title %}
 
@@ -10,12 +10,13 @@
 <div class="pre__form__tournaments">
    <div class="form__tournaments">
    
-      <h2>Add New Tournament</h2>
+      <h2>{% trans 'Add New Tournaments' %}</h2>
       <form action="" method="post" id="create__tournire" enctype="multipart/form-data">
          {% csrf_token %}
          
          {% if page_type == 'create_tournament__part__one' %}
             {% for field in form %}
+            <div class = "form__component">
                {% if field.errors %}
                   <ul class="errorlist">
                      {% for error in field.errors %}
@@ -24,6 +25,7 @@
                   </ul>
                {% endif %}
                <div class="form__field">{{ field.label_tag }}{{ field }}</div>
+            </div>
             {% endfor %}
          <button class="btn" type="submit" >continue</button>
          {% endif %}
@@ -32,33 +34,32 @@
 
             <div class="print__logos"></div>
             <div class="form__field">
-               <label for="">Upload Logotips:</label>
+               <label for="">{% trans 'Upload Logotips' %}:</label>
                <input type = "file" multiple name="files" id="logos" />
             </div>
 
             <div class="form__field">
-               <label for="">Choose Weight Category:</label>
+               <label for="">{% trans 'Choose Weight Category' %}:</label>
                <select name="weight-categories" multiple >
                   {% for weight_categorie in weight_categories_all %}
                      <option value={{weight_categorie.id}} >{{weight_categorie.slug}}</option>
                   {% endfor %}
                </select>
-               <p>You don't see important category? <a href="{% url 'base:weight_categories' %}" class="link">Add New Category</a></p>
+               <p>{% trans "You don't see important category" %}? <a href="{% url 'base:weight_categories' %}" class="link">{% trans 'Add New Category' %}</a></p>
             </div>
 
             <div id="print__sponsors__logos"></div>
 
             <div class="form__field">
-               <label for="">Sponsors Logotips:</label>
+               <label for="">{% trans 'Sponsors Logotips' %}:</label>
                <input type = "file" multiple name="sponsors-logotips" id="sponsors-logos" />
             </div>
-         <button class="btn" type="submit" id="create__tournire">save</button>
+         <button class="btn" type="submit" id="create__tournire">{% trans 'save' %}</button>
          {% endif %}
       </form>
    </div>  
 </div>
 
-<script src="{% static 'js/field_saver.js' %}"></script>
 <script src="{% static 'js/tourments_logo_load.js' %}"></script>
 
 {% endblock content %}  

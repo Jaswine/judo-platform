@@ -1,9 +1,19 @@
-form {
-   width: 100%;
-   max-width: 100% !important;
+.form__tournaments {
+   background-color: white;
+   border-radius: 10px;
+   box-shadow: 0 0 10px 0px rgb(20,20,20,.1);
 }
-input {
+.form__tournaments form {
+   padding: 10px !important;
+}
+h2 {
+   margin-bottom: 10px;
+}
+
+.form__delete {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
    width: 100%;
-   max-width: 100% !important;
-   font-size: 18px !important;
+   min-width: 100%;
 }

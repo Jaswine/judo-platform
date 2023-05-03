@@ -1,0 +1,91 @@
+.athletes__filter {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   margin: 10px 0;
+   gap: 10px
+}
+.form__component {
+
+}
+.form__component select {
+   background-color: white;
+   padding: 10px 10px;
+   border: 2px solid rgb(20,20,20,.5);
+   margin-bottom: 0px;
+}
+input {
+   margin-bottom: 0px !important;
+}
+
+h2 span {
+   font-size: 18px;
+   background-color: rgb(0,0,0,.2);
+   padding: 4px;
+   border-radius: 100px;
+}
+.btn--primary {
+   min-width: 220px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 0
+}
+.btn--delete {
+   background-color: #dc5757;
+}
+.btn--delete:hover {
+   background-color: black;
+   color: white;
+}
+
+/* athletes__all */
+.athletes__all {
+   display: flex;
+   justify-content: flex-start;
+   align-items: flex-start;
+   flex-wrap: wrap;
+   width: 100%;
+}
+.athlete {
+   background-color: white;
+   padding: 10px 6px;
+   margin: 6px;
+   border-radius: 10px;
+   transition: all .3s linear;
+   width: 100%;
+   max-width: 450px;
+}
+.athlete h5 {
+   color: darkgray;
+}
+.athlete:hover {
+   box-shadow: 0 0 10px rgb(0,0,0,.1);
+}
+.athlete__info {
+   display: flex;
+   justify-content: start;
+   align-items: start;
+   width: 100%;
+   gap: 10px
+}
+.athlete__info__left {
+   width: 70%;
+
+}
+.athlete__info__left__desc {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   margin-bottom: 5px;
+}
+.athlete__info__right {
+   width: 30%;
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   flex-direction: column;
+   row-gap: 5px;
+}

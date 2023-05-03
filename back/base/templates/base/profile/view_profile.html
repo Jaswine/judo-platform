@@ -1,0 +1,86 @@
+{% load static i18n %}
+   <div class="home__card__right__title">
+      <h3> 
+         <i class="fa-solid fa-user"></i>
+         {% trans 'Personal Data' %}
+      </h3>
+      <h3>
+         {% if request.user.is_authenticated %}
+            {% if request.user.username == user.username %}
+               <a href="{% url 'base:edit_profile' request.user.username %}" class="fa-solid fa-gear update__icon"></a>
+            {% endif %}
+         {% endif %}
+      </h3>
+   </div>
+   <div class="home__card__right__info">
+      {% if profile.fullName %}
+         <div class="">
+            <b>{% trans 'FullName' %}: </b>
+            {{profile.fullName}}
+         </div>
+      {% endif %}
+      {% if profile.phone %}
+         <div class="">
+            <b>{% trans 'Phone' %}: </b>
+            {{profile.phone}}
+         </div>
+      {% endif %}
+      {% if user.email %}
+         <div class="">
+            <b>{% trans 'Email' %}: </b>
+            {{user.email}}
+         </div>
+      {% endif %}
+         {% if request.user.is_superuser or profile.userType == 'Админ' %}
+         <div class="">
+            {% if profile.userType %}
+            <b>{% trans 'User Type' %}: </b>
+            {% if request.user.is_superuser and profile.user.is_superuser and profile.user.username == request.user.username  %}
+               {% trans 'Admin' %}
+            {% else %}
+               {{profile.userType}}
+            {% endif %}
+            {% endif %}
+         
+            <form action="" method="post" class="change__user__type">
+               <input type="text" name="form_type" value="change__status" style="display: none">
+               {% csrf_token %}
+               <label for="">{% trans 'Change User Status' %}: </label>
+               <select name="user_type" id="">
+                  <option 
+                  {% if profile.user.is_superuser and profile.user.username == request.user.username   %}
+                     value = 'Админ'
+                  {% else %}
+                     value = ' {{profile.userType}}'
+                  {% endif %} 
+                  selected disabled>
+                     {% if profile.user.is_superuser and profile.user.username == request.user.username  %}
+                        {% trans 'Admin' %}
+                     {% else %}
+                        {{profile.userType}}
+                     {% endif %}
+                  </option>
+
+                  <option value = 'Админ'>{% trans 'Admin' %}</option>
+                  <option value = 'Секретарь'>{% trans 'Secretary' %}</option>
+                  <option value = 'Свободный'>{% trans 'Free' %}</option>
+
+               </select>
+               <button class="btn">{% trans 'save' %}</button>
+            </form>
+         </div>
+         {% else %}
+      {% if profile.userType %}
+         <div class="">
+            <b>{% trans 'User type' %}: </b>
+            {% if profile.user.is_superuser %}
+            {% trans 'Admin' %}
+            {% else %}
+            {{profile.userType}}
+         </div>
+         {% endif %}
+         {% endif %}
+      {% endif %}
+      
+   </div>
+</div>

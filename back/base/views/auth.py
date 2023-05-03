@@ -7,10 +7,20 @@ from ..forms import CreateUserForm
 
 from ..models import Profile
 from django.contrib.auth.models import User
+from ..filters import TournamentFilter
+from ..services import get_tournaments
 
 
 def index(request):
-   context = {}
+   tournaments = get_tournaments()
+   
+   filter = TournamentFilter(request.GET, queryset=tournaments)
+   tournaments = filter.qs
+   
+   context = {
+      'filter': filter,
+      'tournaments': tournaments,     
+   }
    return render(request, 'base/index.html', context)
 
 # registraion

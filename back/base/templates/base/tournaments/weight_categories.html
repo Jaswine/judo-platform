@@ -1,18 +1,16 @@
 {% include 'main.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
    <link rel="stylesheet" href="{% static 'css/tournaments/weight_categories.css' %}">
-   <title>Weight Categories</title>
+   <title>{% trans 'Weight Categories' %}</title>
 {% endblock title %}
 
 {% block content %}
    <div class="categories">
-      <form method="POST">
+      <form method="POST" class="create__tournament">
          {% csrf_token %}
-         <h2>Add New Category</h2>
-         gory
-         Category:
+         <h2>{% trans 'Add New Category' %}</h2>
          {% for field in form  %}
             <div class = "form__component">
                {% if field.errors %}
@@ -31,12 +29,13 @@
       <table class="show__all__categories">
          <thead>
             <tr class="table__head">
-               <th scope="col">Category</th>
-               <th scope="col">Weight</th>
-               <th scope="col">Year</th>
-               <th>Registration</th>
-               <th>Registration start</th>
-               <th>Registration end</th>
+               <th scope="col">{% trans 'Category'  %}</th>
+               <th scope="col">{% trans 'Weight' %}</th>
+               <th scope="col">{% trans 'Year' %}</th>
+               <th>{% trans 'Gender' %}</th>
+               <!-- <th>{% trans 'Registration' %}</th>
+               <th>{% trans 'Registration start' %}</th>
+               <th>{% trans 'Registration end' %}</th> -->
                <th scope="col"></th>
             </tr>
          </thead>
@@ -46,9 +45,10 @@
                   <td scope="col">{{ category.category }}</td>
                   <td scope="col">{{category.weight}}</td>
                   <td scope="col">{{category.year}}</td>
-                  <td scope="col">{{category.registration}}</td>
+                  <td>{{category.gender}}</td>
+                  <!-- <td scope="col">{{category.registration}}</td>
                   <td scope="col">{{category.registration_begin}}</td>
-                  <td scope="col">{{category.registration_end}}</td>
+                  <td scope="col">{{category.registration_end}}</td> -->
 
                   <td scope="col" class="td_delete"><a href="{% url 'base:weight_categories_delete' category.id %}" class="fa-solid fa-xmark"></a></td>
                </tr>

@@ -1,20 +1,16 @@
 {% include 'main.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-<title>Add New Tournaments</title>
+<title>{% trans 'Add New Tournaments' %}</title>
 <link rel="stylesheet" href="{% static 'css/tournaments/tournament_panel_update_info.css' %}">
 {% endblock title %}
 
 {% block content %}
-<div class="panel">
+<div class="home">
+   <div class="home__card">
 
-   <div class="panel__title">
-      {% comment %} <h2>{{ tournire.title }}</h2> {% endcomment %}
-   </div>
-   <div class="panel__item">
-
-      {% comment %} menu  {% endcomment %}
+      {% comment %} {% trans 'menu' %}  {% endcomment %}
       <div class="panel__left">
         {% include 'base/tournaments/panel/components/Menu.html' %}
       </div>
@@ -33,15 +29,16 @@
             {% include 'base/tournaments/panel/components/add_new_athlete.html' %}
          {% elif page_type == 'toss_admin_category' %}
          <div class="tournament__category__header">
-            <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn ">Description</a>
-            <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn" >Athletes</a>
-            <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}" class="btn active">Toss</a>
-            <a href="" class="btn">Results</a>
+            <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn ">{% trans 'Description' %}</a>
+            <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn" >{% trans 'Athletes' %}</a>
+            <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}" class="btn active">{% trans 'Toss' %}</a>
+            <a href="" class="btn">{% trans 'Results' %}</a>
          </div>
          {% endif %}
       </div>
 
    </div>
+</div>
 </div>
 
 {% comment %} <!-- <script src="{% static 'js/field_saver.js' %}"></script> --> {% endcomment %}

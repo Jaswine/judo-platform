@@ -1,74 +1,67 @@
 {% load static i18n  %}
-<nav>
-   <div class="nav__menu">
-      <a href="/" class="link-logo">
-         <b>JUDO</b>
 
-         <span>
-            <span>KZ</span>
-         </span>
-      </a>
-     <span class="computer__menu">
+<header>
+   <a href="/" class="link-logo">
+      <b>JUDO</b>
+
+      <span>
+         <span>KZ</span>
+      </span>
+   </a>
+   
+   <div class="mobile__menu">
+      <i class="fa-solid fa-bars"></i>
+   </div>
+
+   <div class="header__center">
       <a href="{% url "base:show_tournaments" %}" class="link">
          {% trans 'Tournaments' %}
          <i class="fa-solid fa-calendar-days"></i>
       </a>
-     </span>
-   </div>
-   <div class="nav__buttons">
-      {% if request.user.is_authenticated  %}
-            {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser %}
-               <a href="{% url "base:create_tournamets" %}" class="link">
-                  <i class="fa-solid fa-plus"></i>
-               </a>
-            {% endif %}
-         <a href="{% url 'base:show_profile' request.user.username %}" class="link">{{request.user.username}}</a>
-         <a href="{% url 'base:logout' %}" class="link">Logout</a>
-      {% else %}
-         <a href="{% url 'base:registration' %}" class="link">Registration</a>
-         <a href="{% url 'base:login' %}" class="link">Login</a>
-      {% endif %}
-      <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-         <input name="next" type="hidden" value="{{ redirect_to }}">
-         <select name="language">
-             {% get_current_language as LANGUAGE_CODE %}
-             {% get_available_languages as LANGUAGES %}
-             {% get_language_info_list for LANGUAGES as languages %}
-             {% for language in languages %}
-                 <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
-                         selected{% endif %}>
-                     {{ language.name_local }} ({{ language.code }})
-                 </option>
-             {% endfor %}
-         </select>
-         <button type="submit" class="btn">Translate</button>
-     </form>
-   </div>
-
-   <div class="nav__menu__button">
-      <i class="fa-solid fa-bars"></i>
-  </div>
-
-  <!-- ! mobile -->
-   <div class="mobile__menu">
       <a href="{% url "base:show_tournaments" %}" class="link">
-         Tournaments
-         <i class="fa-solid fa-calendar-days"></i>
+         {% trans 'Medals' %}
+         <i class="fa-solid fa-medal"></i>
       </a>
-
-      {% if request.user.is_authenticated  %}
-         {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser %}
-            <a href="{% url 'base:create_tournamets' %}" class="link">
-               Add New Tournament
-            </a>
-         {% endif %}
-         <a href="{% url 'base:show_profile' request.user.username %}" class="link">{{request.user.username}}</a>
-         <a href="{% url 'base:logout' %}" class="link">Logout</a>
-      {% else %}
-         <a href="{% url 'base:registration' %}" class="link">Registration</a>
-         <a href="{% url 'base:login' %}" class="link">Login</a>
-      {% endif %}
+      <a href="{% url "base:show_tournaments" %}" class="link">
+         {% trans 'Sorting' %}
+         <i class="fa-solid fa-arrow-up-wide-short"></i>
+      </a>
+      <a href="{% url "base:show_tournaments" %}" class="link">
+         {% trans 'Contacts' %}
+         <i class="fa-solid fa-address-card"></i>
+      </a>
    </div>
-</nav>
 
-<script src="{% static 'js/header.js' %}"></script>
+   <div class="header__right">
+      {% if request.user.is_authenticated  %}
+      {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser %}
+         <a href="{% url "base:create_tournamets" %}" class="link">
+            +
+         </a>
+      {% endif %}
+   <a href="{% url 'base:show_profile' request.user.username %}" class="link">{{request.user.username}}</a>
+   <a href="{% url 'base:logout' %}" class="link">
+      {% trans 'Logout' %}
+   </a>
+{% else %}
+   <a href="{% url 'base:registration' %}" class="link">{% trans 'Registration' %}</a>
+   <a href="{% url 'base:login' %}" class="link">{% trans 'Login' %}</a>
+{% endif %}
+<form action="{% url 'set_language' %}" method="post" id="LanguageForm">{% csrf_token %}
+   <input name="next" type="hidden" value="{{ redirect_to }}">
+   <select name="language" id="changeLanguage" >
+       {% get_current_language as LANGUAGE_CODE %}
+       {% get_available_languages as LANGUAGES %}
+       {% get_language_info_list for LANGUAGES as languages %}
+       {% for language in languages %}
+           <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+                   selected{% endif %}>
+               {{ language.name_local }} ({{ language.code }})
+           </option>
+       {% endfor %}
+   </select>
+   <!-- <button type="submit" class="btn">{% trans 'Translate' %}</button> -->
+</form>
+   </div>
+
+</header>

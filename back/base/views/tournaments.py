@@ -47,7 +47,7 @@ def create_tournamets(request):
       form = TournamentForm()
                      
       if request.method == 'POST':
-         form = TournamentForm(request.POST)
+         form = TournamentForm(request.POST, request.FILES)
          
          if form.is_valid():
             slug = checking_slug(slug_generator(form.cleaned_data.get('title')))
@@ -152,3 +152,12 @@ def weight_categories_delete(request, pk):
    # Delete weight category
    weight_category.delete()
    return redirect('base:weight_categories')
+
+def registration_on_tournament(request, slug):
+   tournament = get_object_or_404(Tournament, slug=slug)
+   
+   context = {
+      'tournament': tournament,
+      
+   }
+   return render(request, 'base/tournaments/show_tournament.html', context)

@@ -15,11 +15,11 @@
    justify-content: space-between;
    align-items: start;
 
-   max-width: 1000px;
    width: 100%;
+   max-width: 1600px;
    height: 100%;
    margin-bottom: 5%;
-   margin-top: 60px;
+   margin-top: 30px;
 
    background-color:  var(--white);
    border-radius: 5px;
@@ -31,7 +31,7 @@
    width: 100%;
 
    padding: 5px;
-   background-color: rgb(79, 138, 139, .1);
+   background-color: rgba(87, 127, 220, 0.06);
    padding: 10px;
    border-radius: 5px 0 0 5px;
 } 
@@ -39,32 +39,53 @@
    display: flex;
    justify-content: start;
    align-items: center;
+   flex-direction: column;
    width: 100%;
    margin-bottom: 10px;
    gap: 10px
 }
 .home__card__left__about img {
-   max-width: 50px;
-   max-height: 50px;
+   width: 100%;
+   height: 100%;
+   max-height: 270px;
    border-radius: 5px;
+   border-radius: 150px;
    object-fit: cover;
    border: 1px solid rgb(20,20,20, .05);
    padding: 3px;  
+}
+.home__card__left__about h4 {
+   font-size: 22px;
 }
 .home__card__left__menu {
    margin: 10px 0;
    width: 100%;
 }
-.home__card__left__menu a {
-   color:rgb(0,0,0,.9);
+.home__card__left__menu a{
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   width: 100%;
+   padding: 6px 10px;
+   background-color: rgb(20,20,20,.05);
+   border-radius: 10px;
+   margin-bottom: 10px;
+   gap:10px;
+   font-size: 18px;
    transition: all .3s linear;
 }
-.home__card__left__menu a i {
-   font-weight: bold;
-}
 .home__card__left__menu a:hover {
-   color:  var(--lightblue);
+   background-color: rgba(87, 127, 220, 0.1);
+   color: rgba(87, 127, 220, 1);
 }
+.home__card__left__menu__delete {
+   background-color: rgba(220, 87, 87, 0.05) !important;
+}
+.home__card__left__menu__delete:hover {
+   background-color: rgba(220, 87, 87, 0.1) !important;
+   color: rgb(220, 87, 87) !important;
+}
+
 .home__card__span {
    display: block;
    content: '';
@@ -105,29 +126,8 @@
 .home__card__right__info div {
    margin-bottom: 3px;
 }
-.form__component {
-   display: flex;
-   justify-content: start;
-   align-items: start;
-   flex-direction: column;
-   width: 100%;
-   position: relative;
-}
-.form__component label {
-   font-size: 14px;
-   color: rgb(83, 83, 83);
-   }
-.form__component input {
-   width: 100%;
-   max-width: 400px;
-   padding: 6px 10px;
-   font-size: 16px;
-   margin-bottom: 6px;
-   min-width: 100%;
-}
 form {
    padding: 10px;
-   margin-bottom: 5%;
 }
 form h3 {
    margin-bottom: 10px;
@@ -213,4 +213,9 @@ select {
    border: 1px solid rgb(0,0,0,.1);
    padding: 4px 8px;
    font-size: 18px;
+}
+.change__user__type {
+   width: 400px;
+   border-top: 1px solid rgb(20,20,20,.1);
+   margin-top: 10px;
 }
