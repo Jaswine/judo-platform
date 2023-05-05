@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import  Profile,Logos, WeightCategory, Sponsors,Participant, Tournament
+from .models import  Profile,Logos, WeightCategory, Sponsors,Participant, Tournament, Weight
 from modeltranslation.admin import  TranslationAdmin
 
 class WeightCategoryAdminForm(forms.ModelForm):
@@ -21,6 +21,7 @@ class ParticipantAdminForm(forms.ModelForm):
 admin.site.register(Profile)
 admin.site.register(Logos)
 admin.site.register(Sponsors)
+admin.site.register(Weight)
 
 @admin.register(WeightCategory)
 class WeightCategoryAdmin(TranslationAdmin):

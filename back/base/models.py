@@ -49,13 +49,19 @@ class Participant(models.Model):
    # country = models.CharField(max_length=100, blank=True)
    # city = models.CharField(max_length=100, blank=True)
    
-   # weight = models.CharField(max_length=100, blank=True, default='0')
+   # weight = models.IntegerField(blank=True, default=0)
    
    created = models.DateTimeField(auto_now_add=True)
    updated = models.DateTimeField(auto_now=True)
    
    def __str__(self):
       return '{} {} {}'.format(self.firstName, self.lastName, self.thirdName)
+   
+class Weight(models.Model):
+   name = models.CharField(max_length=10)
+   
+   def __str__(self):
+      return self.name
    
    
 # Weight Category
@@ -65,20 +71,15 @@ class WeightCategory(models.Model):
       ('Женский', 'Женский')
    )
    
-   slug  = models.CharField(max_length=50, default='')
-   category = models.CharField(max_length=20, blank=True)
-   weight = models.CharField(max_length=100, blank=True)
+   weight = models.ManyToManyField(Weight, default=[])
+   
    year = models.CharField(max_length=20, blank=True)
    gender = models.CharField(max_length=20, blank=True, choices=GENDER)
    
    participants = models.ManyToManyField(Participant, default=[], blank=True)
    
-   # registration = models.CharField(max_length=40, blank=True)
-   # registration_begin = models.CharField(max_length=40, blank=True)
-   # registration_end = models.CharField(max_length=40, blank=True)
-   
    def __str__(self):
-      return self.slug 
+      return self.year 
 
 # Sponsors Emblems or Names
 class Sponsors(models.Model):
@@ -106,8 +107,8 @@ class Tournament(models.Model):
    )
    
    STATUS = (
-      ('Регистрация_открыта', 'Регистрация_открыта'),
-      ('Регистрация_завершенa', 'Регистрация_завершенa'),
+      ('Регистрация открыта', 'Регистрация открыта'),
+      ('Регистрация завершенa', 'Регистрация завершенa'),
    )
    
    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)

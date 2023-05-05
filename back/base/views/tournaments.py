@@ -5,10 +5,10 @@ from django.contrib import messages
 from django.forms import modelformset_factory
 from django.shortcuts import get_object_or_404
 
-from ..models import Tournament, Logos, WeightCategory, Sponsors
+from ..models import Tournament, Logos, WeightCategory, Sponsors, Weight
 from ..forms import TournamentForm, WeightCategoryForm
 from ..utils import slug_generator, checking_slug, generate_slug
-from ..services import get_tournaments, get_all_weight_category
+from ..services import get_tournaments, get_all_weight_category, get_user_profile
 from ..filters import TournamentFilter
 
 
@@ -131,18 +131,56 @@ def weight_categories(request):
       
       # validation checking
       if form.is_valid():
-         weight_category = form.save(commit=False)       
+         category = form.save()
          
-         weight_category.slug = generate_slug(form)
-         weight_category.save()
+         return redirect('base:weight_category_weight', category.id)
          
-         return redirect('base:weight_categories')
-   
    context = {
       'weight_categories': weight_categories,
       'form': form
    }
    return render(request, 'base/tournaments/weight_categories.html', context)
+      
+@login_required(login_url='base:login')
+def weight_category_weight(request, id):
+   weight_category = WeightCategory.objects.get(id=id)
+   
+   if request.method == 'POST':
+      weight = request.POST.get('weight')
+      
+      if weight is not None and len(weight) > 1 and len(weight) < 3:
+         weight_type = Weight.objects.create(
+            name=weight
+         )
+         
+         weight_type.save()
+
+         weight_category.weight.add(weight_type.id)
+         weight_category.save()
+         return redirect('base:weight_category_weight', weight_category.id)
+      else:
+         messages.error(request, 'Error creating weight category')
+         
+      # return redirect('base:weight_categories')
+   
+   context = {
+      'weight_category': weight_category
+   }
+   return render(request, 'base/tournaments/weight_add.html', context)
+
+@login_required(login_url='base:login')
+def weight_category_weight_delete(request,id, weight_id):
+   weight_category = WeightCategory.objects.get(id=id)
+   weight = Weight.objects.get(id=weight_id)
+   
+   if weight:
+      weight.delete()
+      
+      messages.success(request,'Weight category deleted successfully')
+      return redirect('base:weight_category_weight', weight_category.id)
+   else:
+      messages.error(request,'Weight category not found')
+      return redirect('base:weight_category_weight', weight_category.id)
 
 #Weight Categories Delete
 @login_required(login_url='base:login')
@@ -153,11 +191,20 @@ def weight_categories_delete(request, pk):
    weight_category.delete()
    return redirect('base:weight_categories')
 
+@login_required(login_url='base:sign-in')
 def registration_on_tournament(request, slug):
    tournament = get_object_or_404(Tournament, slug=slug)
    
+   user = request.user
+   profile = get_user_profile(user)
+   
+   participants = Participant.objects.filter(user=user) 
+   
    context = {
       'tournament': tournament,
+      'user': user,
+      'profile': profile,
       
+      'participants': participants
    }
-   return render(request, 'base/tournaments/show_tournament.html', context)
+   return render(request, 'base/tournaments/athlete_registration.html', context)

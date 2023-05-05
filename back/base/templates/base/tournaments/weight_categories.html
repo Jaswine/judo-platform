@@ -9,8 +9,10 @@
 {% block content %}
    <div class="categories">
       <form method="POST" class="create__tournament">
-         {% csrf_token %}
+         <input type="text" name="form_type" value="weight__category" style="display: none">
+
          <h2>{% trans 'Add New Category' %}</h2>
+         {% csrf_token %}
          {% for field in form  %}
             <div class = "form__component">
                {% if field.errors %}
@@ -24,32 +26,32 @@
             </div>
          {% endfor %}
 
-         <button type="submit" class="btn btn-primary" id="button">continue</button>
+         <button type="submit" class="btn btn-primary" id="button">Continue <i class="fa-solid fa-arrow-right"></i></button>
       </form>
       <table class="show__all__categories">
          <thead>
             <tr class="table__head">
-               <th scope="col">{% trans 'Category'  %}</th>
-               <th scope="col">{% trans 'Weight' %}</th>
-               <th scope="col">{% trans 'Year' %}</th>
                <th>{% trans 'Gender' %}</th>
-               <!-- <th>{% trans 'Registration' %}</th>
-               <th>{% trans 'Registration start' %}</th>
-               <th>{% trans 'Registration end' %}</th> -->
+               <th scope="col">{% trans 'Year' %}</th>
+               <th scope="col">{% trans 'Weight' %}</th>
+               <th scope="col"></th>
                <th scope="col"></th>
             </tr>
          </thead>
          <tbody>
          {% for category in weight_categories  %}
                <tr class="candidates-list">
-                  <td scope="col">{{ category.category }}</td>
-                  <td scope="col">{{category.weight}}</td>
-                  <td scope="col">{{category.year}}</td>
                   <td>{{category.gender}}</td>
-                  <!-- <td scope="col">{{category.registration}}</td>
-                  <td scope="col">{{category.registration_begin}}</td>
-                  <td scope="col">{{category.registration_end}}</td> -->
+                  <td scope="col">{{category.year}}</td>
+                  <td scope="col" class="weights_col">
+                     {% for weight in category.weight.all %}
+                        <span class="one__weight">
+                           {{weight.name}}
+                        </span>
+                     {% endfor %}
+                  </td>
 
+                  <td scope="col" class="td_delete"><a href="" class="fa-solid fa-pen-to-square"></a></td>
                   <td scope="col" class="td_delete"><a href="{% url 'base:weight_categories_delete' category.id %}" class="fa-solid fa-xmark"></a></td>
                </tr>
          {% endfor %}

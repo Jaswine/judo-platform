@@ -144,18 +144,20 @@ form h3 {
 }
 
 .profile__danger {
-   border: 2px solid darkred;
+   border: 2px solid #dc5757;
    margin: 10px 0 20px;
+   border-radius: 14px;
 }
 .profile__danger__name {
-   background-color: darkred;
+   background-color: #dc5757;
    width: 100%;
    
    display: flex;
    justify-content: center;
    align-items: center;
    padding: 10px;
-   color: rgb(255, 186, 186)
+   color: rgb(255, 186, 186);
+   border-radius: 10px;
 }
 .profile__right__passwords {
    padding: 5px 10px;
@@ -166,15 +168,16 @@ form h3 {
 .profile__right__passwords a {
    font-size: 18px;
    margin: 4px 0;
-   color: darkred;
+   color: #dc5757;
    background-color: rgb(255, 186, 186);
    padding: 10px 10%;
-   border: 2px solid darkred;
+   border: 2px solid #dc5757;
    transition: all .3s linear;
+   border-radius: 10px;
 }
 .profile__right__passwords a:hover {
    color: rgb(255, 186, 186);
-   background-color: darkred;
+   background-color: #dc5757;
    border-color: rgb(255, 186, 186);
    cursor: pointer;
 }
@@ -184,14 +187,15 @@ form h3 {
    padding: 10px 10%;
    transition: all .3s linear;
    color: rgb(255, 186, 186) !important;
-   background-color: darkred !important;
+   background-color: #dc5757 !important;
    border-color: rgb(255, 186, 186) !important;
    cursor: pointer;
+   border-radius: 10px;
 }
 .delete__Account:hover {
-   color: darkred !important;
+   color: #dc5757 !important;
    background-color: rgb(255, 186, 186) !important;
-   border: 2px solid darkred !important;
+   border: 2px solid #dc5757 !important;
 }
 
 /*  Delete Account */

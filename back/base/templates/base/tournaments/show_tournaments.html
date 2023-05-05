@@ -43,7 +43,7 @@
                >
                   <h4><i class="fa-solid fa-square-pen"></i>{% trans 'Status' %}: </h4>
                   <span
-                  {% if status == "Регистрация_завершенa" %} 
+                  {% if status == "Регистрация завершенa" %} 
                      style="color: #ff8181 "
                   {% else %} 
                      style="color: #81a7ff;"
@@ -76,7 +76,11 @@
                {% endfor %}
             </div>
             <div class="tournament__buttons">
-               <a href="" class="btn">{% trans 'Registration' %}</a>
+               {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser  %}
+                  {% if tournament.status == 'Регистрация открыта' %}
+                     <a href="{% url 'base:registration_on_tournament' tournament.slug %}" class="btn">{% trans 'Registration' %}</a>
+                  {% endif %}
+               {% endif  %}
                {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser  %}
                   <a href="{% url 'base:tournamets_admin_update_info' tournament.slug %}" class="btn">{% trans 'Change' %}</a>
                {% endif  %}

@@ -33,6 +33,9 @@ urlpatterns = [
    path('tournaments/<str:slug>/create-tournamets-images', tournaments.create_tournamets__images, name='create_tournamets__images'),
    path('tournaments/<str:slug>/', tournaments.tournamet_show, name='tournamet_show' ),
    
+   # Tournaments Register
+   path('tournaments/<str:slug>/registration-on-tournament', tournaments.registration_on_tournament, name='registration_on_tournament'),
+   
    # Tournament panel
    path('tournaments/<str:slug>/panel/update-info', tournament_admin.tournamets_admin_update_info, name='tournamets_admin_update_info'),
    path('tournaments/<str:slug>/panel/delete-tournament', tournament_admin.tournamets_admin_delete, name='tournamets_admin_delete'),
@@ -43,5 +46,8 @@ urlpatterns = [
    
    # Weight Categoris
    path('tournaments/weight-categories', tournaments.weight_categories, name='weight_categories'),
-   path('tournaments/weight-categories-delete/<int:pk>', tournaments.weight_categories_delete, name='weight_categories_delete')
+   path('tournaments/weight-categories-delete/<int:pk>', tournaments.weight_categories_delete, name='weight_categories_delete'),
+   path('tournaments/weight-categories/<int:id>/weight', tournaments.weight_category_weight, name='weight_category_weight'),
+   path('tournaments/weight-categories/<int:id>/weight/<int:weight_id>/delete', tournaments.weight_category_weight_delete, name='weight_category_weight_delete'),
+   
 ]

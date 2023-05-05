@@ -18,11 +18,9 @@ def show_profile(request, username):
    
    if request.method == 'POST':
       form_type = request.POST.get('form_type')
-      print('form_type_____________',form_type)
       
       if form_type == 'change__status':
          user_type = request.POST.get('user_type')
-         print('user_type_________', user_type)
          
          if user_type:
             profile.userType = user_type

@@ -1,0 +1,35 @@
+{% include 'main.html' %}
+{% load static i18n %}
+
+{% block title %}
+<link rel="stylesheet" href="{% static 'css/tournament.css' %}">
+<title>{% trans 'Athlete Registration' %}</title>
+{% endblock title %}
+
+{% block content %}
+<div class="home athlete_regisration">
+   <h2>{{tournament.title}}</h2>
+   <div class="athlete_regisration">
+      <div class="athlete_regisration__left">
+         <h2>{% trans 'Registration' %}</h2>
+         <div class="athlete_regisration__left__header">
+            <a href="">Register</a>
+            <a href="">List of registered</a>
+         </div>
+         <div class="athlete_regisration__left__body">
+            {% for athlete in athletes%}
+               <div class="athlete_regisration__left__person">
+                  <span></span>
+                  <h3>{{athlete.lastName}} {{athlete.firstName}} {{athlete.thirdName}}</h3>
+                  <span>{{athlete.year}}</span>
+                  <span>{{athlete.discharge}}</span>
+               </div>
+            {% endfor %}
+         </div>
+      </div>
+      <div class="athlete_regisration__right">
+         
+      </div>
+   </div>
+</div>
+{% endblock content %}  

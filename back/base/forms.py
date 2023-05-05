@@ -32,11 +32,10 @@ class TournamentForm(ModelForm):
 class WeightCategoryForm(ModelForm):
    class Meta:
       model = WeightCategory
-      fields = ['category', 
-               'weight', 
+      fields = [
+               # 'weight', 
                'year', 
                'gender',
-               # 'registration','registration_begin', 'registration_end'
             ]
       
 class SortingTournamentForm(ModelForm):
