@@ -27,14 +27,9 @@ def show_tournaments(request):
 def tournamet_show(request, slug):
    tournament = get_object_or_404(Tournament, slug=slug)
    person_count = 0
-   
-   for tournamen in tournament.weight_categories.all():
-      person_count += tournamen.participants.count()
-   
+
    context = {
       'tournament': tournament,
-      
-      'person_count': person_count
    }
    return render(request, 'base/tournaments/show_tournament.html', context)
 
@@ -266,6 +261,19 @@ def list_of_registered_on_tournament(request, slug):
          'athletes': participants,
       }
       return render(request, 'base/tournaments/athlete_registration.html', context)
+   else:
+      messages.error(request, "You don't have permission to create tournament ;)")
+      return redirect('base:show_tournaments')
+   
+@login_required(login_url='base:sign-in')
+def tournament_toss(request, slug):
+   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
+      tournament = get_object_or_404(Tournament, slug=slug)
+      
+      context = {
+         'tournament': tournament
+      }
+      return render(request, 'base/tournaments/tournament_sorting.html', context)
    else:
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')

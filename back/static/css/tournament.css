@@ -1,10 +1,5 @@
 @import './variables.css';
 
-.title {
-   background-color: #577fdc;
-   color: #fff;
-   padding: 20px 5%;
-}
 .home {
    /* display: grid; */
    /* grid-template-columns: 1fr 4fr; */
@@ -113,6 +108,14 @@ input {
 }
 .tournament__buttons {
    margin-bottom: 10px;
+   height: 100%;
+
+   display: flex;
+   justify-content: start;
+   align-items: start;
+   flex-wrap: wrap;
+   gap: 6px;
+   row-gap: 6px;
 }
 .tournament__category {
    padding: 4px 6px;

@@ -4,6 +4,7 @@ from .views import auth as views
 from .views import profile
 from .views import tournaments, tournament_admin
 from .views import athletes
+from .views import main
 
 app_name = 'base'
 
@@ -36,6 +37,9 @@ urlpatterns = [
    # Tournaments Register 
    path('tournaments/<str:slug>/registration-on-tournament', tournaments.registration_on_tournament, name='registration_on_tournament'),
    path('tournaments/<str:slug>/list-of-registered-on-tournament', tournaments.list_of_registered_on_tournament, name='list_of_registered_on_tournament'),
+
+   # Tournament sorting
+   path('tournaments/<str:slug>/toss', tournaments.tournament_toss, name='toss'),
    
    # Tournament panel
    path('tournaments/<str:slug>/panel/update-info', tournament_admin.tournamets_admin_update_info, name='tournamets_admin_update_info'),
@@ -50,4 +54,8 @@ urlpatterns = [
    path('tournaments/weight-categories/<str:slug>/<int:id>/weight', tournaments.weight_category_weight, name='weight_category_weight'),
    path('tournaments/weight-categories/<str:slug>/<int:id>/weight/<int:weight_id>/delete', tournaments.weight_category_weight_delete, name='weight_category_weight_delete'),
    
+   # Main pages
+   path('instructions', main.instructions_view, name='instructions'),
+   path('medals', main.medals_view, name='medals'),
+   path('sorting', main.sorting_view, name='sorting'),
 ]

@@ -48,6 +48,9 @@
       </thead>
       <tbody>
       {% for weigh in category.weight.all  %}
+        <form action="" method="POST">
+         {% csrf_token %}
+         <input type="hidden"  name="weight" value="{{weigh.id}}">
          {% for participant in weigh.participants.all %}
          <tr class="candidates-list participant">
             <td scope="col" class="participant" >{{ participant.firstName }}</td>
@@ -58,10 +61,12 @@
             <td scope="col" class="participant">{{participant.gender}}</td>
             <td scope="col" class="participant">{{participant.coach}}</td>
    
-            <td scope="col" class="td_delete">x</td>
-            
+            <input type="hidden"  name="participant" value="{{participant.id}}">
+            <td scope="col" class="td_delete"><button type="submit">x</button></td>
+
          </tr>
          {% endfor %}
+        </form>
       {% endfor %}
       
       </tbody>

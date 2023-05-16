@@ -146,6 +146,7 @@
    background-color: rgb(87, 127, 220, .2);
    padding: .4rem .8rem;
    border-left: 5px solid rgb(87, 127, 220, .7);
+   margin-bottom: 6px;
 }
 .tour {
    margin: 5px 0;

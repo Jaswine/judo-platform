@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.core.files.storage import FileSystemStorage
 
-from ..models import Tournament, Logos, WeightCategory, Sponsors, Participant
+from ..models import Tournament, Logos, WeightCategory, Sponsors, Participant, Weight
 from ..forms import TournamentForm, WeightCategoryForm, ParticipantForm
 from ..services import get_tournaments
 
@@ -153,6 +153,15 @@ def athletes_admin_category(request, slug, year, gender):
    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       weight_category = WeightCategory.objects.filter(tournament=tournire, year=year, gender=gender).first()  
+      
+      if request.method == 'POST':
+         weight_id = request.POST.get('weight')
+         participant_id = request.POST.get('participant')
+         
+         weight = Weight.objects.get(id=weight_id)
+         weight.participants.remove(participant_id)
+         weight.save()
+         return redirect( 'base:athletes_admin_category',  tournire.slug, weight_category.year, weight_category.gender)
       
       context = {
          'page_type': page_type,

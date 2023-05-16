@@ -1,0 +1,11 @@
+{% include 'main.html' %}
+{% load static i18n %}
+
+{% block title %}
+<link rel="stylesheet" href="{% static 'css/tournaments/tournament_show.css' %}">
+<title>{% trans 'Toss' %} -  {{tournament.slug}}</title>
+{% endblock title %}
+   
+{% block content %}
+
+{% endblock content %}  

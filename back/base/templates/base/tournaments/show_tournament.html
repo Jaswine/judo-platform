@@ -11,13 +11,13 @@
    <div class="tournament__menu">
       
       <a class="tournament__weight__category__link" href="{% url 'base:tournamet_show' tournament.slug %}">
-         {% trans 'Info Page' %}
+         {% trans 'Categories' %}
       </a>
       
-      {% for weight_category in tournament.weight_categories.all %}
+      {% for weight_category in tournament.weightcategory_set.all  %}
          <a class="tournament__weight__category">
             <i class="fa-solid fa-list"></i>
-            <h4>{{weight_category.slug}}</h4>
+            <h4>{{weight_category.gender}} {{weight_category.year}}</h4>
          </a>
       {% endfor %}
    </div>
@@ -54,10 +54,10 @@
          {% endfor %}
       </div>
       <p>
-         <i class="fa-solid fa-user-tie"></i>{% trans 'Chief Justice' %}: {{ tournament.chiefJustice}}
+         <i class="fa-solid fa-user-tie"></i> {% trans 'Chief Justice' %}: {{ tournament.chiefJustice}}
       </p>
       <p>
-         <i class="fa-solid fa-user"></i> {% trans 'Chief Secretary' %}: {{ tournament.chiefSecretary }}
+         <i class="fa-solid fa-user-tie"></i> {% trans 'Chief Secretary' %}: {{ tournament.chiefSecretary }}
       </p>
       <p>   
          <i class="fa-solid fa-highlighter"></i>{% trans 'About' %}: {{tournament.about}}
@@ -72,7 +72,8 @@
       </p>
    </div>
    <div class="tournament__right">
-      <div class="tournament__right__participants">{% trans 'Registered' %} {{person_count}} {% trans 'participants' %}</div>
+      <div class="tournament__right__participants">{% trans 'Registration' %}:  {{tournament.status}}</div>
+      <div class="tournament__right__participants">{% trans 'Number of participants' %}:  0</div>
    </div>
 </div>
 
