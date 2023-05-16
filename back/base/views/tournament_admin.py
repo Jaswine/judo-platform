@@ -19,19 +19,19 @@ def tournamets_admin_update_info(request, slug):
       tournire = get_object_or_404(Tournament, slug=slug)
       tournament_form = TournamentForm(instance=tournire)
       
-      weight_categories_all = WeightCategory.objects.all()
-      tournire_weight_categories = tournire.weight_categories.all()
+      # weight_categories_all = WeightCategory.objects.all()
+      # tournire_weight_categories = tournire.weight_categories.all()
 
-      # Categories choosed for show
-      weight_categories_selected = []
-      weight_categories_unselected = []
+      # # Categories choosed for show
+      # weight_categories_selected = []
+      # weight_categories_unselected = []
       
-      # Sorted weight categories
-      for weight_category in weight_categories_all:
-         if weight_category in tournire_weight_categories:
-            weight_categories_selected.append(weight_category)
-         else:
-            weight_categories_unselected.append(weight_category)
+      # # Sorted weight categories
+      # for weight_category in weight_categories_all:
+      #    if weight_category in tournire_weight_categories:
+      #       weight_categories_selected.append(weight_category)
+      #    else:
+      #       weight_categories_unselected.append(weight_category)
           
       # get data from form        
       if request.method == 'POST':
@@ -46,18 +46,18 @@ def tournamets_admin_update_info(request, slug):
             delete_logotips = request.POST.getlist('delete-logotips')
             delete_sponsors = request.POST.getlist('delete-sponsors')
             
-            weight_categories_chooised_for_upload = [int(i) for i in request.POST.getlist('weight-categories-chooised-for-upload')]
-            weight_categories_chooised_for_delete = [int(i) for i in request.POST.getlist('weight-categories-chooised-for-delete')]
+            # weight_categories_chooised_for_upload = [int(i) for i in request.POST.getlist('weight-categories-chooised-for-upload')]
+            # weight_categories_chooised_for_delete = [int(i) for i in request.POST.getlist('weight-categories-chooised-for-delete')]
             
-            # upload weight categories chooised
-            if len(weight_categories_chooised_for_upload) > 0:
-               for weight_category in weight_categories_chooised_for_upload:
-                  article.weight_categories.add(weight_category)
+            # # upload weight categories chooised
+            # if len(weight_categories_chooised_for_upload) > 0:
+            #    for weight_category in weight_categories_chooised_for_upload:
+            #       article.weight_categories.add(weight_category)
             
-            # remove weight categories chooised
-            if len(weight_categories_chooised_for_delete) > 0:
-               for weight_category in weight_categories_chooised_for_delete:
-                  article.weight_categories.remove(weight_category)
+            # # remove weight categories chooised
+            # if len(weight_categories_chooised_for_delete) > 0:
+            #    for weight_category in weight_categories_chooised_for_delete:
+            #       article.weight_categories.remove(weight_category)
  
            
             # # delete choices logtips
@@ -68,7 +68,7 @@ def tournamets_admin_update_info(request, slug):
             # # delete choices logtips
             if (len(delete_sponsors) > 0):
                for sponsor in delete_sponsors:
-                  article.logos.filter(id=int(sponsor)).delete()
+                  article.sponsors.filter(id=int(sponsor)).delete()
          
             # # Add Logotips and Photos
             if len(logotips) > 0:
@@ -95,8 +95,8 @@ def tournamets_admin_update_info(request, slug):
          'tournire': tournire,
          'tournament_form': tournament_form,
          
-         'weight_categories_selected': weight_categories_selected,
-         'weight_categories_unselected': weight_categories_unselected
+         # 'weight_categories_selected': weight_categories_selected,
+         # 'weight_categories_unselected': weight_categories_unselected
       }
       return render(request, 'base/tournaments/panel/tournament_panel.html', context)
    else:
@@ -111,7 +111,9 @@ def tournamets_admin_delete(request, slug):
       tournire = get_object_or_404(Tournament, slug=slug)
       
       if request.method == 'POST': 
-           
+         for tournament_cat in tournire.weightcategory.all():
+            tournament_cat.delete()
+            
          tournire.delete()
          return redirect('base:show_tournaments')
       
@@ -124,43 +126,39 @@ def tournamets_admin_delete(request, slug):
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')
    
-@csrf_exempt
-@login_required(login_url='base:login')
-def tournamets_admin_category(request, slug, category_slug):
-   page_type = 'tournament_panel_category'
+# @csrf_exempt
+# @login_required(login_url='base:login')
+# def tournamets_admin_category(request, slug, category_slug):
+#    page_type = 'tournament_panel_category'
    
-   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
-      tournire = get_object_or_404(Tournament, slug=slug)
-      weight_category = get_object_or_404(WeightCategory, slug=category_slug)
+#    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
+#       tournire = get_object_or_404(Tournament, slug=slug)
+#       weight_category = get_object_or_404(WeightCategory, slug=category_slug)
       
-      context = {
-         'page_type': page_type,
+#       context = {
+#          'page_type': page_type,
          
-         'tournire': tournire,
-         'category': weight_category,
-      }         
-      return render(request, 'base/tournaments/panel/tournament_panel.html', context)
-   else:
-      messages.error(request, "You don't have permission to create tournament ;)")
-      return redirect('base:show_tournaments')
+#          'tournire': tournire,
+#          'category': weight_category,
+#       }         
+#       return render(request, 'base/tournaments/panel/tournament_panel.html', context)
+#    else:
+#       messages.error(request, "You don't have permission to create tournament ;)")
+#       return redirect('base:show_tournaments')
    
 @login_required(login_url='base:login')
-def athletes_admin_category(request, slug, category_slug):
+def athletes_admin_category(request, slug, year, gender):
    page_type = 'athletes_admin_category'
-   weight_category = get_object_or_404(WeightCategory, slug=category_slug)
    
    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
-      
-      form = ParticipantForm()
+      weight_category = WeightCategory.objects.filter(tournament=tournire, year=year, gender=gender).first()  
       
       context = {
          'page_type': page_type,
          
-         'category':weight_category,
+         'category': weight_category,
          'tournire': tournire,
-         
-         'form': form
       }
       return render(request, 'base/tournaments/panel/tournament_panel.html', context)
    else:

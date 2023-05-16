@@ -6,51 +6,65 @@
 {% endblock %}
 
 <div class="tournament__category__header">
-   <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn ">{% trans 'Description' %}</a>
-   <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn active" >{% trans 'Athletes' %}</a>
-   <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}" class="btn">{% trans 'Toss' %}</a>
+   <a href="" class="btn active ">{% trans 'All Athletes' %}</a>
    <a href="" class="btn">{% trans 'Results' %}</a>
 </div>
+{% comment %} 
+<div class="panel__information">
+   <h3>{% trans 'Information' %}</h3>
+  <div class="panel__information__info">
+   <div class="panel__information__left">
+      <p><b>{% trans 'Category' %}:</b> {{category.category}} </p>
+      <p><b>{% trans 'Weight' %}:</b> {{category.weight}}</p>
+   </div>
+   <div class="panel__information__right">
+      <p><b>{% trans 'Year' %}:</b> {{category.year}} </p>
+      <p><b>{% trans 'Registration Begin' %}:</b> {{category.registration_begin}}</p>
+   </div>
+  </div>
+</div> {% endcomment %}
 
-<div class="tournament__buttons">
+{% comment %} <div class="tournament__buttons">
    <!-- <div class="tournament__buttons__right">
       <button class="btn btn-xyz" id="download">Download</button>
       <input type="file" class="btn btn-xyz" id="'upload-list">
    </div> -->
    <a href="{% url 'base:add_new_athlete' tournire.slug category.slug %}" class="btn btn-xyz">{% trans 'Add New Athlete' %}</a>
-</div>
+</div> {% endcomment %}
 
 <div class="tournament__category__toolbar">
    <table class="show__all__categories">
       <thead>
          <tr class="table__head">
-            <th>{% trans 'FullName' %}</th>
-            <th>{% trans 'Date' %}</th>
-            <th>{% trans 'Discharge' %}</th>
-            <th>{% trans 'Comand' %}</th>
-            <th>{% trans 'City' %}</th>
-            <th>{% trans 'Country' %}</th>
-            <th></th>
+            <th>{% trans 'First Name' %}</th>
+            <th>{% trans 'Last Name' %}</th>
+            <th>{% trans 'Third Name' %}</th>
+            <th>{% trans 'year' %}</th>
+            <th>{% trans 'discharge' %}</th>
+            <th>{% trans 'gender' %}</th>
+            <th>{% trans 'coach' %}</th>
             <th></th>
          </tr>
       </thead>
       <tbody>
-      {% for participant in category.participants.all  %}
-            <tr class="candidates-list participant">
-               <td scope="col" class="participant" >{{ participant.fullName }}</td>
-               <td scope="col" class="participant">{{participant.data}}</td>
-               <td scope="col" class="participant">{{participant.discharge}}</td>
-               <td scope="col" class="participant">{{participant.comand}}</td>
-               <td scope="col" class="participant">{{participant.country}}</td>
-               <td scope="col" class="participant">{{participant.city}}</td>
-
-               <td scope="col" class="td_delete"><a href="{% url 'base:update_athlete' tournire.slug category.slug participant.id %}" class="fa-solid fa-pen-to-square"></a></td>
-               
-               <td scope="col" class="td_delete"><a href="{% url 'base:delete_athlete' tournire.slug category.slug  participant.id %}" class="fa-solid fa-xmark"></a></td>
-            </tr>
+      {% for weigh in category.weight.all  %}
+         {% for participant in weigh.participants.all %}
+         <tr class="candidates-list participant">
+            <td scope="col" class="participant" >{{ participant.firstName }}</td>
+            <td scope="col" class="participant">{{participant.lastName}}</td>
+            <td scope="col" class="participant">{{participant.thirdName}}</td>
+            <td scope="col" class="participant">{{participant.year}}</td>
+            <td scope="col" class="participant">{{participant.discharge}}</td>
+            <td scope="col" class="participant">{{participant.gender}}</td>
+            <td scope="col" class="participant">{{participant.coach}}</td>
+   
+            <td scope="col" class="td_delete">x</td>
+            
+         </tr>
+         {% endfor %}
       {% endfor %}
       
       </tbody>
    </table>
    <script src='{% static "js/upload_athletes.js" %}'></script>
-</div>
+</div> 

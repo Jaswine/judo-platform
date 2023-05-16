@@ -37,17 +37,7 @@
                <label for="">{% trans 'Upload Logotips' %}:</label>
                <input type = "file" multiple name="files" id="logos" />
             </div>
-
-            <div class="form__field">
-               <label for="">{% trans 'Choose Weight Category' %}:</label>
-               <select name="weight-categories" multiple >
-                  {% for weight_categorie in weight_categories_all %}
-                     <option value={{weight_categorie.id}} >{{weight_categorie.slug}}</option>
-                  {% endfor %}
-               </select>
-               <p>{% trans "You don't see important category" %}? <a href="{% url 'base:weight_categories' %}" class="link">{% trans 'Add New Category' %}</a></p>
-            </div>
-
+            
             <div id="print__sponsors__logos"></div>
 
             <div class="form__field">

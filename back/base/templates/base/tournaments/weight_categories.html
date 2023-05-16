@@ -41,8 +41,8 @@
          <tbody>
          {% for category in weight_categories  %}
                <tr class="candidates-list">
-                  <td>{{category.gender}}</td>
-                  <td scope="col">{{category.year}}</td>
+                  <td><a href="">{{category.gender}}</a></td>
+                  <td scope="col"><a href="">{{category.year}}</a></td>
                   <td scope="col" class="weights_col">
                      {% for weight in category.weight.all %}
                         <span class="one__weight">
@@ -51,12 +51,20 @@
                      {% endfor %}
                   </td>
 
-                  <td scope="col" class="td_delete"><a href="" class="fa-solid fa-pen-to-square"></a></td>
-                  <td scope="col" class="td_delete"><a href="{% url 'base:weight_categories_delete' category.id %}" class="fa-solid fa-xmark"></a></td>
+                  <td scope="col" class="td_delete"><a href="{% url 'base:weight_category_weight' tournament.slug category.id %}" class="">-</a></td>
+                  <td scope="col" class="td_delete"><a href="{% url 'base:weight_categories_delete' tournament.slug category.id %}" >x</a></td>
                </tr>
          {% endfor %}
          
          </tbody>
       </table>
+
+      <a
+      {% if tournament.WeightCategory_set.count == 0 %}style='opacity: .1'{% endif %}
+      class="btn btn--continue"
+      href="{% url 'base:show_tournaments' %}"
+      >
+         Continue <i class="fa-solid fa-arrow-right"></i>
+      </a>
    </div>
 {% endblock content %}

@@ -22,13 +22,15 @@
       {% for i in weight_categories_selected %}
          <div class="form__field__category">
             <input type="checkbox" value="{{i.id}}" name="weight-categories-chooised-for-delete">
-            <h3>{{i.slug}}</h3>
+            <h3>{{i.gender}} - {{i.year}}</h3>
          </div>
       {% endfor %}
    </div>
 {% endif %} 
 
-{% if weight_categories_unselected|length > 0 %}
+<p>{% trans "You don't see important category"  %}? <a href="{% url 'base:weight_categories' tournire.slug %}" class="link">{% trans 'Add New Category' %}</a></p>   
+
+{% comment %} {% if weight_categories_unselected|length > 0 %}
    <div class="form__component">
       <label for="">Choose Weight Category(CTRL+click on category):</label>
       <select name="weight-categories-chooised-for-upload" id="" multiple>
@@ -36,13 +38,13 @@
             <option  
                value="{{ weight_categorie.id }}"
             >
-            {{ weight_categorie.slug }}
+            {{ weight_categorie.gender }} - {{ weight_categorie.year }}
             </option>
          {% endfor %}
       </select>
       <p>{% trans "You don't see important category"  %}? <a href="{% url 'base:weight_categories' %}" class="link">{% trans 'Add New Category' %}</a></p>   
    </div>
-{% endif %}
+{% endif %} {% endcomment %}
                      
    <fieldset class="photos">
    <legend>{% trans 'Delete Logotips' %}:</legend>
@@ -92,6 +94,7 @@
       <label for="">{% trans 'Sponsors Logotips' %}:</label>
       <input type = "file" multiple name="sponsors-logotips" id="sponsors-logos"/>
    </div>
+
    
 <button class="btn" type="submit" id="button">{% trans 'save' %}</button>
 </form>

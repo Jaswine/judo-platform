@@ -247,12 +247,13 @@
 }
 .tournament__category__header .btn:hover {
    background-color: #FBD46D;
-   border:none;
+   border: 2px solid #FBD46D;
 }
 .active {
    background-color: #FBD46D;
    border:none !important;
    padding: 16px 18px;
+   color: black;
 }
 .tournament__category__toolbar {
    width: 100%;

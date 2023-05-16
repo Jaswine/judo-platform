@@ -2,34 +2,103 @@
 {% load static i18n %}
 
 {% block title %}
-<link rel="stylesheet" href="{% static 'css/tournament.css' %}">
+<link rel="stylesheet" href="{% static 'css/athlete_registration.css' %}">
 <title>{% trans 'Athlete Registration' %}</title>
 {% endblock title %}
 
 {% block content %}
-<div class="home athlete_regisration">
+<div class="home pre__athlete_regisration">
    <h2>{{tournament.title}}</h2>
    <div class="athlete_regisration">
       <div class="athlete_regisration__left">
          <h2>{% trans 'Registration' %}</h2>
-         <div class="athlete_regisration__left__header">
-            <a href="">Register</a>
-            <a href="">List of registered</a>
-         </div>
-         <div class="athlete_regisration__left__body">
-            {% for athlete in athletes%}
-               <div class="athlete_regisration__left__person">
-                  <span></span>
-                  <h3>{{athlete.lastName}} {{athlete.firstName}} {{athlete.thirdName}}</h3>
+         {% if page_type == 'registration' %}
+            <div class="athlete_regisration__left__header">
+               <a href="{% url 'base:registration_on_tournament' tournament.slug %}" class="active">{% trans 'Register' %}</a>
+               <a href="{% url 'base:list_of_registered_on_tournament' tournament.slug %}">{% trans 'List of registered' %}</a>
+            </div>
+            <div class="athlete_regisration__left__body">
+               {% for athlete in participants %}
+               <form class="athlete_regisration__left__person" method='POST'>
+                  {% csrf_token %}
+                 
+                  <span>{{ forloop.counter }}.</span>
+                  <input type="hidden" name="athlete" value="{{athlete.id}}" />
+                  <b>{{athlete.lastName}} {{athlete.firstName}} {{athlete.thirdName}}</b>
                   <span>{{athlete.year}}</span>
                   <span>{{athlete.discharge}}</span>
+                  <span>
+                  <select name = 'weight' class='athlete__weight'>
+                    {% for weight_category  in tournament.weightcategory_set.all %}
+                      {% if weight_category.gender == athlete.gender %}
+                        {% if athlete.year in weight_category.year  %}
+                           {% for weight in weight_category.weight.all %}
+                              <option value={{weight.id}} >{{weight.name}} </option>
+                           {%  endfor %}
+                       {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+                  </span>
+                  <button type="submit" class='btn'>+</button>
+               </form>
+               {% endfor %}
+   <a href="{% url 'base:add_new_athlete' %}" class="btn btn--primary">{% trans 'Add New Athlete' %}</a>
+            </div>
+         {% else %}
+         <div class="athlete_regisration__left__header">
+            <a href="{% url 'base:registration_on_tournament' tournament.slug %}">{% trans 'Register' %}</a>
+            <a href="{% url 'base:list_of_registered_on_tournament' tournament.slug %}"  class="active">{% trans 'List of registered' %}</a>
+         </div>
+         <div class="athlete_regisration__left__body">
+            {% for athlete in athletes %}
+                 {% for weight_category  in tournament.weightcategory_set.all %}
+                 
+                   {% if weight_category.gender == athlete.gender %}
+                     {% if athlete.year in weight_category.year  %}
+
+                        {% for weight in weight_category.weight.all %}
+                              {% if athlete in weight.participants.all  %}
+                                 <form class="athlete_regisration__left__person" method='POST'>
+                                    {% csrf_token %}
+                                    <input type="hidden" name="athlete" value="{{athlete.id}}" />
+                                    <b>{{athlete.lastName}} {{athlete.firstName}} {{athlete.thirdName}}</b>
+                                    <span>{{athlete.year}}</span>
+                                    <span>{{athlete.discharge}}</span>
+
+                                    <input type="hidden" name="weight" value="{{weight.id}}" />
+                                    <span>{{weight.name}}</span>
+                                    <button type="submit" class='btn'>-</button>
+                                 </form> 
+                              {% endif %}
+                        {%  endfor %}
+
+                    {% endif %}
+                   {% endif %}
+                 {% endfor %}
+         {% endfor %}
+         </div>
+         {% endif %}
+      </div>
+      <form class="athlete_regisration__right" method="POST">
+         {% csrf_token %}
+         <h2>{% trans 'Weight Categories' %}</h2>
+         <div class="athlete_regisration__weight__categories">
+            {% for weight_category in tournament.weightcategory_set.all  %}
+               <div class="athlete_regisration__weight__category">
+                  <h3>{{weight_category.gender}} - {{weight_category.year}} <span>{{weight_category.participants.count}}</span></h3>
+                  <div class="athlete_regisration__weights">
+                     {% for weight in weight_category.weight.all %}
+                        <div class="athlete_regisration__weight">
+                           <b>{{weight.name}}</b>
+                           <span>{{ weight.participants.count }}</span>
+                        </div>
+                     {%  endfor %}
+                  </div>
                </div>
             {% endfor %}
          </div>
-      </div>
-      <div class="athlete_regisration__right">
-         
-      </div>
+      </form>
    </div>
 </div>
 {% endblock content %}  

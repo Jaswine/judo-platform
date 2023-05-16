@@ -21,19 +21,8 @@
             {% include 'base/tournaments/panel/components/update.html' %}
          {% elif page_type == 'tournamets_admin_delete'  %}
             {% include 'base/tournaments/panel/components/delete.html' %}
-         {% elif page_type == 'tournament_panel_category' %}
-            {% include 'base/tournaments/panel/components/category_description.html' %}
          {% elif page_type == 'athletes_admin_category' %}
             {% include 'base/tournaments/panel/components/athletes_admin_category.html' %}
-         {% elif page_type == 'add_new_athlete' %}
-            {% include 'base/tournaments/panel/components/add_new_athlete.html' %}
-         {% elif page_type == 'toss_admin_category' %}
-         <div class="tournament__category__header">
-            <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="btn ">{% trans 'Description' %}</a>
-            <a href="{% url 'base:athletes_admin_category' tournire.slug category.slug %}" class="btn" >{% trans 'Athletes' %}</a>
-            <a href="{% url 'base:toss_admin_category' tournire.slug category.slug %}" class="btn active">{% trans 'Toss' %}</a>
-            <a href="" class="btn">{% trans 'Results' %}</a>
-         </div>
          {% endif %}
       </div>
 

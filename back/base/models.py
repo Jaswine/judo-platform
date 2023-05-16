@@ -56,30 +56,6 @@ class Participant(models.Model):
    
    def __str__(self):
       return '{} {} {}'.format(self.firstName, self.lastName, self.thirdName)
-   
-class Weight(models.Model):
-   name = models.CharField(max_length=10)
-   
-   def __str__(self):
-      return self.name
-   
-   
-# Weight Category
-class WeightCategory(models.Model):
-   GENDER = (
-      ('Мужской', 'Мужской'),
-      ('Женский', 'Женский')
-   )
-   
-   weight = models.ManyToManyField(Weight, default=[])
-   
-   year = models.CharField(max_length=20, blank=True)
-   gender = models.CharField(max_length=20, blank=True, choices=GENDER)
-   
-   participants = models.ManyToManyField(Participant, default=[], blank=True)
-   
-   def __str__(self):
-      return self.year 
 
 # Sponsors Emblems or Names
 class Sponsors(models.Model):
@@ -130,7 +106,7 @@ class Tournament(models.Model):
    
    tatamis_count = models.CharField(default=0, blank=True, max_length=2)
    
-   weight_categories = models.ManyToManyField(WeightCategory, blank=True, default=[])
+   # weight_categories = models.ManyToManyField(WeightCategory, blank=True, default=[])
    participants = models.ManyToManyField(Participant, default=[], blank=True)
    
    sponsors = models.ManyToManyField(Sponsors, blank=True, default=[], related_name='sponsors')
@@ -164,3 +140,35 @@ class Tournament(models.Model):
    
    def __str__(self):
       return self.title
+   
+class Weight(models.Model):
+   name = models.CharField(max_length=10)
+   
+   participants = models.ManyToManyField(Participant, default=[], blank=True)
+   
+   def __str__(self):
+      return self.name 
+   
+# Weight Category
+class WeightCategory(models.Model):
+   GENDER = (
+      ('Мужской', 'Мужской'),
+      ('Женский', 'Женский')
+   )
+   
+   tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, blank=True)
+   weight = models.ManyToManyField(Weight, default=[])
+   
+   year = models.CharField(max_length=20, blank=True)
+   gender = models.CharField(max_length=20, blank=True, choices=GENDER)
+      
+   def delete(self):
+      weights = self.weight.all()
+      
+      for w in weights:
+         w.delete()
+      
+      super(WeightCategory, self).delete()    
+      
+   def __str__(self):
+      return self.year 

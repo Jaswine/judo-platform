@@ -57,21 +57,21 @@
                </div>
             </div>
             <div class="tournament__categories">
-               {% for tournament__category in tournament.weight_categories.all  %}
+               {% for tournament_category in tournament.weightcategory_set.all  %}
                <div 
                   class="tournament__category"
-                  {% if tournament__category.gender == 'Мужской' %}
+                  {% if tournament_category.gender == 'Мужской' %}
                      style = "border: 2px solid #81a7ff; color: #81a7ff"
                   {% else %}
                      style = "border: 2px solid #ff81a7; color: #ff81a7;"
                   {% endif %}
                >
-                  {% if tournament__category.gender == 'Мужской' %}
+                  {% if tournament_category.gender == 'Мужской' %}
                   <i class="fa-solid fa-person"></i>
                   {% else %}
                      <i class="fa-solid fa-person-dress"></i>
                   {% endif %}
-                  {{tournament__category.category}} {{tournament__category.year}}
+                  {{tournament_category.category}} {{tournament_category.year}}
                </div>
                {% endfor %}
             </div>

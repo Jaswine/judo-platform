@@ -6,14 +6,14 @@
    <i class="fa-solid fa-pen-to-square"></i>
    {% trans 'Update Info' %}
 </a>
-<a href="{% url 'base:weight_categories' %}" class="link">
+<a href="{% url 'base:weight_categories' tournire.slug %}" class="link">
    <i class="fa-solid fa-plus"></i>
   {% trans 'Add New Weight Category' %}
 </a>
-{% for category in  tournire.weight_categories.all %}
-   <a href="{% url 'base:tournamets_admin_category' tournire.slug category.slug %}" class="link">
+{% for category in  tournire.weightcategory_set.all %}
+   <a href="{% url 'base:athletes_admin_category' tournire.slug category.year category.gender %}" class="link">
       <i class="fa-solid fa-list"></i>
-      {{ category.slug }}
+      {{ category.gender }} -  {{ category.year }}
    </a>
 {% endfor %}
 <a href="{% url 'base:tournamets_admin_delete' tournire.slug %}" class="link delete">
