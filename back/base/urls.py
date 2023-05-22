@@ -32,7 +32,10 @@ urlpatterns = [
    path('tournaments', tournaments.show_tournaments, name='show_tournaments'),
    path('tournaments/create', tournaments.create_tournamets, name='create_tournamets'),
    path('tournaments/<str:slug>/create-tournamets-images', tournaments.create_tournamets__images, name='create_tournamets__images'),
+   
+   # Show One Tournament
    path('tournaments/<str:slug>/', tournaments.tournamet_show, name='tournamet_show' ),
+   path('tournaments/<str:slug>/weight_categories/<int:pk>/', tournaments.show_tournament_category, name='tournamet_show_category' ),
    
    # Tournaments Register 
    path('tournaments/<str:slug>/registration-on-tournament', tournaments.registration_on_tournament, name='registration_on_tournament'),

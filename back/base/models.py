@@ -14,6 +14,11 @@ class Profile(models.Model):
    
    fullName = models.CharField(max_length=100, blank=True)
    phone = models.CharField(max_length=12, blank=True)
+   organization = models.CharField(max_length=300, blank=True)
+   
+   city = models.CharField(max_length=200, blank=True)
+   region =  models.CharField(max_length=200, blank=True)
+   
    userType = models.CharField(max_length=20, choices=TASKS, default='Свободный')
    image = models.ImageField(upload_to='profile_avatars', blank=True)
       

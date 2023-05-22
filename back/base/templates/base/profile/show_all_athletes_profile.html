@@ -19,7 +19,9 @@
          <option value="last">{% trans 'last' %}</option>
       </select>
    </div>
+   {% if  request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь' %}
    <a href="{% url 'base:add_new_athlete' %}" class="btn btn--primary">{% trans 'Add New Athlete' %}</a>
+   {% endif %}
 </form>
 
 <div class="athletes__all">

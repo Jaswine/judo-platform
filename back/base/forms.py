@@ -21,7 +21,7 @@ class UpdateUserForm(ModelForm):
 class UpdateProfileForm(ModelForm):
    class Meta:
       model = Profile
-      fields = ['fullName', 'phone', 'image']   
+      fields = ['fullName', 'phone', 'image', 'organization', 'city', 'region']   
 
 # Tournament
 class TournamentForm(ModelForm):

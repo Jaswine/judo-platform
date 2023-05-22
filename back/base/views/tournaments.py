@@ -33,6 +33,19 @@ def tournamet_show(request, slug):
    }
    return render(request, 'base/tournaments/show_tournament.html', context)
 
+def show_tournament_category(request, slug, pk):
+   tournament = get_object_or_404(Tournament, slug=slug)
+   category = get_object_or_404(WeightCategory, id=pk)
+   weights = category.weight.all()
+   
+   context = {
+      'tournament': tournament,
+      
+      'category': category,
+      'weights': weights
+   }
+   return render(request, 'base/tournaments/show_tournament_category.html', context)
+
 @csrf_exempt
 @login_required(login_url= 'base:login')
 def create_tournamets(request):
@@ -269,11 +282,11 @@ def list_of_registered_on_tournament(request, slug):
 def tournament_toss(request, slug):
    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournament = get_object_or_404(Tournament, slug=slug)
-      
+            
       context = {
-         'tournament': tournament
+         'tournament': tournament,
       }
-      return render(request, 'base/tournaments/tournament_sorting.html', context)
+      return render(request, 'base/tournaments/toss.html', context)
    else:
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')

@@ -1,18 +1,29 @@
 from rest_framework.serializers import ModelSerializer
-from ..models import Logos, Sponsors, Tournament
-
+from ..models import (Tournament, 
+                      WeightCategory, 
+                      Weight, 
+                      Participant)
 
 class TournamentSerializer(ModelSerializer):
    class Meta:
       model = Tournament
       fields = '__all__'
-
-class LogosSerializer(ModelSerializer):
+      
+class ParticipantSerializer(ModelSerializer):
    class Meta:
-      model = Logos
+      model = Participant
       fields = '__all__'
       
-class SponsorsSerializer(ModelSerializer):
+class WeightSerializer(ModelSerializer):
+   participants = ParticipantSerializer(many=True)
    class Meta:
-      model = Sponsors
-      fields = '__all__'
+      model = Weight
+      fields = ['id', 'name', 'participants']
+      
+class WeightCategorySerializer(ModelSerializer):
+   # tournament = TournamentSerializer(many=False)
+   # weight = WeightSerializer(many=True)
+   
+   class Meta:
+      model = WeightCategory
+      fields = ['id', 'year', 'gender']

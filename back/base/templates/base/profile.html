@@ -37,10 +37,13 @@
                   <i class="fa-solid fa-users"></i>
                   <h4>{% trans 'Athletes' %}</h4>
                </a>
-               <a  href="{% url 'base:show_profile' user.username %}" >
+               {% comment %} <a  href="{% url 'base:show_profile' user.username %}" >
+                  <i class="fa-solid fa-calendar-days"></i>      <a  href="{% url 'base:show_profile' user.username %}" >
                   <i class="fa-solid fa-calendar-days"></i>
                   <h4>{% trans 'Tournaments' %}</h4>
                </a>
+                  <h4>{% trans 'Tournaments' %}</h4>
+               </a> {% endcomment %}
                {% if request.user.is_authenticated %}
                   {% if request.user.username == user.username %}
                      <a href="{% url 'base:edit_profile' request.user.username %}" 

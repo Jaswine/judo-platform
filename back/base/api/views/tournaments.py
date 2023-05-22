@@ -1,31 +1,33 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
-from ..serializers import TournamentSerializer, LogosSerializer, SponsorsSerializer
 
-from ...models import Tournament, Logos, Sponsors
-
-
-@api_view(['POST'])
-def logos_view(request):
-   if request.method == 'POST':
-      logo = Logos.objects.create(
-         image = request.data.get('image')
-      )
-      
-      return Response(LogosSerializer(logo, many=False).data)
+from ..serializers import (TournamentSerializer,
+                           WeightCategorySerializer,
+                           WeightSerializer,
+                           ParticipantSerializer)
+from ...models import Tournament, WeightCategory, Weight
+ 
+@api_view(['GET'])
+def weight_category(request, slug):
+   tournament = Tournament.objects.get(slug=slug)
+   categories = WeightCategory.objects.filter(tournament=tournament)
    
-# @api_view(['GET', 'DELETE'])
-# def one_logo_view(request, id):
-#    logo = Logos.objects.get(id=id)
+   return Response(WeightCategorySerializer(categories, many=True).data)
+
+@api_view(['GET'])
+def weight_category_weights(request, slug, category_id):
+   tournament = Tournament.objects.get(slug=slug)
+   category = WeightCategory.objects.get(id=category_id)
+   weights  = category.weight.all()
    
-#    if logo:
-#       if request.method == 'GET':
-#          return Response(LogosSerializer(logo, many=False).data)
-      
-#       elif request.method == 'DELETE':
-#          sponsors.delete()
-#          return Response(status=status.HTTP_204_NO_CONTENT)
-      
-#    else:
-#       return Response(status=status.HTTP_404_NOT_FOUND)
+   return Response(WeightSerializer(weights, many=True).data)
+   
+@api_view(['GET'])
+def show_participants(request, slug, category_id, weight_id):
+   tournament = Tournament.objects.get(slug=slug)
+   category = WeightCategory.objects.get(id=category_id)
+   weight  = Weight.objects.get(id=weight_id)
+   participants = weight.participants.all()
+   
+   return Response(ParticipantSerializer(participants, many=True).data)

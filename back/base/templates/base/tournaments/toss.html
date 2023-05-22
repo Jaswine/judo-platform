@@ -1,0 +1,37 @@
+{% include 'main.html' %}
+{% load static i18n %}
+
+{% block title %}
+<link rel="stylesheet" href="{% static 'css/tournaments/toss.css' %}">
+<title>{% trans 'Toss' %} -  {{tournament.slug}}</title>
+{% endblock title %}
+   
+{% block content %}
+<h2 class="toss__title">
+   <span>{{tournament.title}}</span> 
+   <!-- <span class="toss__title__weight__category"></span> - 
+   <span class="toss__title__weight"></span> -->
+</h2>
+<input type="hidden" id="tossTitle" value="{{tournament.slug}}" >
+<div class="toss">
+   <div class="toss__right">
+      <form class="toss__right__menu" method="POST" >
+         {% csrf_token %}
+         <select id='weight_category'>
+            <option value="" selected disabled >Select Category</option>
+         </select>
+         <select id='weight'></select>
+         <button id="autoTossGenerate" class="btn">generate</button>
+      </form>
+      <div class="toss__right__participants">
+         
+      </div>
+   </div>
+   <div class="toss__left">
+      
+   </div>
+</div>
+
+<script src="{% static 'js/toss.js' %}"></script>
+
+{% endblock content %}  

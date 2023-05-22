@@ -1,0 +1,51 @@
+.instructions {
+   width: 100%;
+   padding: 10px 10%;
+}
+.instructions__header {
+   width: 100%;
+   background-color: white;
+   display: flex;
+   justify-content: start;
+   align-items: start;
+   flex-direction: column;
+   padding: 10px 5%;
+   border-radius: 10px;
+}
+.instructions__header a {
+   font-size: 22px;
+   margin-bottom: 5px;
+   text-decoration: underline;
+   transition: all    .3s linear;
+}
+.instructions__header a:hover {
+   color: #577fdc;
+}
+.instructions__content {
+   width: 100%;
+   margin: 2% 0;
+}
+
+.instruction {
+   width: 100%;
+   margin-bottom: 10px;
+   background-color: white;
+   border-radius: 10px;
+}
+.instruction__header {
+   width: 100%;
+   max-width: 100%;
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+
+   padding: 10px 5%;
+}
+.instruction__header span {
+   font-weight: bold;
+   font-size: 20px;
+}
+.instruction__body {
+
+}

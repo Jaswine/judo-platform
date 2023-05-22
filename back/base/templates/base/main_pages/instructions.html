@@ -2,12 +2,50 @@
 {% load static i18n %}
 
 {% block title %}
-<link rel="stylesheet" href="{% static 'css/tournament.css' %}">
+<link rel="stylesheet" href="{% static 'css/main/insttructions.css' %}">
 <title>Judo E-Platforma Instruction</title>
 {% endblock title %}
 
 {% block content %}
 <h2 class="title">{% trans 'Instructions' %}</h2>
-<div class="home">
+<div class="home instructions">
+   <div class="instructions__header">
+      <a href="#personalAccount">{% trans 'Registration of a personal account' %}</a>
+      <a href="#addSportsmens">{% trans "Entering athletes' data into the system" %}</a>
+      <a href="#sportsmentRegistration">{% trans 'Registration of athletes for the competition' %}</a>
+   </div>
+   <div class="instructions__content">
+
+      <div class="instruction" id="personalAccount">
+         <div class="instruction__header">
+            <h3>{% trans 'Registration of a personal account' %}</h3>
+            <span class="fa-solid fa-chevron-down"></span>
+         </div>
+         <div class="instruction__body">
+            
+         </div>
+      </div>
+
+      <div class="instruction" id="addSportsmens">
+         <div class="instruction__header">
+            <h3>{% trans "Entering athletes' data into the system" %}</h3>
+            <span class="fa-solid fa-chevron-down"></span>
+         </div>
+         <div class="instruction__body">
+            
+         </div>
+      </div>
+
+      <div class="instruction" id="sportsmentRegistration">
+         <div class="instruction__header">
+            <h3>{% trans "Registration of athletes for the competition" %}</h3>
+            <span class="fa-solid fa-chevron-down"></span>
+         </div>
+         <div class="instruction__body">
+            
+         </div>
+      </div>
+
+   </div>
 </div>
 {% endblock content %}  
