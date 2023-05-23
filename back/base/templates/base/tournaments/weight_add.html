@@ -3,14 +3,14 @@
 
 {% block title %}
    <link rel="stylesheet" href="{% static 'css/tournaments/weight_categories.css' %}">
-   <title>{% trans 'Weight Add' %}</title>
+   <title>{% trans 'Add' %}</title>
 {% endblock title %}
 
 {% block content %}
   <div class="home add_weight">
    <div class="categories">
       <form action="" class="create__tournament" method="POST">
-      <h2>{% trans 'Add Weight' %}</h2>
+      <h2>{% trans 'Add weight' %}</h2>
          {% csrf_token %}
          <div class="form__component">
             <label for="">{% trans 'Enter weight' %}:</label>
