@@ -89,3 +89,21 @@ h2 span {
    flex-direction: column;
    row-gap: 5px;
 }
+
+@media screen and (max-width: 500px) {
+   .athlete__info {
+      flex-direction: column;    
+   }
+   .athlete__info__right {
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      
+   }
+   .athlete__info__left {
+      width: 100%;
+   }
+   .athletes__filter {
+      flex-direction: column;
+   }
+}

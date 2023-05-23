@@ -292,3 +292,46 @@
    padding: 2px;
    font-size: 16px;
 }
+.td_delete button {
+   min-width: 40px;
+   min-height: 40px;
+   height: 100%;
+}
+
+
+@media screen and (max-width: 500px) {
+   .home {
+      padding: 10px 2vw;
+   }
+   .home__card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: transparent;
+      box-shadow: none;
+   }
+   .panel__left {
+      max-width: 100%;
+      background-color: transparent;
+      padding: 0;
+   }
+   .panel__right {
+      padding: 0;
+   }
+   .tournament__input, .tournament__image {
+      width: 80px;
+      height: 80px;
+   }
+   #id_about {
+      height: 60vh;
+   }
+   .delete__account__choices {
+      padding: 10px;
+      flex-direction: column;
+      row-gap: 10px;
+   }
+   .delete__account__choices {
+      width: 100vw !important;
+   }
+}

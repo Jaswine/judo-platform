@@ -1,4 +1,8 @@
 table {
    width: 100%;
-   
+   overflow-x: scroll;
+}
+.tournament__category__toolbar {
+   width: 100%;
+   overflow-x: scroll;
 }

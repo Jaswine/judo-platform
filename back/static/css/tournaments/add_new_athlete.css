@@ -17,3 +17,17 @@ h2 {
    width: 100%;
    min-width: 100%;
 }
+
+@media screen and (max-width: 500px) {
+   .form__tournaments form {
+      padding: 0 !important;
+   }
+   .pre__form__tournaments {
+      padding: 0;
+   }
+   .form__tournaments {
+      padding: 0;
+      background-color: transparent;
+      box-shadow: none
+   }
+}
