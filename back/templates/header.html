@@ -35,8 +35,10 @@
    <div class="header__right">
       {% if request.user.is_authenticated  %}
       {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser %}
-         <a href="{% url "base:create_tournamets" %}" class="link">
-            + {% trans 'Add New Tournament' %}
+         <a href="{% url "base:create_tournamets" %}" class="link" 
+         style="font-size: 30px; font-weight: bold;">
+            + 
+            <!-- {% trans 'Add New Tournament' %} -->
          </a>
       {% endif %}
    <a href="{% url 'base:show_profile' request.user.username %}" class="link">{{request.user.username}}</a>

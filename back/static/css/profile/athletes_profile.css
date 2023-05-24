@@ -90,7 +90,7 @@ h2 span {
    row-gap: 5px;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
    .athlete__info {
       flex-direction: column;    
    }

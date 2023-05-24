@@ -12,13 +12,9 @@ from ..services import get_tournaments
 
 
 def index(request):
-   tournaments = get_tournaments()
-   
-   filter = TournamentFilter(request.GET, queryset=tournaments)
-   tournaments = filter.qs
+   tournaments = get_tournaments().order_by('updated')
    
    context = {
-      'filter': filter,
       'tournaments': tournaments,     
    }
    return render(request, 'base/index.html', context)

@@ -18,34 +18,53 @@
 
       <div class="instruction" id="personalAccount">
          <div class="instruction__header">
-            <h3>{% trans 'Account registration' %}</h3>
-            <span class="fa-solid fa-chevron-down"></span>
+            <h2>{% trans 'Account registration' %}</h2>
+            <span class="fa-solid fa-chevron-down open__instruction" ></span>
          </div>
-         <div class="instruction__body">
-            
+         <div class="instruction__body" style="display: none;">
+            <p>Для того чтобы начать регистрацию спортсменов на соревнования, представителю-тренеру необходимо войти в личный кабинет либо зарегистрироваться (создать кабинет) в автоматизированной системе регистрации. </p>
+            <img src="/static/media/instructions/registr.png" alt="register" />
+            <p>Для создания нового профиля необходимо заполнить все поля формы регистрации</p>
+            <img src="/static/media/instructions/registerField.png" alt="register fields" />
+            <p>Чтобы получить возможность добавлять участников и регистрировать их под турнирами вам надо отправить свое имя пользователя администратору сайта: <a href="mailto:admin@gmail.com" ><b>admin@gmail.com</b></a></p>
+            <img src="/static/media/instructions/gotouserpage.png" alt="username" />
          </div>
       </div>
 
       <div class="instruction" id="addSportsmens">
          <div class="instruction__header">
-            <h3>{% trans "Entering athletes' data into the system" %}</h3>
-            <span class="fa-solid fa-chevron-down"></span>
+            <h2>{% trans "Entering athletes' data into the system" %}</h2>
+            <span class="fa-solid fa-chevron-down open__instruction"></span>
          </div>
-         <div class="instruction__body">
-            
+         <div class="instruction__body" style="display: none;">
+            <img src="/static/media/instructions/gotouserpage.png" alt="username" />
+            <img src="/static/media/instructions/gotoallmyathletes.png" alt="gotoathletes" />
+            <p>Добавьте спортсменов, которые будут принимать участие в соревнованиях, после добавления данные спортсмена сохраняются для всех соревнований.</p>
+            <img src="/static/media/instructions/addnewathlete.png" alt="gotoathletes" />
+            <p>При добавлении спортсмена в профиле спортсмена автоматически указывается первым тренером ФИО тренера который добавил спортсмена.</p>
+            <img src="/static/media/instructions/addnewathletesefieldsadded.png" alt="gotoathletes" />
          </div>
       </div>
 
       <div class="instruction" id="sportsmentRegistration">
          <div class="instruction__header">
-            <h3>{% trans "Registration of athletes for the competition" %}</h3>
-            <span class="fa-solid fa-chevron-down"></span>
+            <h2>{% trans "Registration of athletes for the competition" %}</h2>
+            <span class="fa-solid fa-chevron-down open__instruction"></span>
          </div>
-         <div class="instruction__body">
-            
+         <div class="instruction__body" style="display: none;">
+            <p>Для регистрации спортсменов на соревнования выберете соревнование в списке и нажмите «Регистрация»</p>
+            <img src="/static/media/instructions/registerontounrament.png" alt="gotoathletes" />
+            <p>Раздел регистрации на выбранные соревнования</p><br>
+            <p>Выберете «Зарегистрировать» </p>
+            <img src="/static/media/instructions/registertotournamen.png" alt="gotoathletes" />
+            <p>В списке для регистрации, появятся все ваши спортсмены </p><br>
+            <p>В списке отображаются спортсмены, которые подходят по году рождения и квалификации </p><br>
+            <p>Необходимо выбрать весовую категорию и нажать «+» </p>
+            <img src="/static/media/instructions/deletefromregister.png" alt="gotoathletes" />
          </div>
       </div>
 
    </div>
 </div>
+<script src="{% static 'js/instructions.js' %}"></script>
 {% endblock content %}  

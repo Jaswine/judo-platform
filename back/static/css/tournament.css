@@ -11,6 +11,23 @@
    margin-top: 20px;
    gap: 20px;
 }
+.pre__home {
+   padding: 10px 2vw;
+   margin-top: 20px;
+}
+.home__header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.home__header a {
+   font-size: 24px;
+   transition: all .3s linear;
+}
+.home__header a:hover {
+   color: #577fdc;
+}
+
 .home__filters {
    display: flex;
    justify-content: start;
@@ -23,6 +40,7 @@
    padding: 10px;
    row-gap: 10px;
    padding-bottom: 2%;
+   min-width: 300px;
 }
 .home__filters label {
    width: 100%;
@@ -44,10 +62,11 @@ input {
    padding: 6px ;
 }
 .all__tournaments {
-   width: 75%;
+   width: 100%;
    display: flex;
    align-items: start;
    flex-wrap: wrap;
+   gap: 10px
 }
 
 .tournament {
@@ -56,7 +75,7 @@ input {
    margin: 10px 0px;
    transition:  all .3s linear;
    width: 100%;
-   max-width: 450px;
+   max-width: 400px;
    border-radius: 10px;
 }
 .tournament:hover  {
@@ -126,7 +145,7 @@ input {
 }
 
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
    .home {
       flex-direction: column;
    }

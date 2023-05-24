@@ -124,10 +124,14 @@ header {
 ::-webkit-scrollbar {
    background-color: rgb(254,254,254,.1);
    width: 5px;
+   transition: all .3s linear;
 }
 ::-webkit-scrollbar-thumb {
    background-color:#5f80cd ;
    border-radius: 10px;
+}
+::-webkit-scrollbar:hover {
+   width: 14px;
 }
 
 .message {
@@ -324,7 +328,7 @@ header {
    padding: 20px 5%;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
    body {
       font-size: 16px;
    }

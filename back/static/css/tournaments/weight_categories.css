@@ -70,7 +70,7 @@ td {
    cursor: pointer;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
    .categories {
       flex-direction: column;
    }
@@ -140,7 +140,7 @@ td {
    max-width: 40px;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
    table {
       width: 100%;
    }
