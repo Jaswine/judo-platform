@@ -21,7 +21,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'modeltranslation',
     'django.contrib.admin',
@@ -167,6 +166,6 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
 
-TRANSLATABLE_MODEL_MODULES = [
-    'base.models'
-]
+# TRANSLATABLE_MODEL_MODULES = [
+#     'base.models'
+# ]
