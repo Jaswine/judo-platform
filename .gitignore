@@ -1,8 +1,15 @@
 __pycache__/
 __pycache__
+
 *.sqlite3
+db.sqlite3
+
 profile_avatars
+
 .vscode
 .vscode/
+
 back/static/media/
-db.sqlite3
+
+.env
+*.env
