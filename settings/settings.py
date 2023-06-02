@@ -155,12 +155,20 @@ CACHES = {
 # python manage.py update_translation_fields
 # django-admin makemessages -l ru -e html
 # django-admin compilemessages
-gettext = lambda s: s
-LANGUAGES = (
-    ('en', gettext('English')),
-    ('ru', gettext('Russia')),
-    # ('kz', gettext('  Kazakh')),
-)
+# gettext = lambda s: s
+# LANGUAGES = (
+#     ('en', gettext('English')),
+#     ('ru', gettext('Russia')),
+#     ('kz', gettext('  Kazakh')),
+# )
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('ru', 'Russian'),
+    ('kk', 'Kazakh'),
+]
+
+MODELTRANSLATION_LANGUAGES = ( 'en', 'ru', 'kk')
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),

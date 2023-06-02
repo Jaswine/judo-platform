@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.files.storage import default_storage
+from modeltranslation.translator import TranslationOptions, register
 
 from django.contrib.auth.models import User
 
@@ -69,7 +70,11 @@ class Sponsors(models.Model):
    def __str__(self):
       return self.image.name
 
-# Tournir
+# Tournament Translation
+class TournamentTranslationOptions(TranslationOptions):
+    fields = ('title', 'about', 'rang', 'credit', 'status')
+
+# Tournament
 class Tournament(models.Model):
    
    RANGS = (
@@ -153,7 +158,11 @@ class Weight(models.Model):
    
    def __str__(self):
       return self.name 
-   
+
+# Tournament Translation
+class WeightCategoryTranslationOptions(TranslationOptions):
+    fields = ('gender',)
+
 # Weight Category
 class WeightCategory(models.Model):
    GENDER = (

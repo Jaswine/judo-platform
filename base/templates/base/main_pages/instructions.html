@@ -13,6 +13,7 @@
       <a href="#personalAccount">{% trans 'Account registration' %}</a>
       <a href="#addSportsmens">{% trans "Entering athletes' data into the system" %}</a>
       <a href="#sportsmentRegistration">{% trans 'Registration of athletes for the competition' %}</a>
+      <a href="#Contacts">{% trans 'Contacts' %}</a>
    </div>
    <div class="instructions__content">
 
@@ -61,6 +62,18 @@
             <p>В списке отображаются спортсмены, которые подходят по году рождения и квалификации </p><br>
             <p>Необходимо выбрать весовую категорию и нажать «+» </p>
             <img src="/static/media/instructions/deletefromregister.png" alt="gotoathletes" />
+         </div>
+      </div>
+
+      <div class="instruction" id="Contacts">
+         <div class="instruction__header">
+            <h2>{% trans "Contacts" %}</h2>
+            <span class="fa-solid fa-chevron-down open__instruction"></span>
+         </div>
+         <div class="instruction__body" style="display: none;">
+            <h3>Firstname Lastname Thirdname</h3>
+            <span><b>Email: </b> admin@gmail.com</span><br>
+            <span><b>Number: </b> +7 772 304 8545</span>
          </div>
       </div>
 

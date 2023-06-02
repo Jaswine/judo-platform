@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-02 20:38+0600\n"
+"POT-Creation-Date: 2023-06-02 21:47+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,14 +16,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 #: base/templates/base/auth.html:8 base/templates/base/auth.html:24
 #: templates/header.html:50
 msgid "Login"
-msgstr "Вход"
+msgstr "Кіру"
 
 #: base/templates/base/auth.html:12 base/templates/base/auth.html:36
 #: base/templates/base/index.html:77
@@ -34,11 +31,11 @@ msgstr "Вход"
 #: base/templates/base/tournaments/show_tournaments.html:81
 #: templates/header.html:49
 msgid "Registration"
-msgstr "Регистрация"
+msgstr "Тіркеу"
 
 #: base/templates/base/auth.html:27
 msgid "Username"
-msgstr "Пользователь"
+msgstr "Пайдаланушы аты"
 
 #: base/templates/base/auth.html:32
 #: base/templates/base/profile/edit_password_profile.html:7
@@ -48,100 +45,100 @@ msgstr "Пароль"
 #: base/templates/base/auth.html:53
 #: base/templates/base/profile/edit_password_profile.html:16
 msgid "Continue"
-msgstr "Продолжить"
+msgstr "Жалғастыру"
 
 #: base/templates/base/index.html:13
 #: base/templates/base/tournaments/show_tournaments.html:10
 msgid "List of competitions"
-msgstr "Лист соревнований"
+msgstr "Конкурстар тізімі"
 
 #: base/templates/base/index.html:27
 #: base/templates/base/tournaments/show_tournaments.html:31
 msgid "Place"
-msgstr "Место"
+msgstr "Орын"
 
 #: base/templates/base/index.html:31
 #: base/templates/base/tournaments/show_tournament.html:38
 #: base/templates/base/tournaments/show_tournament_category.html:38
 #: base/templates/base/tournaments/show_tournaments.html:35
 msgid "Rang"
-msgstr "Ранг"
+msgstr "Атағы"
 
 #: base/templates/base/index.html:35
 #: base/templates/base/tournaments/show_tournament.html:28
 #: base/templates/base/tournaments/show_tournament_category.html:28
 #: base/templates/base/tournaments/show_tournaments.html:39
 msgid "Date"
-msgstr "Дата"
+msgstr "Күні"
 
 #: base/templates/base/index.html:40
 #: base/templates/base/tournaments/show_tournaments.html:44
 msgid "Status"
-msgstr "Статус"
+msgstr "Күйі"
 
 #: base/templates/base/index.html:81
 #: base/templates/base/tournaments/show_tournaments.html:85
 msgid "Change"
-msgstr "Изменить"
+msgstr "Өзгерту"
 
 #: base/templates/base/index.html:84
 #: base/templates/base/tournaments/show_tournaments.html:88
 #: base/templates/base/tournaments/toss.html:6
 msgid "Toss"
-msgstr "Сортировка"
+msgstr "Сұрыптау"
 
 #: base/templates/base/index.html:92
 #: base/templates/base/tournaments/show_tournaments.html:96
 msgid "Tournaments Not Found"
-msgstr "Турниры не найдены"
+msgstr "Турнирлер табылмады"
 
 #: base/templates/base/main_pages/instructions.html:10 templates/header.html:30
 msgid "Instructions"
-msgstr "Инструкции"
+msgstr "Нұсқаулар"
 
 #: base/templates/base/main_pages/instructions.html:13
 #: base/templates/base/main_pages/instructions.html:22
 msgid "Account registration"
-msgstr "Регистрация аккаунта"
+msgstr "Шотты тіркеу"
 
 #: base/templates/base/main_pages/instructions.html:14
 #: base/templates/base/main_pages/instructions.html:37
 msgid "Entering athletes' data into the system"
-msgstr "Внесение данных спортсменов в систему"
+msgstr "Спортшылардың деректерін жүйеге енгізу"
 
 #: base/templates/base/main_pages/instructions.html:15
 #: base/templates/base/main_pages/instructions.html:52
 msgid "Registration of athletes for the competition"
-msgstr "Регистрация спортсменов на соревнования"
+msgstr "Спортшыларды жарысқа тiркеу"
 
 #: base/templates/base/main_pages/instructions.html:16
 #: base/templates/base/main_pages/instructions.html:70
 msgid "Contacts"
-msgstr "Контакты"
+msgstr "Контактілер"
 
 #: base/templates/base/main_pages/medals.html:10 templates/header.html:22
 msgid "Medals"
-msgstr "Медали"
+msgstr "Медальдар"
 
 #: base/templates/base/main_pages/sorting.html:10 templates/header.html:26
 msgid "Sorting"
-msgstr "Сортировка"
+msgstr "Сұрыптау"
 
 #: base/templates/base/profile.html:34
 msgid "Info"
-msgstr "Информация"
+msgstr "Ақпарат"
 
 #: base/templates/base/profile.html:38
 msgid "Athletes"
-msgstr "Спортсмены"
+msgstr "Спортшылар"
 
 #: base/templates/base/profile.html:53
 msgid "Edit"
-msgstr "Редактировать"
+msgstr "Өңдеу"
 
 #: base/templates/base/profile.html:57 templates/header.html:46
 msgid "Logout"
-msgstr "Выйти"
+msgstr "Шығу"
 
 #: base/templates/base/profile/athlete/add_athlete.html:6
 #: base/templates/base/profile/athlete/add_athlete.html:15
@@ -150,15 +147,15 @@ msgstr "Выйти"
 #: base/templates/base/tournaments/panel/components/add_new_athlete.html:4
 #: base/templates/base/tournaments/panel/components/add_new_athlete.html:9
 msgid "Add New Athlete"
-msgstr "Добавить нового спортсмена"
+msgstr "Жаңа спортшыны қосу"
 
 #: base/templates/base/profile/athlete/add_athlete.html:17
 msgid "Update Athlete"
-msgstr "Обновить информацию о спортсмене"
+msgstr "Спортшыны жаңарту"
 
 #: base/templates/base/profile/athlete/add_athlete.html:33
 msgid "Coach"
-msgstr "Тренер"
+msgstr "Жаттықтырушы"
 
 #: base/templates/base/profile/athlete/add_athlete.html:53
 #: base/templates/base/profile/edit_profile.html:40
@@ -167,73 +164,73 @@ msgstr "Тренер"
 #: base/templates/base/tournaments/panel/components/add_new_athlete.html:23
 #: base/templates/base/tournaments/panel/components/update.html:100
 msgid "save"
-msgstr "Сохранить"
+msgstr "сақтау"
 
 #: base/templates/base/profile/athlete/delete_athlete.html:7
 msgid "Delete Athlete"
-msgstr "Удалить спортсмена"
+msgstr "Спортшыны өшіру"
 
 #: base/templates/base/profile/athlete/delete_athlete.html:17
 #: base/templates/base/profile/delete_profile.html:7
 msgid "Come Back"
-msgstr "Вернуться назад"
+msgstr "Қайт"
 
 #: base/templates/base/profile/athlete/delete_athlete.html:18
 #: base/templates/base/profile/delete_profile.html:8
 #: base/templates/base/tournaments/panel/components/delete.html:9
 msgid "Delete"
-msgstr "Удалить"
+msgstr "Өшіру"
 
 #: base/templates/base/profile/delete_profile.html:3
 #: base/templates/base/profile/edit_profile.html:37
 msgid "Delete Account"
-msgstr "Удалить"
+msgstr "Есептік жазбаны жою"
 
 #: base/templates/base/profile/edit_password_profile.html:3
 msgid "Update Password"
-msgstr "Обновить пароль"
+msgstr "Құпия сөзді жаңарту"
 
 #: base/templates/base/profile/edit_password_profile.html:12
 msgid "Password Confirmation"
-msgstr "Подтверждение пароля"
+msgstr "Парольді растау"
 
 #: base/templates/base/profile/edit_profile.html:5
 #: base/templates/base/tournaments/panel/components/Menu.html:7
 msgid "Update Info"
-msgstr "Обновить информацию"
+msgstr "Ақпаратты жаңарту"
 
 #: base/templates/base/profile/edit_profile.html:34
 msgid "Danger zone"
-msgstr "Опасная зона"
+msgstr "Қауіпті аймақ"
 
 #: base/templates/base/profile/edit_profile.html:36
 msgid "Change Password"
-msgstr "Изменить пароль"
+msgstr "Құпия сөзді өзгерту"
 
 #: base/templates/base/profile/show_all_athletes_profile.html:6
 msgid "My athletes"
-msgstr "Мои спортсмены"
+msgstr "Менің спортшыларым"
 
 #: base/templates/base/profile/show_all_athletes_profile.html:13
 msgid "search"
-msgstr "Поиск"
+msgstr "іздеу"
 
 #: base/templates/base/profile/show_all_athletes_profile.html:17
 msgid "Filter"
-msgstr "Фильтр"
+msgstr "Сүзгі"
 
 #: base/templates/base/profile/show_all_athletes_profile.html:18
 msgid "new"
-msgstr "Новый"
+msgstr "Жаңа"
 
 #: base/templates/base/profile/show_all_athletes_profile.html:19
 msgid "last"
-msgstr "последний"
+msgstr "соңғы"
 
 #: base/templates/base/profile/show_all_athletes_profile.html:35
 #: base/templates/base/tournaments/weight_categories.html:35
 msgid "Year"
-msgstr "Год"
+msgstr "Жыл"
 
 #: base/templates/base/profile/show_all_athletes_profile.html:39
 msgid "Discharge"
@@ -242,20 +239,20 @@ msgstr "Разряд"
 #: base/templates/base/profile/show_all_athletes_profile.html:43
 #: base/templates/base/tournaments/weight_categories.html:34
 msgid "Gender"
-msgstr "Пол"
+msgstr "Жынысы"
 
 #: base/templates/base/profile/show_all_athletes_profile.html:47
 #: base/templates/base/tournaments/weight_categories.html:36
 msgid "Weight"
-msgstr "Вес"
+msgstr "Салмағы"
 
 #: base/templates/base/profile/view_profile.html:5
 msgid "Personal Data"
-msgstr "Личные данные"
+msgstr "Дербес деректер"
 
 #: base/templates/base/profile/view_profile.html:18
 msgid "FullName"
-msgstr "Полное имя(Фамилия, имя, Отчество)"
+msgstr "Толық аты"
 
 #: base/templates/base/profile/view_profile.html:24
 msgid "Phone"
@@ -263,94 +260,94 @@ msgstr "Телефон"
 
 #: base/templates/base/profile/view_profile.html:30
 msgid "Email"
-msgstr "Email"
+msgstr "Электрондық пошта"
 
 #: base/templates/base/profile/view_profile.html:37
 #: base/templates/base/profile/view_profile.html:75
 msgid "User Type"
-msgstr "Тип Пользователя"
+msgstr "Пайдаланушы түрі"
 
 #: base/templates/base/profile/view_profile.html:39
 #: base/templates/base/profile/view_profile.html:58
 #: base/templates/base/profile/view_profile.html:64
 #: base/templates/base/profile/view_profile.html:77
 msgid "Admin"
-msgstr "Администратор"
+msgstr "Әкімші"
 
 #: base/templates/base/profile/view_profile.html:48
 msgid "Change User Status"
-msgstr "Изменить статус пользователя"
+msgstr "Пайдаланушы күйін өзгерту"
 
 #: base/templates/base/profile/view_profile.html:65
 msgid "Secretary"
-msgstr "Секретарь"
+msgstr "Хатшы"
 
 #: base/templates/base/profile/view_profile.html:66
 msgid "Free"
-msgstr "Свободный"
+msgstr "Тегін"
 
 #: base/templates/base/tournaments/athlete_registration.html:6
 msgid "Athlete Registration"
-msgstr "Регистрация Спортсменов  "
+msgstr "Спортшыны тіркеу"
 
 #: base/templates/base/tournaments/athlete_registration.html:18
 #: base/templates/base/tournaments/athlete_registration.html:51
 msgid "List of registered"
-msgstr "Список зарегистрированных"
+msgstr "Тіркелгендер тізімі"
 
 #: base/templates/base/tournaments/athlete_registration.html:85
 #: base/templates/base/tournaments/weight_categories.html:6
 msgid "Weight Categories"
-msgstr "Весовые категории"
+msgstr "Салмақ санаттары"
 
 #: base/templates/base/tournaments/create_tournament.html:5
 #: base/templates/base/tournaments/create_tournament.html:13
 #: base/templates/base/tournaments/panel/tournament_panel.html:5
 #: templates/header.html:41
 msgid "Add New Tournament"
-msgstr "Добавить новый турнир"
+msgstr "Жаңа турнирді қосу"
 
 #: base/templates/base/tournaments/create_tournament.html:37
 msgid "Upload Logotips"
-msgstr "Загрузить логотипы"
+msgstr "Логотиптерді жүктеп салу"
 
 #: base/templates/base/tournaments/create_tournament.html:44
 #: base/templates/base/tournaments/panel/components/update.html:95
 msgid "Sponsors Logotips"
-msgstr "Спонсорские Логотипы"
+msgstr "Демеушілер Логотиптер"
 
 #: base/templates/base/tournaments/panel/components/Menu.html:11
 msgid "Add New Weight Category"
-msgstr "Добавить новую весовую категорию"
+msgstr "Жаңа салмақ санатын қосу"
 
 #: base/templates/base/tournaments/panel/components/Menu.html:21
 #: base/templates/base/tournaments/panel/components/delete.html:4
 msgid "Delete Tournament"
-msgstr "Удалить турнир"
+msgstr "Турнирді жою"
 
 #: base/templates/base/tournaments/panel/components/athletes_admin_category.html:9
 msgid "All Athletes"
-msgstr "Все Участники"
+msgstr "Барлық спортшылар"
 
 #: base/templates/base/tournaments/panel/components/athletes_admin_category.html:10
 msgid "Results"
-msgstr "Результаты"
+msgstr "Нәтижелер"
 
 #: base/templates/base/tournaments/panel/components/athletes_admin_category.html:41
 msgid "First Name"
-msgstr "Имя"
+msgstr "Аты"
 
 #: base/templates/base/tournaments/panel/components/athletes_admin_category.html:42
 msgid "Last Name"
-msgstr "Фамилия"
+msgstr "Тегі"
 
 #: base/templates/base/tournaments/panel/components/athletes_admin_category.html:43
 msgid "Third Name"
-msgstr "Отчество"
+msgstr "Әкесінің аты"
 
 #: base/templates/base/tournaments/panel/components/athletes_admin_category.html:44
 msgid "year"
-msgstr "год"
+msgstr "жылғы"
 
 #: base/templates/base/tournaments/panel/components/athletes_admin_category.html:45
 msgid "discharge"
@@ -358,44 +355,44 @@ msgstr "разряд"
 
 #: base/templates/base/tournaments/panel/components/athletes_admin_category.html:46
 msgid "gender"
-msgstr "пол"
+msgstr "жынысы"
 
 #: base/templates/base/tournaments/panel/components/athletes_admin_category.html:47
 msgid "coach"
-msgstr "тренер"
+msgstr "жаттықтырушы"
 
 #: base/templates/base/tournaments/panel/components/delete.html:8
 msgid "Come back"
-msgstr "Вернуться назад"
+msgstr "Қайт"
 
 #: base/templates/base/tournaments/panel/components/update.html:2
 msgid "Update The Tournament"
-msgstr "Обновить информацию о турнире"
+msgstr "Турнирді жаңарту"
 
 #: base/templates/base/tournaments/panel/components/update.html:21
 msgid "Choose Weight Category for delete"
-msgstr "Выберите весовую категорию для удаления"
+msgstr "Жою үшін Салмақ санаты тармағын таңдаңыз"
 
 #: base/templates/base/tournaments/panel/components/update.html:31
 msgid "You don't see important category"
-msgstr "Вы не видите важную категорию"
+msgstr "Маңызды санат көрінбейді"
 
 #: base/templates/base/tournaments/panel/components/update.html:31
 #: base/templates/base/tournaments/weight_categories.html:14
 msgid "Add New Category"
-msgstr "Добавить Новую Категорию"
+msgstr "Жаңа санат қосу"
 
 #: base/templates/base/tournaments/panel/components/update.html:51
 msgid "Delete Logotips"
-msgstr "Удаление Логотипов"
+msgstr "Логотиптерді жою"
 
 #: base/templates/base/tournaments/panel/components/update.html:70
 msgid "Upload New Logotips"
-msgstr "Загрузка Новых Логотипов"
+msgstr "Жаңа логотиптерді кері жүктеу"
 
 #: base/templates/base/tournaments/panel/components/update.html:75
 msgid "Delete Sponsors Logotips"
-msgstr "Удаление Спонсорских Логотипов"
+msgstr "Демеушілер журналын жою"
 
 #: base/templates/base/tournaments/show_tournament.html:6
 #: base/templates/base/tournaments/show_tournament_category.html:6
@@ -405,78 +402,78 @@ msgstr "Турнир"
 #: base/templates/base/tournaments/show_tournament.html:14
 #: base/templates/base/tournaments/show_tournament_category.html:14
 msgid "Categories"
-msgstr "Категории"
+msgstr "Санаттар"
 
 #: base/templates/base/tournaments/show_tournament.html:30
 #: base/templates/base/tournaments/show_tournament_category.html:30
 msgid "Time"
-msgstr "Время"
+msgstr "Уақыт"
 
 #: base/templates/base/tournaments/show_tournament.html:31
 #: base/templates/base/tournaments/show_tournament_category.html:31
 msgid "status"
-msgstr "статус"
+msgstr "күйі"
 
 #: base/templates/base/tournaments/show_tournament.html:34
 #: base/templates/base/tournaments/show_tournament_category.html:34
 msgid "Participants"
-msgstr "Участники"
+msgstr "Қатысушылар"
 
 #: base/templates/base/tournaments/show_tournament.html:37
 #: base/templates/base/tournaments/show_tournament_category.html:37
 msgid "Location"
-msgstr "Локации"
+msgstr "Орналасуы"
 
 #: base/templates/base/tournaments/show_tournament.html:57
 #: base/templates/base/tournaments/show_tournament_category.html:57
 msgid "Chief Justice"
-msgstr "Главный Судья"
+msgstr "Бас сот төрелігі"
 
 #: base/templates/base/tournaments/show_tournament.html:60
 #: base/templates/base/tournaments/show_tournament_category.html:60
 msgid "Chief Secretary"
-msgstr "Главный секретарь"
+msgstr "Бас хатшы"
 
 #: base/templates/base/tournaments/show_tournament.html:63
 #: base/templates/base/tournaments/show_tournament_category.html:63
 msgid "About"
-msgstr "Об"
+msgstr "Шамамен"
 
 #: base/templates/base/tournaments/show_tournament.html:68
 #: base/templates/base/tournaments/show_tournament_category.html:68
 msgid "Sponsors"
-msgstr "Спонсоры"
+msgstr "Демеушілер"
 
 #: base/templates/base/tournaments/show_tournament.html:76
 msgid "Number of participants"
-msgstr "Число участников"
+msgstr "Қатысушылар саны"
 
 #: base/templates/base/tournaments/show_tournaments.html:6
 #: templates/header.html:18
 msgid "Tournaments"
-msgstr "Турниры"
+msgstr "Турнирлер"
 
 #: base/templates/base/tournaments/show_tournaments.html:13
 msgid "Tournament filter"
-msgstr "Фильтр турниров"
+msgstr "Турнир сүзгісі"
 
 #: base/templates/base/tournaments/show_tournaments.html:18
 msgid "Sort"
-msgstr "Сортировать"
+msgstr "Сұрыптау"
 
 #: base/templates/base/tournaments/weight_add.html:6
 msgid "Add"
-msgstr "Добавить"
+msgstr "Қосу"
 
 #: base/templates/base/tournaments/weight_add.html:13
 #: base/templates/base/tournaments/weight_add.html:17
 msgid "Add weight"
-msgstr "Добавить вес"
+msgstr "Салмақ қосу"
 
 #: base/templates/base/tournaments/weight_add.html:16
 msgid "Enter weight"
-msgstr "Введите вес"
+msgstr "Салмақты енгізу"
 
 #: templates/header.html:65
 msgid "Translate"
-msgstr "Переводить"
+msgstr "Аудару"
