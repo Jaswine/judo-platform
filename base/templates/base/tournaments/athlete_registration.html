@@ -28,7 +28,7 @@
                   <span>{{athlete.year}}</span>
                   <span>{{athlete.discharge}}</span>
                   <span>
-                  <select name = 'weight' class='athlete__weight'>
+                  <select name = 'weight' class='athlete__weight' required>
                     {% for weight_category  in tournament.weightcategory_set.all %}
                       {% if weight_category.gender == athlete.gender %}
                         {% if athlete.year in weight_category.year  %}

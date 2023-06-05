@@ -9,7 +9,7 @@
 {% block content %}
    <div class="categories">
       <form method="POST" class="create__tournament">
-         <input type="text" name="form_type" value="weight__category" style="display: none">
+         <input type="text" name="form_type" value="weight__category" style="display: none" required>
 
          <h2>{% trans 'Add New Category' %}</h2>
          {% csrf_token %}

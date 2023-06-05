@@ -219,8 +219,8 @@ def registration_on_tournament(request, slug):
       tournament = get_object_or_404(Tournament, slug=slug)
       weight_category = WeightCategory.objects.filter(tournament=tournament)
       
-      participants = Participant.objects.filter(user=request.user) 
-         
+      participants = Participant.objects.filter(user=request.user)
+
       weight  = Weight.objects.all()
       
       if request.method == 'POST':

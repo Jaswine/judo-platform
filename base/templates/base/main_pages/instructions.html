@@ -3,7 +3,7 @@
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/main/insttructions.css' %}">
-<title>Judo E-Platforma Instruction</title>
+<title>Judo E-Platforma {% trans "Instruction" %}</title>
 {% endblock title %}
 
 {% block content %}
@@ -23,11 +23,11 @@
             <span class="fa-solid fa-chevron-down open__instruction" ></span>
          </div>
          <div class="instruction__body" style="display: none;">
-            <p>Для того чтобы начать регистрацию спортсменов на соревнования, представителю-тренеру необходимо войти в личный кабинет либо зарегистрироваться (создать кабинет) в автоматизированной системе регистрации. </p>
+            <p>{% trans "In order to start the registration of athletes for competitions, the representative-coach needs to enter his personal account or register (create an account) in the automated registration system." %}</p>
             <img src="/static/media/instructions/registr.png" alt="register" />
-            <p>Для создания нового профиля необходимо заполнить все поля формы регистрации</p>
+            <p>{% trans "To create a new profile, you must fill in all the fields of the registration form" %}</p>
             <img src="/static/media/instructions/registerField.png" alt="register fields" />
-            <p>Чтобы получить возможность добавлять участников и регистрировать их под турнирами вам надо отправить свое имя пользователя администратору сайта: <a href="mailto:admin@gmail.com" ><b>admin@gmail.com</b></a></p>
+            <p>{% trans "To be able to add participants and register them for tournaments you need to send your username to the site administrator" %}: <a href="mailto:admin@gmail.com" ><b>admin@gmail.com</b></a></p>
             <img src="/static/media/instructions/gotouserpage.png" alt="username" />
          </div>
       </div>
@@ -40,9 +40,9 @@
          <div class="instruction__body" style="display: none;">
             <img src="/static/media/instructions/gotouserpage.png" alt="username" />
             <img src="/static/media/instructions/gotoallmyathletes.png" alt="gotoathletes" />
-            <p>Добавьте спортсменов, которые будут принимать участие в соревнованиях, после добавления данные спортсмена сохраняются для всех соревнований.</p>
+            <p>{% trans "Add athletes who will take part in the competition, after adding the athlete's data is saved for all competitions" %}.</p>
             <img src="/static/media/instructions/addnewathlete.png" alt="gotoathletes" />
-            <p>При добавлении спортсмена в профиле спортсмена автоматически указывается первым тренером ФИО тренера который добавил спортсмена.</p>
+            <p>{% trans "When adding an athlete in the athlete's profile, the first coach automatically indicates the name of the coach who added the athlete" %}.</p>
             <img src="/static/media/instructions/addnewathletesefieldsadded.png" alt="gotoathletes" />
          </div>
       </div>
@@ -53,14 +53,14 @@
             <span class="fa-solid fa-chevron-down open__instruction"></span>
          </div>
          <div class="instruction__body" style="display: none;">
-            <p>Для регистрации спортсменов на соревнования выберете соревнование в списке и нажмите «Регистрация»</p>
+            <p>{% trans "To register athletes for competitions, select the competition in the list and click 'Registration' " %}</p>
             <img src="/static/media/instructions/registerontounrament.png" alt="gotoathletes" />
-            <p>Раздел регистрации на выбранные соревнования</p><br>
-            <p>Выберете «Зарегистрировать» </p>
+            <p>{% trans "Registration section for selected competitions" %}</p><br>
+            <p>{% trans "Choose 'Register'" %} </p>
             <img src="/static/media/instructions/registertotournamen.png" alt="gotoathletes" />
-            <p>В списке для регистрации, появятся все ваши спортсмены </p><br>
-            <p>В списке отображаются спортсмены, которые подходят по году рождения и квалификации </p><br>
-            <p>Необходимо выбрать весовую категорию и нажать «+» </p>
+            <p>{% trans "In the list for registration, all your athletes will appear" %} </p><br>
+            <p>{% trans "The list displays athletes who are suitable by year of birth and qualification" %}</p><br>
+            <p>{% trans "You must select a weight category and click '+' " %} </p>
             <img src="/static/media/instructions/deletefromregister.png" alt="gotoathletes" />
          </div>
       </div>
@@ -71,9 +71,9 @@
             <span class="fa-solid fa-chevron-down open__instruction"></span>
          </div>
          <div class="instruction__body" style="display: none;">
-            <h3>Firstname Lastname Thirdname</h3>
+            <h3>{% trans "Firstname Lastname Thirdname" %}</h3>
             <span><b>Email: </b> admin@gmail.com</span><br>
-            <span><b>Number: </b> +7 772 304 8545</span>
+            <span><b>{% trans "Number" %}: </b> +7 772 304 8545</span>
          </div>
       </div>
 

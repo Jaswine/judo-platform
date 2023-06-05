@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-02 20:38+0600\n"
+"POT-Creation-Date: 2023-06-05 17:59+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,6 +95,10 @@ msgstr "Сортировка"
 msgid "Tournaments Not Found"
 msgstr "Турниры не найдены"
 
+#: base/templates/base/main_pages/instructions.html:6
+msgid "Instruction"
+msgstr "Инструкции"
+
 #: base/templates/base/main_pages/instructions.html:10 templates/header.html:30
 msgid "Instructions"
 msgstr "Инструкции"
@@ -118,6 +122,58 @@ msgstr "Регистрация спортсменов на соревнован�
 #: base/templates/base/main_pages/instructions.html:70
 msgid "Contacts"
 msgstr "Контакты"
+
+#: base/templates/base/main_pages/instructions.html:26
+msgid "In order to start the registration of athletes for competitions, the representative-coach needs to enter his personal account or register (create an account) in the automated registration system."
+msgstr "В целях начала регистрации спортсменов на соревнования представителю-тренеру необходимо войти в личный кабинет или зарегистрироваться (создать «аккаунт») в автоматизированной системе регистрации."
+
+#: base/templates/base/main_pages/instructions.html:28
+msgid "To create a new profile, you must fill in all the fields of the registration form"
+msgstr "Для создания нового профиля необходимо заполнить все поля регистрационной формы"
+
+#: base/templates/base/main_pages/instructions.html:30
+msgid "To be able to add participants and register them for tournaments you need to send your username to the site administrator"
+msgstr "Чтобы иметь возможность добавлять участников и регистрировать их для участия в турнирах, вам необходимо отправить свой логин администратору сайта."
+
+#: base/templates/base/main_pages/instructions.html:43
+msgid "Add athletes who will take part in the competition, after adding the athlete's data is saved for all competitions"
+msgstr "Добавляйте спортсменов, которые примут участие в соревнованиях, после добавления данные спортсмена сохраняются для всех соревнований"
+
+#: base/templates/base/main_pages/instructions.html:45
+msgid "When adding an athlete in the athlete's profile, the first coach automatically indicates the name of the coach who added the athlete"
+msgstr "При добавлении спортсмена в профиль спортсмена первый тренер автоматически указывает имя тренера, добавившего спортсмена"
+
+#: base/templates/base/main_pages/instructions.html:56
+msgid "To register athletes for competitions, select the competition in the list and click 'Registration' "
+msgstr "Для регистрации спортсменов на соревнования выберите соревнование в списке и нажмите 'Регистрация'."
+
+#: base/templates/base/main_pages/instructions.html:58
+msgid "Registration section for selected competitions"
+msgstr "Регистрация спортсменов на соревнования"
+
+#: base/templates/base/main_pages/instructions.html:59
+msgid "Choose 'Register'"
+msgstr "Выберите «Регистрация»"
+
+#: base/templates/base/main_pages/instructions.html:61
+msgid "In the list for registration, all your athletes will appear"
+msgstr "В списке для регистрации появятся все ваши спортсмены"
+
+#: base/templates/base/main_pages/instructions.html:62
+msgid "The list displays athletes who are suitable by year of birth and qualification"
+msgstr "В списке отображаются спортсмены, подходящие по году рождения и квалификации"
+
+#: base/templates/base/main_pages/instructions.html:63
+msgid "You must select a weight category and click '+' "
+msgstr "Необходимо выбрать весовую категорию и нажать '+'"
+
+#: base/templates/base/main_pages/instructions.html:74
+msgid "Firstname Lastname Thirdname"
+msgstr "Имя Фамилия Отчество"
+
+#: base/templates/base/main_pages/instructions.html:76
+msgid "Number"
+msgstr "Число"
 
 #: base/templates/base/main_pages/medals.html:10 templates/header.html:22
 msgid "Medals"

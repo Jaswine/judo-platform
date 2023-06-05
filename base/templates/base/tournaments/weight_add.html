@@ -14,7 +14,7 @@
          {% csrf_token %}
          <div class="form__component">
             <label for="">{% trans 'Enter weight' %}:</label>
-            <input type="text" name="weight" placeholder="{% trans 'Add weight' %}..." class="input">
+            <input type="text" name="weight" placeholder="{% trans 'Add weight' %}..." class="input" required>
          </div>
          <div class="show__all__weight">
             {% for weight in weight_category.weight.all %}
