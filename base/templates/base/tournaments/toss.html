@@ -3,23 +3,37 @@
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournaments/toss.css' %}">
-<title>{% trans 'Toss' %} -  {{tournament.slug}}</title>
+<title>{% trans 'Toss' %} -  {{tournament.title}}</title>
 {% endblock title %}
    
 {% block content %}
-<input type="hidden" id="tossTitle" value="{{tournament.slug}}" >
 <div class="toss">
-   <div class="toss__header">
-      <h3 class="toss__header__title">{{tournament.title}}</h3>
-      <form action="">
-         <select id='weight_category'>
-            <option value="" selected disabled >Select Category</option>
-         </select>
-         <select id='weight'></select>
-         <button id="autoTossGenerate" class="btn">generate</button>
-      </form> 
+   <input type="hidden" value='{{tournament.slug}}' id='tossTitle'  />
+   <h3 class="title">{{tournament.title}}</h3>
+   <div class="toss__menu">
+      <select id="weight_category">
+         <option selected disabled>Select Category</option>
+      </select>
+      <select  id="weight">
+         <option selected disabled>Select Weight</option>
+      </select>
+      <span></span>
+      <button id="draw" class="btn"><i class="fa-solid fa-pen-ruler"></i> Draw</button>
+      <button id="confirm" class="btn"><i class="fa-solid fa-check"></i> Confirm</button>
+      <button id="clear" class="btn"><i class="fa-solid fa-xmark"></i> Clear</button>
+      <span></span>
+      <button id="print"  class="btn"><i class="fa-solid fa-print"></i> Print</button>
+      <button id="download"  class="btn"><i class="fa-solid fa-file-arrow-down"></i> Download</button>
    </div>
-   <div class="toss__content"></div>
+   <div class="toss__content">
+      <div class="toss__content__left">
+         <h4>Show All Athletes</h4>
+         <div class="toss__content__show__athletes">
+            <p>not found</p>
+         </div>
+      </div>
+      <div class="toss__content__right"></div>
+   </div>
 </div>
 
 <script src="{% static 'js/toss.js' %}"></script>

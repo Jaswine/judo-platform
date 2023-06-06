@@ -1,39 +1,86 @@
 .toss {
-   width: 100%;
-   padding: 10px;
+
 }
-.toss__header {
-   display: flex;
-   justify-content: space-around;
-   align-items: center;
+.toss .title {
+   padding: 4px 10px;
+   font-size: 18px;
+}
+.toss__menu {
    width: 100%;
+   background-color: aliceblue;
+   padding: 0 5%;
+   height: 60px;
+   display: flex;
+   justify-content: start;
+   align-items: center;
    gap: 10px
 }
-.toss__header form  {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   gap: 10px;
+.toss__menu span {
+   display: block;
+   content: "";
+   width: 1px;
+   height: 30px;
+   margin:  0 10px;
+   background-color: black;
+}
+select {
+   min-width: 100px;
    max-width: 200px;
    width: 100%;
 }
-.btn, select {
-   margin: 0 !important;
-}
-select option {
-   padding: 4px !important;
-   font-size: 18px !important;
-}
+
+/* toss__content */
 .toss__content {
+   display: flex;
+   justify-content: space-between;
+   align-items: start;
    width: 100%;
-   height: 100%;
-   margin-top: 10px;
-   min-height: 80vh;
-   border-radius: 10px;
-   box-shadow: 5px 5px 10px rgb(0,0,0,.1);
-   overflow-x: auto;
-   background-color: white;
 }
-select {
-   width: auto;
+.toss__content__left {
+   max-width: 280px;
+   display: flex;
+   justify-content: start;
+   align-items: start;
+   flex-direction: column;
+   padding: 10px;
+   background-color: rgb(0,0,0,.05);
+   min-height: 100vh;
+   overflow-y: scroll;
+}
+.toss__participant {
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   gap: 6px;
+   padding: 6px;
+   background-color: rgb(87, 127, 220, .1);
+   margin-bottom: 6px;
+   border-radius: 4px;
+   font-size: 16px;
+}
+
+.place {
+   padding: 4px;
+   border-radius: 4px;
+   background-color: rgb(0,0,0,.07);
+
+   max-width: 200px;
+   min-width: 200px;
+   min-height: 30px;
+   margin: 4px;
+}
+.place__top {
+   margin-top: 15px;
+}
+.place__bottom {
+   margin-bottom: 15px;
+}
+
+.toss__content__right {
+   /* display: flex;
+   justify-content: start;
+   align-items: start;
+   flex-direction: column; */
+   width: 100%;
+   padding: 5px;
 }

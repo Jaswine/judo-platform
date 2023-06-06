@@ -152,7 +152,7 @@ msgid "Registration section for selected competitions"
 msgstr "Регистрация спортсменов на соревнования"
 
 #: base/templates/base/main_pages/instructions.html:59
-msgid "Choose 'Register'"
+msgid "Choose 'Register' "
 msgstr "Выберите «Регистрация»"
 
 #: base/templates/base/main_pages/instructions.html:61

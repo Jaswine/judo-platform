@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from ..models import (Tournament, 
                       WeightCategory, 
                       Weight, 
@@ -16,9 +16,14 @@ class ParticipantSerializer(ModelSerializer):
       
 class WeightSerializer(ModelSerializer):
    participants = ParticipantSerializer(many=True)
+   participants_count = SerializerMethodField()
+   
    class Meta:
       model = Weight
-      fields = ['id', 'name', 'participants']
+      fields = ['id', 'name', 'participants_count', 'participants']
+   
+   def get_participants_count(self, obj):
+        return obj.participants.count()
       
 class WeightCategorySerializer(ModelSerializer):
    # tournament = TournamentSerializer(many=False)
