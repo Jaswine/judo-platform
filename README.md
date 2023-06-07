@@ -18,12 +18,16 @@ Other Cool Websites:
 https://www.judoinside.com/judovideo/index
 https://www.ippon-shop.nl/
 
-![изображение](https://user-images.githubusercontent.com/82625479/236384650-ad009c75-b43b-473f-99a3-24dbc071bd5a.png)
+![изображение](https://github.com/Vaseles/judo-shaiai-2/assets/82625479/8c110eee-475c-41ea-9a2e-84db1470747e)
 
-![изображение](https://user-images.githubusercontent.com/82625479/236384697-f76c5e57-d6af-49c2-a5cf-e7e7917940e5.png)
+![изображение](https://github.com/Vaseles/judo-shaiai-2/assets/82625479/9bba7392-675b-4003-9963-4f23dbc7298f)
 
-![изображение](https://user-images.githubusercontent.com/82625479/236384722-d01cf496-4cf8-4171-85fe-03810f2e9c22.png)
+![изображение](https://github.com/Vaseles/judo-shaiai-2/assets/82625479/a09a64fd-847c-496b-988a-2e8b19bfc9b1)
 
-![изображение](https://user-images.githubusercontent.com/82625479/236384791-c59e9045-cd72-45ed-9683-ae70991c953e.png)
+![изображение](https://github.com/Vaseles/judo-shaiai-2/assets/82625479/77934536-950f-4e88-a71f-a36b34bf84e3)
 
-![изображение](https://user-images.githubusercontent.com/82625479/236385095-cba46078-fb99-43fd-a962-0e2f734d61cf.png)
+![изображение](https://github.com/Vaseles/judo-shaiai-2/assets/82625479/fa078b5b-7c50-4c12-915b-11eb5c2219e1)
+
+![изображение](https://github.com/Vaseles/judo-shaiai-2/assets/82625479/b9ab2661-c2f3-40a5-9861-a06a0b84d69c)
+
+![изображение](https://github.com/Vaseles/judo-shaiai-2/assets/82625479/2cb4dcf8-08c0-4d63-a8b7-877e27b73a8e)
