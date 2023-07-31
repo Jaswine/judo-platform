@@ -1,17 +1,9 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import Profile, Participant, WeightCategory, Tournament
+from .models import Profile, Tournament
 
 @register(Profile)
 class ProfileTranslationOptions(TranslationOptions):
-   fields = ('fullName', 'userType', )
-   
-@register(Participant)
-class ParticipantTranslationOptions(TranslationOptions):
-   fields = ('discharge', )
-   
-@register(WeightCategory)
-class WeightCategoryTranslationOptions(TranslationOptions):
-   fields = ('gender', )
+   fields = ('fullName', )
    
 @register(Tournament)
 class TournamentTranslationOptions(TranslationOptions):
