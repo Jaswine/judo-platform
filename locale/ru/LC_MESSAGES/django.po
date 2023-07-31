@@ -536,3 +536,63 @@ msgstr "Введите вес"
 #: templates/header.html:65
 msgid "Translate"
 msgstr "Переводить"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Title in English"
+msgstr "Название на английском"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Title in Russian"
+msgstr "Название на русском"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Title in Kazakh"
+msgstr "Название на казахском"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "About in English"
+msgstr "Описание на английском"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "About in Russian"
+msgstr "Описание на русском"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "About in Kazakh"
+msgstr "Название на казахском"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Location in English"
+msgstr "Местоположение на английском"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Location in Russian"
+msgstr "Местоположение на русском"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Location in Kazakh"
+msgstr "Местоположение на казахском"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Logo"
+msgstr "Логотип"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Start Datе"
+msgstr "Дата начала"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Finish Datе"
+msgstr "Дата окончания"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Start Time"
+msgstr "Время начала"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Credit"
+msgstr "Тип"
+
+#: base/templates/base/tournaments/create_tournament.html:47
+msgid "Tatamis Count"
+msgstr "Колличество матов"

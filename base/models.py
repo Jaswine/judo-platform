@@ -1,8 +1,8 @@
 from django.db import models
-from django.core.files.storage import default_storage
-from modeltranslation.translator import TranslationOptions, register
-
 from django.contrib.auth.models import User
+
+from django.core.files.storage import default_storage
+
 
 # Auto Add
 class Profile(models.Model):
@@ -44,13 +44,13 @@ class Participant(models.Model):
    )
    
    DISCHARGES = (
-      ('Белый пояс (мукю)'), ('Белый пояс (мукю)'),
-      ('Желтый пояс (10 кю)'), ('Желтый пояс (10 кю)'),
-      ('Оранжевый пояс (9 кю)'), ('Оранжевый пояс (9 кю)'),
-      ('Зеленый пояс (8 кю)'), ('Зеленый пояс (8 кю)'),
-      ('Синий пояс (7 кю)'), ('Синий пояс (7 кю)'),
-      ('Коричневый пояс (6 кю - 1 кю)'), ('Коричневый пояс (6 кю - 1 кю)'),
-      ('Черный пояс (1 дан - 10 дан)'), ('Черный пояс (1 дан - 10 дан)'),
+      ('Белый пояс (мукю)', 'Белый пояс (мукю)'),
+      ('Желтый пояс (10 кю)', 'Желтый пояс (10 кю)'),
+      ('Оранжевый пояс (9 кю)', 'Оранжевый пояс (9 кю)'),
+      ('Зеленый пояс (8 кю)', 'Зеленый пояс (8 кю)'),
+      ('Синий пояс (7 кю)', 'Синий пояс (7 кю)'),
+      ('Коричневый пояс (6 кю - 1 кю)', 'Коричневый пояс (6 кю - 1 кю)'),
+      ('Черный пояс (1 дан - 10 дан)', 'Черный пояс (1 дан - 10 дан)'),
    )
    
    user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -80,10 +80,6 @@ class Sponsors(models.Model):
    
    def __str__(self):
       return self.image.name
-
-# Tournament Translation
-class TournamentTranslationOptions(TranslationOptions):
-    fields = ('title', 'about', 'rang', 'credit', 'status')
 
 # Tournament
 class Tournament(models.Model):
@@ -169,11 +165,7 @@ class Weight(models.Model):
    
    def __str__(self):
       return self.name 
-
-# Tournament Translation
-class WeightCategoryTranslationOptions(TranslationOptions):
-    fields = ('gender',)
-
+   
 # Weight Category
 class WeightCategory(models.Model):
    GENDER = (
