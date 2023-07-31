@@ -111,9 +111,12 @@ def tournamets_admin_delete(request, slug):
       tournire = get_object_or_404(Tournament, slug=slug)
       
       if request.method == 'POST': 
-         for tournament_cat in tournire.weightcategory.all():
-            tournament_cat.delete()
-            
+         weight_categories = WeightCategory.objects.filter(tournament=tournire)
+         
+         if (weight_categories.count() > 0):
+            for weight_category in weight_categories:
+               weight_category.delete()      
+         
          tournire.delete()
          return redirect('base:show_tournaments')
       

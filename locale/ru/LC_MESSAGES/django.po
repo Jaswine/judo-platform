@@ -537,15 +537,15 @@ msgstr "Введите вес"
 msgid "Translate"
 msgstr "Переводить"
 
-#: base/templates/base/tournaments/create_tournament.html:47
+#: locale/en/LC_MESSAGES/django.po
 msgid "Title in English"
 msgstr "Название на английском"
 
-#: base/templates/base/tournaments/create_tournament.html:47
+#: locale/ru/LC_MESSAGES/django.po
 msgid "Title in Russian"
 msgstr "Название на русском"
 
-#: base/templates/base/tournaments/create_tournament.html:47
+#: locale/kk/LC_MESSAGES/django.po
 msgid "Title in Kazakh"
 msgstr "Название на казахском"
 

@@ -30,7 +30,7 @@ class TournamentForm(ModelForm):
                   'logo', 
                   'about_en', 'about_ru', 'about_kk', 
                   'rang', 
-                  'place_en', 'place_ru',  'place_kk',  # Make sure to add the fields for all languages
+                  'place_en', 'place_ru',  'place_kk',  
                   'startData', 'finishData', 'startTime', 'credit', 'tatamis_count', 
                   'chiefJustice_en', 'chiefJustice_ru', 'chiefJustice_kk', 
                   'chiefSecretary_en', 'chiefSecretary_ru', 'chiefSecretary_kk', 

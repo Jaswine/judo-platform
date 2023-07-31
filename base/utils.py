@@ -18,18 +18,13 @@ def password_checking(user, password, password_confirmation):
    else:
       return [False, 'confirm password is not the same']
    
-# Slugs Utils
 def slug_generator(string):
-   return '-'.join(string.lower().split(' '))
+    return '-'.join(string.lower().split(' '))
 
 def checking_slug(slug):
-   tournaments = Tournament.objects.filter(slug=slug)
-   
-   if (tournaments.count() > 0):
-      slug += str(random.randrange(10000))
-      return slug 
-   else:
-      return slug 
+    while Tournament.objects.filter(slug=slug).exists():
+        slug += str(random.randrange(10000))
+    return slug
 
 # def Admin_Secretary(function=None, login_url=None):
    #if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь'):
