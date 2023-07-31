@@ -7,4 +7,4 @@ class ProfileTranslationOptions(TranslationOptions):
    
 @register(Tournament)
 class TournamentTranslationOptions(TranslationOptions):
-   fields = ('title', 'about','rang', 'place', 'credit', 'chiefJustice', 'chiefSecretary' )
+   fields = ('title', 'about', 'place', 'chiefJustice', 'chiefSecretary' )

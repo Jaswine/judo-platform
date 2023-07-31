@@ -42,13 +42,24 @@ class Participant(models.Model):
       ('Мужской', 'Мужской'),
       ('Женский', 'Женский')
    )
+   
+   DISCHARGES = (
+      ('Белый пояс (мукю)'), ('Белый пояс (мукю)'),
+      ('Желтый пояс (10 кю)'), ('Желтый пояс (10 кю)'),
+      ('Оранжевый пояс (9 кю)'), ('Оранжевый пояс (9 кю)'),
+      ('Зеленый пояс (8 кю)'), ('Зеленый пояс (8 кю)'),
+      ('Синий пояс (7 кю)'), ('Синий пояс (7 кю)'),
+      ('Коричневый пояс (6 кю - 1 кю)'), ('Коричневый пояс (6 кю - 1 кю)'),
+      ('Черный пояс (1 дан - 10 дан)'), ('Черный пояс (1 дан - 10 дан)'),
+   )
+   
    user = models.ForeignKey(User, on_delete=models.CASCADE)
    firstName = models.CharField(max_length=100)
    lastName = models.CharField(max_length=100)
    thirdName = models.CharField(max_length=100, blank=True)
    
    year = models.CharField(max_length=30)
-   discharge = models.CharField(max_length=40)
+   discharge = models.CharField(max_length=40, choices=DISCHARGES)
    gender = models.CharField(max_length=10, choices=GENDER)
    coach = models.CharField(max_length=245, blank=True)
    
