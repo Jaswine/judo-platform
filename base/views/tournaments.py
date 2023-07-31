@@ -131,23 +131,26 @@ def create_tournamets__images(request, slug):
          sponsors_logotips = request.FILES.getlist('sponsors-logotips')
          
           # Add Logotips and Photos
-         if (len(logotips) > 0):
-            for logo in logotips:
-               new_file = Logos(image = logo)
+         try:
+            if (len(logotips) > 0):
+               for logo in logotips:
+                  new_file = Logos(image = logo)
+                  
+                  new_file.save()  
+                  tournire.logos.add(new_file)
                
-               new_file.save()  
-               tournire.logos.add(new_file)
-            
-         # Add Sponsor Emblems
-         if (len(sponsors_logotips) > 0):
-            for logo in sponsors_logotips:
-               new_file = Sponsors(image = logo)
-               
-               new_file.save()
-               tournire.sponsors.add(new_file)
-               
-         tournire.save()   
-         return redirect('base:weight_categories', tournire.slug)
+            # Add Sponsor Emblems
+            if (len(sponsors_logotips) > 0):
+               for logo in sponsors_logotips:
+                  new_file = Sponsors(image = logo)
+                  
+                  new_file.save()
+                  tournire.sponsors.add(new_file)
+                  
+            tournire.save()   
+            return redirect('base:weight_categories', tournire.slug)
+         except:
+            return redirect('base:create_tournamets__images', slug)
    
       context = {
          'page_type': page_type,
