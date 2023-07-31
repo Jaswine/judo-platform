@@ -22,7 +22,7 @@
       {% endfor %}
    </div>
    <div class="tournament__left">
-      <h3>{{ tournament.title }}</h3>
+      <a href="{% url 'base:tournamet_show' tournament.slug %}" ><h3>{{ tournament.title }}</h3></a>
       <p>
          <i class="fa-solid fa-calendar-days"></i> 
          {% trans 'Date' %}: {{tournament.startData}} - {{tournament.finishData}}

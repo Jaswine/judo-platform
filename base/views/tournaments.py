@@ -150,7 +150,7 @@ def create_tournamets__images(request, slug):
             tournire.save()   
             return redirect('base:weight_categories', tournire.slug)
          except:
-            return redirect('base:create_tournamets__images', slug)
+            return redirect('base:weight_categories', slug)
    
       context = {
          'page_type': page_type,
