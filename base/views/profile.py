@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
+from django.contrib.auth.hashers import make_password
 
 from ..services import get_user, get_user_profile
 from ..forms import UpdateUserForm, UpdateProfileForm
@@ -84,7 +85,7 @@ def edit_password_profile(request, username):
          print(validation[0])
          
          if validation:
-            user.password = password
+            user.password = make_password(password)
             user.save()
             
             return redirect('base:show_profile', username=user.username)

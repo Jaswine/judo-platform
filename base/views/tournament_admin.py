@@ -18,57 +18,27 @@ def tournamets_admin_update_info(request, slug):
    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
       tournament_form = TournamentForm(instance=tournire)
-      
-      # weight_categories_all = WeightCategory.objects.all()
-      # tournire_weight_categories = tournire.weight_categories.all()
-
-      # # Categories choosed for show
-      # weight_categories_selected = []
-      # weight_categories_unselected = []
-      
-      # # Sorted weight categories
-      # for weight_category in weight_categories_all:
-      #    if weight_category in tournire_weight_categories:
-      #       weight_categories_selected.append(weight_category)
-      #    else:
-      #       weight_categories_unselected.append(weight_category)
-          
+   
       # get data from form        
       if request.method == 'POST':
-         tournament_form = TournamentForm(request.POST, request.FILES, instance=tournire)
+         form = TournamentForm(request.POST, request.FILES, instance=tournire)
          
          if tournament_form.is_valid():            
-            article = tournament_form.save(commit=False) 
-                
             logotips = request.FILES.getlist('files')
             sponsors_logotips = request.FILES.getlist('sponsors-logotips')
             
             delete_logotips = request.POST.getlist('delete-logotips')
             delete_sponsors = request.POST.getlist('delete-sponsors')
             
-            # weight_categories_chooised_for_upload = [int(i) for i in request.POST.getlist('weight-categories-chooised-for-upload')]
-            # weight_categories_chooised_for_delete = [int(i) for i in request.POST.getlist('weight-categories-chooised-for-delete')]
-            
-            # # upload weight categories chooised
-            # if len(weight_categories_chooised_for_upload) > 0:
-            #    for weight_category in weight_categories_chooised_for_upload:
-            #       article.weight_categories.add(weight_category)
-            
-            # # remove weight categories chooised
-            # if len(weight_categories_chooised_for_delete) > 0:
-            #    for weight_category in weight_categories_chooised_for_delete:
-            #       article.weight_categories.remove(weight_category)
- 
-           
             # # delete choices logtips
             if (len(delete_logotips) > 0):
                for logotip in delete_logotips:
-                  article.logos.filter(id=int(logotip)).delete()
+                  tournire.logos.filter(id=int(logotip)).delete()
                   
             # # delete choices logtips
             if (len(delete_sponsors) > 0):
                for sponsor in delete_sponsors:
-                  article.sponsors.filter(id=int(sponsor)).delete()
+                  tournire.sponsors.filter(id=int(sponsor)).delete()
          
             # # Add Logotips and Photos
             if len(logotips) > 0:
@@ -85,10 +55,54 @@ def tournamets_admin_update_info(request, slug):
                   
                   new_file.save()
                   tournire.sponsors.add(new_file)
+                  
+
+            tournire.title = form.cleaned_data.get('title_en'),
+            tournire.title_en = form.cleaned_data.get('title_en'),
+            tournire.title_ru = form.cleaned_data.get('title_ru'),
+            tournire.title_kk = form.cleaned_data.get('title_kk'),
             
-            article.save()
-            return redirect('base:show_tournaments')
+            tournire.logo = form.cleaned_data.get('logo'),
+            
+            tournire.about = form.cleaned_data.get('about_en'),
+            tournire.about_en = form.cleaned_data.get('about_en'),
+            tournire.about_ru = form.cleaned_data.get('about_ru'),
+            tournire.about_kk = form.cleaned_data.get('about_kk'),
+            
+            tournire.rang = form.cleaned_data.get('rang'),
+            
+            tournire.startData = form.cleaned_data.get('startData'),
+            tournire.finishData = form.cleaned_data.get('finishData'),
+            tournire.startTime = form.cleaned_data.get('startTime'),
+            
+            tournire.credit = form.cleaned_data.get('credit'),
+            tournire.tatamis_count = form.cleaned_data.get('tatamis_count'),
+
+            tournire.place = form.cleaned_data.get('place_en'),
+            tournire.place_en = form.cleaned_data.get('place_en'),
+            tournire.place_ru = form.cleaned_data.get('place_ru'),
+            tournire.place_kk = form.cleaned_data.get('place_kk'),
+            
+            tournire.chiefJustice = form.cleaned_data.get('chiefJustice_en'),
+            tournire.chiefJustice_en = form.cleaned_data.get('chiefJustice_en'),
+            tournire.chiefJustice_ru = form.cleaned_data.get('chiefJustice_ru'),
+            tournire.chiefJustice_kk = form.cleaned_data.get('chiefJustice_kk'),
+            
+            tournire.chiefSecretary = form.cleaned_data.get('chiefSecretary_en'),
+            tournire.chiefSecretary_en = form.cleaned_data.get('chiefSecretary_en'),
+            tournire.chiefSecretary_ru = form.cleaned_data.get('chiefSecretary_ru'),
+            tournire.chiefSecretary_kk = form.cleaned_data.get('chiefSecretary_kk'),
+            
+            tournire.status = form.cleaned_data.get('status'),
+            tournire.public = form.cleaned_data.get('public'),
          
+            
+            try: 
+               tournire.save()
+               return redirect('base:show_tournaments')
+            except:
+               return redirect('base:show_tournaments')
+                     
       context = {
          'page_type': page_type,
          

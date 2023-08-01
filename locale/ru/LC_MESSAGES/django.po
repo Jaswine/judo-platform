@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-05 17:59+0600\n"
+"POT-Creation-Date: 2023-08-01 19:40+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr "Вход"
 #: base/templates/base/tournaments/athlete_registration.html:17
 #: base/templates/base/tournaments/athlete_registration.html:50
 #: base/templates/base/tournaments/show_tournament.html:75
-#: base/templates/base/tournaments/show_tournaments.html:81
+#: base/templates/base/tournaments/show_tournaments.html:85
 #: templates/header.html:49
 msgid "Registration"
 msgstr "Регистрация"
@@ -80,18 +80,18 @@ msgid "Status"
 msgstr "Статус"
 
 #: base/templates/base/index.html:81
-#: base/templates/base/tournaments/show_tournaments.html:85
+#: base/templates/base/tournaments/show_tournaments.html:89
 msgid "Change"
 msgstr "Изменить"
 
 #: base/templates/base/index.html:84
-#: base/templates/base/tournaments/show_tournaments.html:88
+#: base/templates/base/tournaments/show_tournaments.html:92
 #: base/templates/base/tournaments/toss.html:6
 msgid "Toss"
 msgstr "Сортировка"
 
 #: base/templates/base/index.html:92
-#: base/templates/base/tournaments/show_tournaments.html:96
+#: base/templates/base/tournaments/show_tournaments.html:100
 msgid "Tournaments Not Found"
 msgstr "Турниры не найдены"
 
@@ -124,35 +124,63 @@ msgid "Contacts"
 msgstr "Контакты"
 
 #: base/templates/base/main_pages/instructions.html:26
-msgid "In order to start the registration of athletes for competitions, the representative-coach needs to enter his personal account or register (create an account) in the automated registration system."
-msgstr "В целях начала регистрации спортсменов на соревнования представителю-тренеру необходимо войти в личный кабинет или зарегистрироваться (создать «аккаунт») в автоматизированной системе регистрации."
+msgid ""
+"In order to start the registration of athletes for competitions, the "
+"representative-coach needs to enter his personal account or register (create "
+"an account) in the automated registration system."
+msgstr ""
+"В целях начала регистрации спортсменов на соревнования представителю-тренеру "
+"необходимо войти в личный кабинет или зарегистрироваться (создать «аккаунт») "
+"в автоматизированной системе регистрации."
 
 #: base/templates/base/main_pages/instructions.html:28
-msgid "To create a new profile, you must fill in all the fields of the registration form"
-msgstr "Для создания нового профиля необходимо заполнить все поля регистрационной формы"
+msgid ""
+"To create a new profile, you must fill in all the fields of the registration "
+"form"
+msgstr ""
+"Для создания нового профиля необходимо заполнить все поля регистрационной "
+"формы"
 
 #: base/templates/base/main_pages/instructions.html:30
-msgid "To be able to add participants and register them for tournaments you need to send your username to the site administrator"
-msgstr "Чтобы иметь возможность добавлять участников и регистрировать их для участия в турнирах, вам необходимо отправить свой логин администратору сайта."
+msgid ""
+"To be able to add participants and register them for tournaments you need to "
+"send your username to the site administrator"
+msgstr ""
+"Чтобы иметь возможность добавлять участников и регистрировать их для участия "
+"в турнирах, вам необходимо отправить свой логин администратору сайта."
 
 #: base/templates/base/main_pages/instructions.html:43
-msgid "Add athletes who will take part in the competition, after adding the athlete's data is saved for all competitions"
-msgstr "Добавляйте спортсменов, которые примут участие в соревнованиях, после добавления данные спортсмена сохраняются для всех соревнований"
+msgid ""
+"Add athletes who will take part in the competition, after adding the "
+"athlete's data is saved for all competitions"
+msgstr ""
+"Добавляйте спортсменов, которые примут участие в соревнованиях, после "
+"добавления данные спортсмена сохраняются для всех соревнований"
 
 #: base/templates/base/main_pages/instructions.html:45
-msgid "When adding an athlete in the athlete's profile, the first coach automatically indicates the name of the coach who added the athlete"
-msgstr "При добавлении спортсмена в профиль спортсмена первый тренер автоматически указывает имя тренера, добавившего спортсмена"
+msgid ""
+"When adding an athlete in the athlete's profile, the first coach "
+"automatically indicates the name of the coach who added the athlete"
+msgstr ""
+"При добавлении спортсмена в профиль спортсмена первый тренер автоматически "
+"указывает имя тренера, добавившего спортсмена"
 
 #: base/templates/base/main_pages/instructions.html:56
-msgid "To register athletes for competitions, select the competition in the list and click 'Registration' "
-msgstr "Для регистрации спортсменов на соревнования выберите соревнование в списке и нажмите 'Регистрация'."
+msgid ""
+"To register athletes for competitions, select the competition in the list "
+"and click 'Registration' "
+msgstr ""
+"Для регистрации спортсменов на соревнования выберите соревнование в списке и "
+"нажмите 'Регистрация'."
 
 #: base/templates/base/main_pages/instructions.html:58
 msgid "Registration section for selected competitions"
 msgstr "Регистрация спортсменов на соревнования"
 
 #: base/templates/base/main_pages/instructions.html:59
-msgid "Choose 'Register' "
+#, fuzzy
+#| msgid "Choose 'Register' "
+msgid "Choose 'Register'"
 msgstr "Выберите «Регистрация»"
 
 #: base/templates/base/main_pages/instructions.html:61
@@ -160,8 +188,11 @@ msgid "In the list for registration, all your athletes will appear"
 msgstr "В списке для регистрации появятся все ваши спортсмены"
 
 #: base/templates/base/main_pages/instructions.html:62
-msgid "The list displays athletes who are suitable by year of birth and qualification"
-msgstr "В списке отображаются спортсмены, подходящие по году рождения и квалификации"
+msgid ""
+"The list displays athletes who are suitable by year of birth and "
+"qualification"
+msgstr ""
+"В списке отображаются спортсмены, подходящие по году рождения и квалификации"
 
 #: base/templates/base/main_pages/instructions.html:63
 msgid "You must select a weight category and click '+' "
@@ -174,6 +205,14 @@ msgstr "Имя Фамилия Отчество"
 #: base/templates/base/main_pages/instructions.html:76
 msgid "Number"
 msgstr "Число"
+
+#: base/templates/base/main_pages/instructions.html:77
+msgid "Website Creator"
+msgstr ""
+
+#: base/templates/base/main_pages/instructions.html:78
+msgid "Telegram"
+msgstr ""
 
 #: base/templates/base/main_pages/medals.html:10 templates/header.html:22
 msgid "Medals"
@@ -520,6 +559,14 @@ msgstr "Фильтр турниров"
 msgid "Sort"
 msgstr "Сортировать"
 
+#: base/templates/base/tournaments/show_tournaments.html:53
+msgid "Registration completed"
+msgstr "Регистрация закрыта"
+
+#: base/templates/base/tournaments/show_tournaments.html:55
+msgid "Registration is open"
+msgstr "Регистрация открыта"
+
 #: base/templates/base/tournaments/weight_add.html:6
 msgid "Add"
 msgstr "Добавить"
@@ -537,62 +584,92 @@ msgstr "Введите вес"
 msgid "Translate"
 msgstr "Переводить"
 
-#: locale/en/LC_MESSAGES/django.po
-msgid "Title in English"
-msgstr "Название на английском"
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:7
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:220
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
 
-#: locale/ru/LC_MESSAGES/django.po
-msgid "Title in Russian"
-msgstr "Название на русском"
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
 
-#: locale/kk/LC_MESSAGES/django.po
-msgid "Title in Kazakh"
-msgstr "Название на казахском"
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:221
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "About in English"
-msgstr "Описание на английском"
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:229
+msgid "Django Documentation"
+msgstr ""
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "About in Russian"
-msgstr "Описание на русском"
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:230
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "About in Kazakh"
-msgstr "Название на казахском"
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:238
+msgid "Tutorial: A Polling App"
+msgstr ""
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "Location in English"
-msgstr "Местоположение на английском"
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:239
+msgid "Get started with Django"
+msgstr ""
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "Location in Russian"
-msgstr "Местоположение на русском"
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:247
+msgid "Django Community"
+msgstr ""
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "Location in Kazakh"
-msgstr "Местоположение на казахском"
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:248
+msgid "Connect, get help, or contribute"
+msgstr ""
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "Logo"
-msgstr "Логотип"
+#~ msgid "Title in English"
+#~ msgstr "Название на английском"
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "Start Datе"
-msgstr "Дата начала"
+#~ msgid "Title in Russian"
+#~ msgstr "Название на русском"
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "Finish Datе"
-msgstr "Дата окончания"
+#~ msgid "Title in Kazakh"
+#~ msgstr "Название на казахском"
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "Start Time"
-msgstr "Время начала"
+#~ msgid "About in English"
+#~ msgstr "Описание на английском"
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "Credit"
-msgstr "Тип"
+#~ msgid "About in Russian"
+#~ msgstr "Описание на русском"
 
-#: base/templates/base/tournaments/create_tournament.html:47
-msgid "Tatamis Count"
-msgstr "Колличество матов"
+#~ msgid "About in Kazakh"
+#~ msgstr "Название на казахском"
+
+#~ msgid "Location in English"
+#~ msgstr "Местоположение на английском"
+
+#~ msgid "Location in Russian"
+#~ msgstr "Местоположение на русском"
+
+#~ msgid "Location in Kazakh"
+#~ msgstr "Местоположение на казахском"
+
+#~ msgid "Logo"
+#~ msgstr "Логотип"
+
+#~ msgid "Start Datе"
+#~ msgstr "Дата начала"
+
+#~ msgid "Finish Datе"
+#~ msgstr "Дата окончания"
+
+#~ msgid "Start Time"
+#~ msgstr "Время начала"
+
+#~ msgid "Credit"
+#~ msgstr "Тип"
+
+#~ msgid "Tatamis Count"
+#~ msgstr "Колличество матов"

@@ -39,13 +39,17 @@
                >
                   <h4><i class="fa-solid fa-square-pen"></i>{% trans 'Status' %}: </h4>
                   <span
-                  {% if status == "Регистрация завершенa" %} 
+                  {% if tournament.status == "Регистрация завершенa" %} 
                      style="color: #ff8181 "
                   {% else %} 
                      style="color: #81a7ff;"
                   {% endif %}
                   >
-                     {{tournament.status}}
+                  {% if tournament.status == "Регистрация завершенa" %} 
+                     {% trans "Registration completed" %}
+                  {% else %} 
+                     {% trans "Registration is open" %}
+                  {% endif %}
                   </span>
                </div>
                <div class="tournament__description__line">
