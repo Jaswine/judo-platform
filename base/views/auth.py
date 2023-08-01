@@ -3,11 +3,11 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.hashers import check_password
 from ..forms import CreateUserForm
 
 from ..models import Profile
 from django.contrib.auth.models import User
-from ..filters import TournamentFilter
 from ..services import get_tournaments
 
 
@@ -57,23 +57,18 @@ def login_view(request):
    
    if request.method == 'POST':
       # get data from form
-      name = request.POST.get('username')
+      email = request.POST.get('email')
       password = request.POST.get('password')
             
       try:
-         user = User.objects.get(username=name)
-         print("I login")
+         user = User.objects.get(email=email)
+         
+         if check_password(password, user.password):
+            login(request, user)
+            return redirect('base:index')
+         
       except:
-         messages.error(request, 'User not found')
-      
-      user = authenticate(username=name, password=password)
-
-      
-      if user is not None:
-         login(request, user)
-         return redirect('base:index')
-      else:
-         messages.error(request, 'Invalid password or username')
+         messages.error(request, 'Email or Password is incorrect')
    
    context = {
       'page_type': page_type,
