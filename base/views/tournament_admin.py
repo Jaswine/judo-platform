@@ -17,13 +17,13 @@ def tournamets_admin_update_info(request, slug):
    
    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
-      tournament_form = TournamentForm(instance=tournire)
+      form = TournamentForm(instance=tournire)
    
       # get data from form        
       if request.method == 'POST':
          form = TournamentForm(request.POST, request.FILES, instance=tournire)
          
-         if tournament_form.is_valid():            
+         if form.is_valid():           
             logotips = request.FILES.getlist('files')
             sponsors_logotips = request.FILES.getlist('sponsors-logotips')
             
@@ -55,47 +55,46 @@ def tournamets_admin_update_info(request, slug):
                   
                   new_file.save()
                   tournire.sponsors.add(new_file)
-                  
+            
+            
+            tournire.title = form.cleaned_data.get('title_en')
+            tournire.title_en = form.cleaned_data.get('title_en')
+            tournire.title_ru = form.cleaned_data.get('title_ru')
+            tournire.title_kk = form.cleaned_data.get('title_kk')
+            
+            tournire.logo = form.cleaned_data.get('logo')
+            
+            tournire.about = form.cleaned_data.get('about_en')
+            tournire.about_en = form.cleaned_data.get('about_en')
+            tournire.about_ru = form.cleaned_data.get('about_ru')
+            tournire.about_kk = form.cleaned_data.get('about_kk')
+            
+            tournire.rang = form.cleaned_data.get('rang')
+            
+            tournire.startData = form.cleaned_data.get('startData')
+            tournire.finishData = form.cleaned_data.get('finishData')
+            tournire.startTime = form.cleaned_data.get('startTime')
+            
+            tournire.credit = form.cleaned_data.get('credit')
+            tournire.tatamis_count = form.cleaned_data.get('tatamis_count')
 
-            tournire.title = form.cleaned_data.get('title_en'),
-            tournire.title_en = form.cleaned_data.get('title_en'),
-            tournire.title_ru = form.cleaned_data.get('title_ru'),
-            tournire.title_kk = form.cleaned_data.get('title_kk'),
+            tournire.place = form.cleaned_data.get('place_en')
+            tournire.place_en = form.cleaned_data.get('place_en')
+            tournire.place_ru = form.cleaned_data.get('place_ru')
+            tournire.place_kk = form.cleaned_data.get('place_kk')
             
-            tournire.logo = form.cleaned_data.get('logo'),
+            tournire.chiefJustice = form.cleaned_data.get('chiefJustice_en')
+            tournire.chiefJustice_en = form.cleaned_data.get('chiefJustice_en')
+            tournire.chiefJustice_ru = form.cleaned_data.get('chiefJustice_ru')
+            tournire.chiefJustice_kk = form.cleaned_data.get('chiefJustice_kk')
             
-            tournire.about = form.cleaned_data.get('about_en'),
-            tournire.about_en = form.cleaned_data.get('about_en'),
-            tournire.about_ru = form.cleaned_data.get('about_ru'),
-            tournire.about_kk = form.cleaned_data.get('about_kk'),
+            tournire.chiefSecretary = form.cleaned_data.get('chiefSecretary_en')
+            tournire.chiefSecretary_en = form.cleaned_data.get('chiefSecretary_en')
+            tournire.chiefSecretary_ru = form.cleaned_data.get('chiefSecretary_ru')
+            tournire.chiefSecretary_kk = form.cleaned_data.get('chiefSecretary_kk')
             
-            tournire.rang = form.cleaned_data.get('rang'),
-            
-            tournire.startData = form.cleaned_data.get('startData'),
-            tournire.finishData = form.cleaned_data.get('finishData'),
-            tournire.startTime = form.cleaned_data.get('startTime'),
-            
-            tournire.credit = form.cleaned_data.get('credit'),
-            tournire.tatamis_count = form.cleaned_data.get('tatamis_count'),
-
-            tournire.place = form.cleaned_data.get('place_en'),
-            tournire.place_en = form.cleaned_data.get('place_en'),
-            tournire.place_ru = form.cleaned_data.get('place_ru'),
-            tournire.place_kk = form.cleaned_data.get('place_kk'),
-            
-            tournire.chiefJustice = form.cleaned_data.get('chiefJustice_en'),
-            tournire.chiefJustice_en = form.cleaned_data.get('chiefJustice_en'),
-            tournire.chiefJustice_ru = form.cleaned_data.get('chiefJustice_ru'),
-            tournire.chiefJustice_kk = form.cleaned_data.get('chiefJustice_kk'),
-            
-            tournire.chiefSecretary = form.cleaned_data.get('chiefSecretary_en'),
-            tournire.chiefSecretary_en = form.cleaned_data.get('chiefSecretary_en'),
-            tournire.chiefSecretary_ru = form.cleaned_data.get('chiefSecretary_ru'),
-            tournire.chiefSecretary_kk = form.cleaned_data.get('chiefSecretary_kk'),
-            
-            tournire.status = form.cleaned_data.get('status'),
-            tournire.public = form.cleaned_data.get('public'),
-         
+            tournire.status = form.cleaned_data.get('status')
+            tournire.public = form.cleaned_data.get('public')
             
             try: 
                tournire.save()
@@ -107,10 +106,7 @@ def tournamets_admin_update_info(request, slug):
          'page_type': page_type,
          
          'tournire': tournire,
-         'tournament_form': tournament_form,
-         
-         # 'weight_categories_selected': weight_categories_selected,
-         # 'weight_categories_unselected': weight_categories_unselected
+         'tournament_form': form,
       }
       return render(request, 'base/tournaments/panel/tournament_panel.html', context)
    else:
