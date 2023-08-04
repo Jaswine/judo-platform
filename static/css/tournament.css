@@ -110,6 +110,12 @@ input {
    align-items: center;
    gap: 4px;
 }
+.tournament__description__line h4 {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 2px;
+}
 .tournament__description__line h4 i {
    margin-right: 6px;
 }

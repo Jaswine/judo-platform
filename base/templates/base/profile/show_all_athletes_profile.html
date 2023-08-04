@@ -43,10 +43,6 @@
                <h4><i class="fa-solid fa-person-half-dress"></i> {% trans 'Gender' %}</h4>
                <span>{{athlete.gender}}</span>
             </div>
-            <div class="athlete__info__left__desc">
-               <h4>{% trans 'Weight' %}</h4>
-               <span>{{athlete.weight}}</span>
-            </div>
          </div>
          <div class="athlete__info__right">
             <a href="{% url 'base:update_athlete' athlete.id %}" class="btn">Change</a>

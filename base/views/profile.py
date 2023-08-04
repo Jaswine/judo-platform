@@ -132,7 +132,7 @@ def show_all_athletes_profile(request, username):
    user = get_user(username)
    profile = get_user_profile(user)
    
-   participants = Participant.objects.filter(user=user) 
+   participants = Participant.objects.filter(user=user).order_by('-updated')
    # participants_count = Participant.objects.filter(user=user).count()  
    
    context =  {

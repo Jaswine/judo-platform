@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 19:40+0600\n"
+"POT-Creation-Date: 2023-08-02 19:59+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid "Login"
 msgstr "Вход"
 
 #: base/templates/base/auth.html:12 base/templates/base/auth.html:36
-#: base/templates/base/index.html:77
+#: base/templates/base/index.html:95
 #: base/templates/base/tournaments/athlete_registration.html:14
 #: base/templates/base/tournaments/athlete_registration.html:17
 #: base/templates/base/tournaments/athlete_registration.html:50
@@ -37,8 +37,9 @@ msgid "Registration"
 msgstr "Регистрация"
 
 #: base/templates/base/auth.html:27
-msgid "Username"
-msgstr "Пользователь"
+#: base/templates/base/profile/view_profile.html:30
+msgid "Email"
+msgstr "Email"
 
 #: base/templates/base/auth.html:32
 #: base/templates/base/profile/edit_password_profile.html:7
@@ -67,30 +68,66 @@ msgstr "Место"
 msgid "Rang"
 msgstr "Ранг"
 
+#: base/templates/base/index.html:33
+msgid "Club"
+msgstr "Клубный"
+
 #: base/templates/base/index.html:35
+msgid "City"
+msgstr "Городской"
+
+#: base/templates/base/index.html:37 base/templates/base/index.html:39
+msgid "Regional"
+msgstr "Региональный"
+
+#: base/templates/base/index.html:41
+msgid "Republican"
+msgstr "Республиканский"
+
+#: base/templates/base/index.html:43
+msgid "Championship"
+msgstr "Чемпионат"
+
+#: base/templates/base/index.html:45
+#, fuzzy
+#| msgid "Delete Tournament"
+msgid "International Tournament"
+msgstr "Удалить турнир"
+
+#: base/templates/base/index.html:49
 #: base/templates/base/tournaments/show_tournament.html:28
 #: base/templates/base/tournaments/show_tournament_category.html:28
 #: base/templates/base/tournaments/show_tournaments.html:39
 msgid "Date"
 msgstr "Дата"
 
-#: base/templates/base/index.html:40
+#: base/templates/base/index.html:54
 #: base/templates/base/tournaments/show_tournaments.html:44
 msgid "Status"
 msgstr "Статус"
 
-#: base/templates/base/index.html:81
+#: base/templates/base/index.html:63
+#: base/templates/base/tournaments/show_tournaments.html:53
+msgid "Registration completed"
+msgstr "Регистрация закрыта"
+
+#: base/templates/base/index.html:65
+#: base/templates/base/tournaments/show_tournaments.html:55
+msgid "Registration is open"
+msgstr "Регистрация открыта"
+
+#: base/templates/base/index.html:99
 #: base/templates/base/tournaments/show_tournaments.html:89
 msgid "Change"
 msgstr "Изменить"
 
-#: base/templates/base/index.html:84
+#: base/templates/base/index.html:102
 #: base/templates/base/tournaments/show_tournaments.html:92
 #: base/templates/base/tournaments/toss.html:6
 msgid "Toss"
 msgstr "Сортировка"
 
-#: base/templates/base/index.html:92
+#: base/templates/base/index.html:110
 #: base/templates/base/tournaments/show_tournaments.html:100
 msgid "Tournaments Not Found"
 msgstr "Турниры не найдены"
@@ -339,11 +376,6 @@ msgstr "Разряд"
 msgid "Gender"
 msgstr "Пол"
 
-#: base/templates/base/profile/show_all_athletes_profile.html:47
-#: base/templates/base/tournaments/weight_categories.html:36
-msgid "Weight"
-msgstr "Вес"
-
 #: base/templates/base/profile/view_profile.html:5
 msgid "Personal Data"
 msgstr "Личные данные"
@@ -355,10 +387,6 @@ msgstr "Полное имя(Фамилия, имя, Отчество)"
 #: base/templates/base/profile/view_profile.html:24
 msgid "Phone"
 msgstr "Телефон"
-
-#: base/templates/base/profile/view_profile.html:30
-msgid "Email"
-msgstr "Email"
 
 #: base/templates/base/profile/view_profile.html:37
 #: base/templates/base/profile/view_profile.html:75
@@ -559,14 +587,6 @@ msgstr "Фильтр турниров"
 msgid "Sort"
 msgstr "Сортировать"
 
-#: base/templates/base/tournaments/show_tournaments.html:53
-msgid "Registration completed"
-msgstr "Регистрация закрыта"
-
-#: base/templates/base/tournaments/show_tournaments.html:55
-msgid "Registration is open"
-msgstr "Регистрация открыта"
-
 #: base/templates/base/tournaments/weight_add.html:6
 msgid "Add"
 msgstr "Добавить"
@@ -579,6 +599,10 @@ msgstr "Добавить вес"
 #: base/templates/base/tournaments/weight_add.html:16
 msgid "Enter weight"
 msgstr "Введите вес"
+
+#: base/templates/base/tournaments/weight_categories.html:36
+msgid "Weight"
+msgstr "Вес"
 
 #: templates/header.html:65
 msgid "Translate"
@@ -628,6 +652,9 @@ msgstr ""
 #: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:248
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#~ msgid "Username"
+#~ msgstr "Пользователь"
 
 #~ msgid "Title in English"
 #~ msgstr "Название на английском"

@@ -59,6 +59,7 @@ h2 span {
 }
 .athlete h5 {
    color: darkgray;
+   margin-bottom: 4px;
 }
 .athlete:hover {
    box-shadow: 0 0 10px rgb(0,0,0,.1);
@@ -68,11 +69,10 @@ h2 span {
    justify-content: start;
    align-items: start;
    width: 100%;
-   gap: 10px
+   gap: 8px;
 }
 .athlete__info__left {
    width: 70%;
-
 }
 .athlete__info__left__desc {
    display: flex;
@@ -80,6 +80,17 @@ h2 span {
    align-items: center;
    width: 100%;
    margin-bottom: 5px;
+   gap: 10px;
+}
+.athlete__info__left__desc h4 {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 4px;
+}
+.athlete__info__left__desc span {
+   font-size: 16px;
+   font-weight: 700;
 }
 .athlete__info__right {
    width: 30%;

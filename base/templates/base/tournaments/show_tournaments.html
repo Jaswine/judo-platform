@@ -33,7 +33,21 @@
                </div>
                <div class="tournament__description__line">
                   <h4>  <i class="fa-solid fa-earth-americas"></i>{% trans 'Rang' %}:</h4>
-                  {{tournament.rang}}
+                  {% if tournament.rang == 'Клубный' %}
+                     {% trans 'Club' %}
+                  {% elif tournament.rang == 'Городской' %}
+                     {% trans 'City' %}
+                  {% elif tournament.rang == 'Областной' %}
+                     {% trans 'Regional' %}
+                  {% elif tournament.rang == 'Региональный' %}
+                     {% trans 'Regional' %}
+                  {% elif tournament.rang == 'Республиканский' %}
+                     {% trans 'Republican' %}
+                  {% elif tournament.rang == 'Чемпионат РК' %}
+                     {% trans 'Championship' %}
+                  {% elif tournament.rang == 'Международный турнир' %}
+                     {% trans 'International Tournament' %}
+                  {% endif %}
                </div>
                <div class="tournament__description__line">
                      <h4><i class="fa-solid fa-calendar-days"></i>{% trans 'Date' %}:</h4>
