@@ -272,7 +272,6 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
-   margin:2% 0;
    width: 100%;
 }
 .tournament__buttons__right {

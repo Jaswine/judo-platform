@@ -33,10 +33,12 @@
                   <i class="fa-solid fa-user"></i>
                   <h4>{% trans 'Info' %}</h4>
                </a>
-               <a   href="{% url 'base:show_all_athletes' user.username %}" >
-                  <i class="fa-solid fa-users"></i>
-                  <h4>{% trans 'Athletes' %}</h4>
-               </a>
+               {% if user.is_superuser %}
+                  <a   href="{% url 'base:show_all_athletes' user.username %}" >
+                     <i class="fa-solid fa-users"></i>
+                     <h4>{% trans 'Athletes' %}</h4>
+                  </a>
+               {% endif %}
                {% comment %} <a  href="{% url 'base:show_profile' user.username %}" >
                   <i class="fa-solid fa-calendar-days"></i>      <a  href="{% url 'base:show_profile' user.username %}" >
                   <i class="fa-solid fa-calendar-days"></i>

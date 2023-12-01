@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    "corsheaders",
+    'corsheaders',
     'rest_framework',
     'django_filters',
     
@@ -48,7 +48,6 @@ MIDDLEWARE = [
     
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    # 'django.middleware.async.AsyncMiddleware',
 ]
 
 ROOT_URLCONF = 'settings.urls'

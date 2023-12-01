@@ -17,7 +17,7 @@
 
       <button class="btn">{% trans 'Sort' %}</button>
    </form>
-   <div class="all__tournaments">
+   <div class="all__tournaments tournament_list">
       {% if tournaments|length > 0 %}
       {% for tournament in tournaments %}
          {% if tournament.public %}

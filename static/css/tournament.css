@@ -33,6 +33,7 @@
    justify-content: start;
    align-items: flex-start;
    flex-direction: column;
+   /* display: none; */
 
    width: 25%;
    background-color: white;
@@ -63,10 +64,15 @@ input {
 }
 .all__tournaments {
    width: 100%;
-   display: flex;
+   /* display: flex;
    align-items: start;
-   flex-wrap: wrap;
-   gap: 10px
+   flex-wrap: wrap; */
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr;
+   gap: 1%
+}
+.tournament_list {
+   grid-template-columns: 1fr 1fr;
 }
 
 .tournament {
@@ -75,8 +81,8 @@ input {
    margin: 10px 0px;
    transition:  all .3s linear;
    width: 100%;
-   max-width: 400px;
    border-radius: 10px;
+   height: 100%;
 }
 .tournament:hover  {
    box-shadow: 0 0 10px 2px rgb(20,20,20,.1);
@@ -84,14 +90,14 @@ input {
 .tourname__header {
    display: flex;
    justify-content: start;
-   align-items: center;
+   align-items: start;
    width: 100%;
    gap: 10px;
-   margin-bottom: 6px;
+   margin-bottom: 10px;
 }
 .tourname__header img {
-   width: 60px;
-   height: 60px;
+   width: 100px;
+   height: 100px;
    object-fit: cover;
    border-radius: 5px;
 }
@@ -133,7 +139,6 @@ input {
 }
 .tournament__buttons {
    margin-bottom: 10px;
-   height: 100%;
 
    display: flex;
    justify-content: start;

@@ -33,14 +33,15 @@ def registration_view(request):
       if form.is_valid():
          new_user = form.save(commit=False)
          new_user.save()
-         login(request, new_user)
          
-         user = request.user
          # create user profile
-         profile = Profile(
-            user = user, 
+         profile = Profile.objects.create(
+            user = new_user, 
             userType = 'Свободный'
          )
+         profile.save()
+         
+         login(request, new_user)
          
          # login user
          return redirect('base:index')

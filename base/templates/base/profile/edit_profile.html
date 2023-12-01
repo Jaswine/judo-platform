@@ -2,7 +2,7 @@
 {% if request.user.username == user.username %}
    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      <h3>{% trans 'Update Info' %}</h3>
+      <h2>{% trans 'Update Info' %}</h2>
       {% for field in user_form %}
          <div class = "form__component">
             {% if field.errors %}

@@ -45,6 +45,14 @@
 .instruction__header span {
    font-weight: bold;
    font-size: 25px;
+   border-radius: 100px;
+   padding: 10px;
+   transition: all .3s linear;
+}
+.instruction__header span:hover {
+   background-color: rgb(86, 126, 220, 1);
+   color: white;
+   cursor: pointer;
 }
 .instruction__body {
    width: 100%;

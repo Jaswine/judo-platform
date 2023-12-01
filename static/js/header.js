@@ -18,7 +18,3 @@ mobile__menu.onclick = () => {
       header__right.style.display = 'none'
    }
 }
-
-document.getElementById("changeLanguage").addEventListener("change", function() {
-   document.getElementById("LanguageForm").submit();
- });

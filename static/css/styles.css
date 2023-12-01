@@ -18,7 +18,9 @@ body {
 img {
    object-fit: cover;
 }
-
+a {
+   transition: all .3s linear;
+}
 header {
    display: flex;
    justify-content: space-around;
@@ -52,15 +54,18 @@ header {
    display: flex;
    justify-content: center;
    align-items: center;
-   gap: 10px
+   gap: 15px
 }
 .mobile__menu {
    display: none;
 }
+header form {
+   background-color: transparent !important;
+}
 
 @media screen and (max-width: 700px) {
    header {
-      height: 50px;
+      height: 80px;
       justify-content: space-around;
    }
    .mobile__menu {
@@ -71,10 +76,11 @@ header {
       display: none;
       flex-direction: column;
       width: 100vw;
-      top: 50px;
+      top: 80px;
       position:fixed;
       background-color: white;
       z-index: 10000;
+      height: 280px;
    }
    .header__center a {
       width: 100%;
@@ -84,10 +90,14 @@ header {
       flex-direction: column;
       position:fixed;
       width: 100%;
-      top:310px;
+      top:340px;
       background-color: white;
       padding-bottom: 10px;
       z-index: 10000;
+      box-shadow: 0 10px 10px rgb(20,20,20,.1);
+   }
+   .header__right {
+      padding: 22px 16px;
    }
    .header__right a {
       padding: 10px 0;
@@ -108,6 +118,7 @@ header {
    font-size: 16px;
    transition: all .3s linear;
    cursor: pointer;
+   margin-bottom: 0;
 }
 #changeLanguage:hover,  #changeLanguage:focus {
    border: 2px solid var(--lightblue);
@@ -115,6 +126,7 @@ header {
 }
 #changeLanguage option {
    cursor: pointer;
+   padding: 4px ;
 }
 
 ::selection {
@@ -229,29 +241,34 @@ header {
    align-items: start;
    flex-direction: column;
    width: 100%;
+   margin-bottom: 6px;
 }
 .form__component label {
    font-size: 14px;
    color: rgb(20,20,20,.5);
    transition: all .3s linear;
+   margin-bottom: 2px;
    
 }
 .form__component input, select, textarea {
    width: 100%;
    padding: 10px 10px;
-   font-size: 16px;
+   font-size: 18px;
    margin-bottom: 6px;
    min-width: 100%;
    background-color: #fff;
-   border: 2px solid rgb(20,20,20,.5);
+   border: 2px solid rgb(20,20,20,.2);
    border-radius: 10px;
    transition: all .3s linear;
 }
 .form__component:hover  input {
-   border-color: rgb(32, 32, 32, .8);
+   /* border-color: rgb(32, 32, 32, .8); */
+   border-color: #577fdc;
+   box-shadow: 0 0 10px rgb(20,20,20, .1);
 }
-.form__component:focus  input, label {
-   border-color: #202020;
+input:focus {
+   /* border-color: #202020; */
+   border-color: #577fdc;
 }
 
 .form__component:hover  label {
