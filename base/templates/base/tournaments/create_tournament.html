@@ -4,17 +4,32 @@
 {% block title %}
 <title>{% trans 'Add New Tournament' %}</title>
 <link rel="stylesheet" href="{% static 'css/tournaments/pre__form__tournaments.css' %}">
+<link rel="stylesheet" href="{% static 'css/tournaments/create_tournament.css' %}">
 {% endblock title %}
 
 {% block content %}
-<div class="pre__form__tournaments">
-   <div class="form__tournaments">
-   
-      <h2>{% trans 'Add New Tournament' %}</h2>
+<div class="pre__form__tournaments">   
       <form action="" method="post" id="create__tournire" enctype="multipart/form-data">
          {% csrf_token %}
+         <div class="form__tournaments__pre__header">
+            <p>
+               <a href="{% url 'base:show_tournaments' %}">Tournament list</a>/<span>Add Tournament</span>
+            </p>
+         </div>
+
+         <div class="form__tournaments__header">
+               <h3>{% trans 'Add a new Tournament' %}</h3>
+               <div class="form__tournaments__header__buttons">
+                  <a href="{% url 'base:show_tournaments' %}" class="btn btn--primary">Discard</a>
+                  {% if  page_type == 'create_tournament__part__two' %}
+                  <button class="btn" type="submit">{% trans 'Continue' %}</button>
+                  {% else %}
+                  <button class="btn" type="submit">{% trans 'Publish Tournament' %}</button>
+                  {% endif %}
+               </div>
+         </div>
          
-         {% if page_type == 'create_tournament__part__one' %}
+         {% comment %} {% if page_type == 'create_tournament__part__one' %}
             {% for field in form %}
             <div class = "form__component">
                {% if field.errors %}
@@ -28,8 +43,167 @@
             </div>
             {% endfor %}
          <button class="btn" type="submit" >continue</button>
+         {% endif %} {% endcomment %}
+
+         {% if page_type == 'create_tournament__part__one' %}
+         {% if form.errors  %}
+         <div class="errorlist">
+            <p><strong>{% trans 'Oops! There was an error.' %}</strong></p>
+            <ul>
+               {% for error in errors %}
+                  <li>{{ error }}</li>
+               {% endfor %}
+            </ul>
+         </div>
          {% endif %}
 
+         <div class="form__more">
+
+            <div class="form__section">
+               <h3>{% trans 'Tournament information' %}</h3>
+               <div class="form__field">
+                  <div class = "form__component">
+                     {{ form.title_ru.label_tag }}
+                     {{ form.title_ru }}
+                  </div>
+   
+                  <div class="form__component">
+                     {{ form.title_kk.label_tag }}
+                     {{ form.title_kk }}
+                  </div>
+   
+                  <div class="form__component">
+                  {{ form.title_en.label_tag }}
+                  {{ form.title_en }}
+                  </div>
+   
+                  <div class="form__component">
+                     {{ form.logo.label_tag }}
+                     {{ form.logo }}
+                  </div>
+   
+                  <div class="form__component">
+                     {{ form.about_ru.label_tag }}
+                     {{ form.about_ru }}
+                     </div>
+   
+                  <div class="form__component">
+                     {{ form.about_kk.label_tag }}
+                     {{ form.about_kk }}
+                  </div>
+   
+                  <div class="form__component">
+                     {{ form.about_en.label_tag }}
+                     {{ form.about_en }}
+                  </div>
+
+               </div>
+            </div>
+
+            <div class="form__chapter">
+               <div class="form__section">
+                  <h3>{% trans 'Location' %}</h3>
+                  <div class="form__component">
+                     {{ form.place_ru.label_tag }}
+                     {{ form.place_ru }}
+                  </div>
+   
+                  <div class="form__component">
+                     {{ form.place_kk.label_tag }}
+                     {{ form.place_kk }}
+                  </div>
+
+                  <div class="form__component">
+                     {{ form.place_en.label_tag }}
+                     {{ form.place_en }}
+                  </div>
+               </div>
+
+               <div class="form__section">
+                  <h3>{% trans 'Time' %}</h3>
+                  <div class="form__component">
+                     {{ form.startData.label_tag }}
+                     {{ form.startData }}
+                  </div>
+   
+                  <div class="form__component">
+                     {{ form.finishData.label_tag }}
+                     {{ form.finishData }}
+                  </div>
+   
+                  <div class="form__component">
+                     {{ form.startTime.label_tag }}
+                     {{ form.startTime }}
+                  </div>
+               </div>
+
+               <div class="form__section">
+                  <h3>{% trans 'Other' %}</h3>
+                  <div class="form__component">
+                     {{ form.status.label_tag }}
+                     {{ form.status }}
+                  </div>
+                  <div class="form__component">
+                     {{ form.rang.label_tag }}
+                     {{ form.rang }}
+                  </div>
+   
+                  <div class="form__component">
+                     {{ form.credit.label_tag }}
+                     {{ form.credit }}
+                  </div>
+   
+                  <div class="form__component">
+                     {{ form.tatamis_count.label_tag }}
+                     {{ form.tatamis_count }}
+                  </div>
+
+                  <div class="form__component">
+                     {{ form.public.label_tag }}
+                     {{ form.public }}
+                  </div>
+               </div>
+
+            </div>
+         </div>
+
+         <div class="form__more">
+
+            <div class="form__section">
+               <h3>{% trans 'Organizers' %}</h3>
+               <div class="form__component">
+                  {{ form.chiefJustice_ru.label_tag }}
+                  {{ form.chiefJustice_ru }}
+               </div>
+
+               <div class="form__component">
+                  {{ form.chiefJustice_kk.label_tag }}
+                  {{ form.chiefJustice_kk }}
+               </div>
+
+               <div class="form__component">
+                  {{ form.chiefJustice_en.label_tag }}
+                  {{ form.chiefJustice_en }}
+               </div>
+
+               <div class="form__component">
+                  {{ form.chiefSecretary_ru.label_tag }}
+                  {{ form.chiefSecretary_ru }}
+               </div>
+
+               <div class="form__component">
+                  {{ form.chiefSecretary_kk.label_tag }}
+                  {{ form.chiefSecretary_kk }}
+               </div>
+
+               <div class="form__component">
+                  {{ form.chiefSecretary_en.label_tag }}
+                  {{ form.chiefSecretary_en }}
+               </div>
+            </div>
+
+         </div>
+         {% endif %}
          {% if page_type == 'create_tournament__part__two' %}            
 
             <div class="print__logos"></div>
@@ -44,12 +218,15 @@
                <label for="">{% trans 'Sponsors Logotips' %}:</label>
                <input type = "file" multiple name="sponsors-logotips" id="sponsors-logos" />
             </div>
-         <button class="btn" type="submit" id="create__tournire">{% trans 'save' %}</button>
          {% endif %}
       </form>
-   </div>  
 </div>
 
+<script>
+   {% comment %} document.querySelector('#id_startData').type = 'date'
+   document.querySelector('#id_finishData').type = 'date'
+   document.querySelector('#id_startTime').type = 'time' {% endcomment %}
+</script>
 <script src="{% static 'js/tourments_logo_load.js' %}"></script>
 
 {% endblock content %}  

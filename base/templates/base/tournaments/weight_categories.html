@@ -3,10 +3,25 @@
 
 {% block title %}
    <link rel="stylesheet" href="{% static 'css/tournaments/weight_categories.css' %}">
+<link rel="stylesheet" href="{% static 'css/tournaments/create_tournament.css' %}">
    <title>{% trans 'Weight Categories' %}</title>
 {% endblock title %}
 
 {% block content %}
+   <div class="categories_header">
+      <div class="form__tournaments__pre__header">
+         <p>
+            <a href="{% url 'base:show_tournaments' %}">Tournament list</a>/<span>{{ tournament.title }}</span>
+         </p>
+      </div>
+      
+      <div class="form__tournaments__header">
+            <h3>{% trans 'Adding categories for a tournament' %}</h3>
+            <div class="form__tournaments__header__buttons">
+               <a class="btn" href="{% url 'base:show_tournaments' %}">{% trans 'Continue' %} <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+      </div>
+   </div>
    <div class="categories">
       <form method="POST" class="create__tournament">
          <input type="text" name="form_type" value="weight__category" style="display: none" required>
@@ -26,7 +41,7 @@
             </div>
          {% endfor %}
 
-         <button type="submit" class="btn btn-primary" id="button">Continue <i class="fa-solid fa-arrow-right"></i></button>
+         <button type="submit" class="btn btn-primary" id="button">{% trans 'Save' %}</button>
       </form>
       <table class="show__all__categories">
          <thead>
@@ -51,20 +66,12 @@
                      {% endfor %}
                   </td>
 
-                  <td scope="col" class="td_delete"><a href="{% url 'base:weight_category_weight' tournament.slug category.id %}" class="">-</a></td>
+                  <td scope="col" class="td_delete"><a href="{% url 'base:weight_category_weight' tournament.slug category.id %}" class="">+</a></td>
                   <td scope="col" class="td_delete"><a href="{% url 'base:weight_categories_delete' tournament.slug category.id %}" >x</a></td>
                </tr>
          {% endfor %}
          
          </tbody>
       </table>
-
-      <a
-      {% if tournament.WeightCategory_set.count == 0 %}style='opacity: .1'{% endif %}
-      class="btn btn--continue"
-      href="{% url 'base:show_tournaments' %}"
-      >
-         Continue <i class="fa-solid fa-arrow-right"></i>
-      </a>
    </div>
 {% endblock content %}

@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.forms import modelformset_factory
 from django.shortcuts import get_object_or_404
+from django.forms import ValidationError, IntegerField
 
 from ..models import Tournament, Logos, WeightCategory, Sponsors, Weight ,Participant
 from ..forms import TournamentForm, WeightCategoryForm
@@ -46,79 +47,40 @@ def show_tournament_category(request, slug, pk):
    }
    return render(request, 'base/tournaments/show_tournament_category.html', context)
 
-@csrf_exempt
 @login_required(login_url= 'base:login')
 def create_tournamets(request):
    page_type = 'create_tournament__part__one'
    
    if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser):
       form = TournamentForm()
-                     
+      
       if request.method == 'POST':
          form = TournamentForm(request.POST, request.FILES)
+         print('form', form)
          
          if form.is_valid():
-            slug = checking_slug(slug_generator(form.cleaned_data.get('title_en')))
-            
-            try:
-               tournire = Tournament.objects.populate(True).create(
-                  user = request.user,
+               slug = checking_slug(slug_generator(form.cleaned_data.get('title_en')))
+               try:
+                  tournament = form.save(commit=False)
+                  tournament.user = request.user
+                  tournament.slug = slug
+                  tournament.save()
                   
-                  title = form.cleaned_data.get('title_en'),
-                  title_en = form.cleaned_data.get('title_en'),
-                  title_ru = form.cleaned_data.get('title_ru'),
-                  title_kk = form.cleaned_data.get('title_kk'),
-                  
-                  slug = slug,
-                  logo = form.cleaned_data.get('logo'),
-                  
-                  about = form.cleaned_data.get('about_en'),
-                  about_en = form.cleaned_data.get('about_en'),
-                  about_ru = form.cleaned_data.get('about_ru'),
-                  about_kk = form.cleaned_data.get('about_kk'),
-                  
-                  rang = form.cleaned_data.get('rang'),
-                  
-                  startData = form.cleaned_data.get('startData'),
-                  finishData = form.cleaned_data.get('finishData'),
-                  startTime = form.cleaned_data.get('startTime'),
-                  
-                  credit = form.cleaned_data.get('credit'),
-                  tatamis_count = form.cleaned_data.get('tatamis_count'),
-
-                  place = form.cleaned_data.get('place_en'),
-                  place_en = form.cleaned_data.get('place_en'),
-                  place_ru = form.cleaned_data.get('place_ru'),
-                  place_kk = form.cleaned_data.get('place_kk'),
-                  
-                  chiefJustice = form.cleaned_data.get('chiefJustice_en'),
-                  chiefJustice_en = form.cleaned_data.get('chiefJustice_en'),
-                  chiefJustice_ru = form.cleaned_data.get('chiefJustice_ru'),
-                  chiefJustice_kk = form.cleaned_data.get('chiefJustice_kk'),
-                  
-                  chiefSecretary = form.cleaned_data.get('chiefSecretary_en'),
-                  chiefSecretary_en = form.cleaned_data.get('chiefSecretary_en'),
-                  chiefSecretary_ru = form.cleaned_data.get('chiefSecretary_ru'),
-                  chiefSecretary_kk = form.cleaned_data.get('chiefSecretary_kk'),
-                  
-                  status = form.cleaned_data.get('status'),
-                  public = form.cleaned_data.get('public'),
-               )
-               
-               return redirect('base:create_tournamets__images', slug)
-            except:
-               return redirect('base:create_tournamets__images', slug)
+                  return redirect('base:create_tournamets__images', slug)
+               except Exception as error:
+                  messages.error(request, error)
+                  return redirect('base:create_tournament')
    
       context = {
          'form': form,
-         'page_type': page_type
+         'page_type': page_type,
       }
       return render(request, 'base/tournaments/create_tournament.html', context)
    else:
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')
    
-@csrf_exempt
+   
 @login_required(login_url= 'base:login')
 def create_tournamets__images(request, slug):
    page_type = 'create_tournament__part__two'   
@@ -130,7 +92,7 @@ def create_tournamets__images(request, slug):
          logotips = request.FILES.getlist('files')
          sponsors_logotips = request.FILES.getlist('sponsors-logotips')
          
-          # Add Logotips and Photos
+         # Add Logotips and Photos
          try:
             if (len(logotips) > 0):
                for logo in logotips:
@@ -150,7 +112,7 @@ def create_tournamets__images(request, slug):
             tournire.save()   
             return redirect('base:weight_categories', tournire.slug)
          except:
-            return redirect('base:weight_categories', slug)
+            return redirect('base:weight_categories', id)
    
       context = {
          'page_type': page_type,

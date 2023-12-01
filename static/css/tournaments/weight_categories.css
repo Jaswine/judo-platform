@@ -2,12 +2,20 @@
 
 .categories {
    display: flex;
-   justify-content: center;
+   justify-content: space-between;
    align-items: flex-start;
    width: 100%;
-   padding: 10px;
-   margin-top: 5%;
+   padding: 10px 5%;
+   margin-top: 1%;
    gap: 20px;
+}
+.categories_header {
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   flex-direction: column;
+   padding: 0 5%;
+   width: 100%;
 }
 .create__tournament {
    width: 40%;
@@ -21,11 +29,12 @@ table {
    align-items: center;
    width: 100%;
    flex-direction: column;
-   background-color: rgba(87, 127, 220, 0.06);
-   
+   background-color: white;
+   box-shadow: 0 0 10px rgba(20,20,20,.08);
+
    max-width: 480px;
    padding: 20px;
-   border-radius: 10px;
+   border-radius: 8px;
 }
 .create__tournament h2 {
    margin-bottom: 14px;
@@ -43,9 +52,13 @@ table {
 .candidates-list {
    background-color: #fff;
 }
-td {
+td, th {
    text-align: center;
-   border: 1px solid black;
+   border-radius: 4px;
+   transition: all .3s linear;
+}
+td:hover {
+   background-color: rgb(87, 126, 219, .05);
 }
 .td_delete {
    transition: all .3s linear;

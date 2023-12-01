@@ -105,8 +105,8 @@ class Tournament(models.Model):
    )
    
    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-   title = models.CharField(max_length=100)
-   slug = models.SlugField(max_length=100, unique=True)
+   title = models.CharField(max_length=100, verbose_name='Title')
+   slug = models.SlugField(max_length=100, unique=True, default='')
    logo = models.ImageField(upload_to='tournament_logo', blank=True)
    logos = models.ManyToManyField(Logos, default=[], blank=True, related_name='logos')
    about = models.TextField(max_length=1000, blank=True)
@@ -115,9 +115,9 @@ class Tournament(models.Model):
    
    place = models.CharField(max_length=100, blank=True)
    
-   startData = models.CharField(max_length=100, blank=True)
-   finishData = models.CharField(max_length=100, blank=True)
-   startTime = models.CharField(max_length=10, blank=True)
+   startData = models.DateField(max_length=100, blank=True)
+   finishData = models.DateField(max_length=100, blank=True)
+   startTime = models.TimeField(max_length=10, blank=True)
 
    credit = models.CharField(max_length=100, blank=True, choices=CREDIT_TYPE)
    
@@ -139,21 +139,6 @@ class Tournament(models.Model):
       
    class Meta: 
       ordering = ['-updated', '-created']
-      
-   def delete(self):
-      # Full Delete 
-      logotips = self.logos.all()
-      sponor_emblems = self.sponsors.all()
-      
-      for logotip in logotips:
-         default_storage.delete(logotip.image.path)
-         logotip.delete()
-      
-      for sponor_emblem in sponor_emblems:
-         default_storage.delete(sponor_emblem.image.path)
-         sponor_emblem.delete()
-      
-      super(Tournament, self).delete()    
    
    def __str__(self):
       return self.title
@@ -176,8 +161,8 @@ class WeightCategory(models.Model):
    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, blank=True)
    weight = models.ManyToManyField(Weight, default=[])
    
-   year = models.CharField(max_length=20, blank=True)
-   gender = models.CharField(max_length=20, blank=True, choices=GENDER)
+   year = models.CharField(max_length=20)
+   gender = models.CharField(max_length=20, choices=GENDER)
       
    def delete(self):
       weights = self.weight.all()

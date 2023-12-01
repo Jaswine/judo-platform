@@ -96,8 +96,8 @@ input {
    margin-bottom: 10px;
 }
 .tourname__header img {
-   width: 100px;
-   height: 100px;
+   width: 80px;
+   height: 80px;
    object-fit: cover;
    border-radius: 5px;
 }
@@ -113,7 +113,7 @@ input {
    margin-bottom: 6px;
    display: flex;
    justify-content: start;
-   align-items: center;
+   align-items: start;
    gap: 4px;
 }
 .tournament__description__line h4 {

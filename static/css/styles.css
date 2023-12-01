@@ -61,6 +61,8 @@ header {
 }
 header form {
    background-color: transparent !important;
+   margin: 0;
+   padding: 0;
 }
 
 @media screen and (max-width: 700px) {
@@ -354,4 +356,8 @@ input:focus {
    body {
       font-size: 16px;
    }
+}
+.btn--primary {
+   background-color: rgb(20,20,20, .1);
+   color: rgb(20,20,20,.4);
 }
