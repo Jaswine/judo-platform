@@ -4,16 +4,20 @@
    align-items: center;
    width: 100%;
    margin: 10px 0;
-   gap: 10px
+   gap: 10px;
+}
+.athletes__filter a {
+   text-align: center;
 }
 .form__component {
-
+   width: 60%;
 }
 .form__component select {
    background-color: white;
    padding: 10px 10px;
    border: 2px solid rgb(20,20,20,.2);
    margin-bottom: 0px;
+   max-width: 30%;
 }
 input {
    margin-bottom: 0px !important;
@@ -49,8 +53,9 @@ h2 span {
    width: 100%;
 }
 .athlete {
-   background-color: white;
-   padding: 10px 6px;
+   /* background-color: var(--white); */
+   border: 2px solid var(--white);
+   padding: 10px;
    margin: 6px;
    border-radius: 10px;
    transition: all .3s linear;

@@ -20,7 +20,7 @@
       </select>
    </div>
    {% if  request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь' %}
-   <a href="{% url 'base:add_new_athlete' %}" class="btn btn--primary">{% trans 'Add New Athlete' %}</a>
+   <a href="{% url 'base:add_new_athlete' %}" class="btn">{% trans 'Add New Athlete' %}</a>
    {% endif %}
 </form>
 
@@ -32,15 +32,15 @@
       <div class="athlete__info">
          <div class="athlete__info__left">
             <div class="athlete__info__left__desc">
-               <h4><i class="fa-solid fa-calendar-days"></i> {% trans 'Year' %}</h4>
+               <h4><i class="fa-solid fa-calendar-days"></i> {% trans 'Year' %}:</h4>
                <span>{{athlete.year}}</span>
             </div>
             <div class="athlete__info__left__desc">
-               <h4><i class="fa-solid fa-certificate"></i> {% trans 'Discharge' %}</h4>
+               <h4><i class="fa-solid fa-certificate"></i> {% trans 'Discharge' %}:</h4>
                <span>{{athlete.discharge}}</span>
             </div>
             <div class="athlete__info__left__desc">
-               <h4><i class="fa-solid fa-person-half-dress"></i> {% trans 'Gender' %}</h4>
+               <h4><i class="fa-solid fa-person-half-dress"></i> {% trans 'Gender' %}:</h4>
                <span>{{athlete.gender}}</span>
             </div>
          </div>

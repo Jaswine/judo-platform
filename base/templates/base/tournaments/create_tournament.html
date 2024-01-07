@@ -13,14 +13,14 @@
          {% csrf_token %}
          <div class="form__tournaments__pre__header">
             <p>
-               <a href="{% url 'base:show_tournaments' %}">Tournament list</a>/<span>Add Tournament</span>
+               <a href="{% url 'base:show_tournaments' %}">{% trans 'Tournament list' %}</a>/<span>{% trans 'Add Tournament' %}</span>
             </p>
          </div>
 
          <div class="form__tournaments__header">
                <h3>{% trans 'Add a new Tournament' %}</h3>
                <div class="form__tournaments__header__buttons">
-                  <a href="{% url 'base:show_tournaments' %}" class="btn btn--primary">Discard</a>
+                  <a href="{% url 'base:show_tournaments' %}" class="btn btn--primary">{% trans 'Discard' %}</a>
                   {% if  page_type == 'create_tournament__part__two' %}
                   <button class="btn" type="submit">{% trans 'Continue' %}</button>
                   {% else %}

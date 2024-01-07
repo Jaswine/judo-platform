@@ -4,7 +4,7 @@
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournament.css' %}">
 
-<title>Judo E-Platforma</title>
+<title>Judo E-Platform</title>
 {% endblock title %}
 
 {% block content %}
@@ -24,11 +24,11 @@
             </div>
             <div class="tournament__description">
                <div class="tournament__description__line">
-                     <h4><i class="fa-solid fa-city"></i>{%  trans 'Place' %}:</h4>
+                     <h4><i class="fa-solid fa-city"></i></h4>
                    {{tournament.place}}
                </div>
                <div class="tournament__description__line">
-                  <h4>  <i class="fa-solid fa-earth-americas"></i>{% trans 'Rang' %}:</h4>
+                  <h4>  <i class="fa-solid fa-earth-americas"></i></h4>
                   {% if tournament.rang == 'Клубный' %}
                      {% trans 'Club' %}
                   {% elif tournament.rang == 'Городской' %}
@@ -46,12 +46,12 @@
                   {% endif %}
                </div>
                <div class="tournament__description__line">
-                     <h4><i class="fa-solid fa-calendar-days"></i>{% trans 'Date' %}:</h4>
+                     <h4><i class="fa-solid fa-calendar-days"></i></h4>
                   {{tournament.startData}} - {{tournament.finishData}}
                </div>
                <div class="tournament__description__line"
                >
-                  <h4><i class="fa-solid fa-square-pen"></i>{% trans 'Status' %}: </h4>
+                  <h4><i class="fa-solid fa-square-pen"></i> </h4>
                   <span
                   {% if tournament.status == "Регистрация завершенa" %} 
                      style="color: #ff8181 "

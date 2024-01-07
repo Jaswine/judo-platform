@@ -6,7 +6,7 @@
    align-items: center;
    flex-direction: column;
    width: 100%;
-   padding: 10px 10vw;
+   padding: 10px 6vw;
    height: 100%;
 }
 .home__card {
@@ -21,7 +21,8 @@
    margin-bottom: 5%;
    margin-top: 30px;
 
-   background-color:  var(--white);
+   /* background-color:  var(--white); */
+   background-color: white;
    border-radius: 5px;
    box-shadow: 1px 1px 10px rgb(20,20,20, .1);
 }

@@ -22,7 +22,7 @@
 
          {% if page_type == 'login' %}
             <h1>{% trans 'Login' %}</h1>
-            <p>Please login to your account and start the adventure</p>
+            <p>{% trans 'Please login to your account and start the adventure' %}</p>
 
             <div class = "form__component">
                <label>{% trans 'Email' %}:</label>
@@ -35,7 +35,7 @@
             </div>
          {% else %}
             <h1>{% trans 'Registration' %}</h1>
-            <p>Please register and start the adventure</p>
+            <p>{% trans 'Please register and start the adventure' %}</p>
 
             {% for field in form  %}
                <div class = "form__component">
@@ -55,9 +55,9 @@
          <button type="submit" class="btn">{% trans 'Continue' %}</button>
       
          {% if page_type == 'login' %}
-            <p>New on our platform? <a href="{% url 'base:registration' %}">Create an account</a></p>
+            <p>{% trans 'New on our platform?' %} <a href="{% url 'base:registration' %}">{% trans 'Create an account' %}</a></p>
          {% else %}
-            <p>Already have an account? <a href="{% url 'base:login' %}">Sign in instead</a></p>
+            <p>{% trans 'Already have an account?' %} <a href="{% url 'base:login' %}">{% trans 'Sign in instead' %}</a></p>
          {% endif %}
       </form>
    </div>
