@@ -10,6 +10,7 @@
    padding: 10px 2vw;
    margin-top: 20px;
    gap: 20px;
+   margin-bottom: 10vh;
 }
 .pre__home {
    padding: 10px 2vw;
@@ -19,6 +20,7 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
+   margin-bottom: 10px;
 }
 .home__header a {
    font-size: 24px;
@@ -28,17 +30,16 @@
    color: #577fdc;
 }
 
-.home__filters {
+.home form {
    display: flex;
    justify-content: start;
    align-items: flex-start;
    flex-direction: column;
-   /* display: none; */
 
    width: 25%;
    background-color: white;
    border-radius: 10px;
-   padding: 10px;
+   padding: 14px;
    row-gap: 10px;
    padding-bottom: 2%;
    min-width: 300px;
@@ -58,27 +59,24 @@ input {
    width: 100%;
    background-color: white;
    border: 1px solid var(--black);
-   border-radius: 10px;
+   border-radius: 6px;
    font-size: 18px; 
    padding: 6px ;
 }
 .all__tournaments {
-   width: 100%;
+   width: 70%;
    /* display: flex;
    align-items: start;
    flex-wrap: wrap; */
    display: grid;
-   grid-template-columns: 1fr 1fr 1fr;
-   gap: 1%
-}
-.tournament_list {
-   grid-template-columns: 1fr 1fr;
+   grid-template-columns: 1fr 1fr ;
+   gap: 2%;
 }
 
 .tournament {
    background-color: white;
    padding: 12px;
-   margin: 10px 0px;
+   /* margin: 10px 0px; */
    transition:  all .3s linear;
    width: 100%;
    border-radius: 10px;
@@ -166,5 +164,95 @@ input {
    }
    .all__tournaments {
       width: 100%;
+      grid-template-columns: 1fr;
+   }
+   .tournament_list {
+      grid-template-columns: 1fr;
    }
 }
+
+.lds-roller {
+   display: inline-block;
+   position: relative;
+   width: 80px;
+   height: 80px;
+ }
+ .lds-roller div {
+   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+   transform-origin: 40px 40px;
+ }
+ .lds-roller div:after {
+   content: " ";
+   display: block;
+   position: absolute;
+   width: 7px;
+   height: 7px;
+   border-radius: 50%;
+   background: #577fdc;
+   margin: -4px 0 0 -4px;
+ }
+ .lds-roller div:nth-child(1) {
+   animation-delay: -0.036s;
+ }
+ .lds-roller div:nth-child(1):after {
+   top: 63px;
+   left: 63px;
+ }
+ .lds-roller div:nth-child(2) {
+   animation-delay: -0.072s;
+ }
+ .lds-roller div:nth-child(2):after {
+   top: 68px;
+   left: 56px;
+ }
+ .lds-roller div:nth-child(3) {
+   animation-delay: -0.108s;
+ }
+ .lds-roller div:nth-child(3):after {
+   top: 71px;
+   left: 48px;
+ }
+ .lds-roller div:nth-child(4) {
+   animation-delay: -0.144s;
+ }
+ .lds-roller div:nth-child(4):after {
+   top: 72px;
+   left: 40px;
+ }
+ .lds-roller div:nth-child(5) {
+   animation-delay: -0.18s;
+ }
+ .lds-roller div:nth-child(5):after {
+   top: 71px;
+   left: 32px;
+ }
+ .lds-roller div:nth-child(6) {
+   animation-delay: -0.216s;
+ }
+ .lds-roller div:nth-child(6):after {
+   top: 68px;
+   left: 24px;
+ }
+ .lds-roller div:nth-child(7) {
+   animation-delay: -0.252s;
+ }
+ .lds-roller div:nth-child(7):after {
+   top: 63px;
+   left: 17px;
+ }
+ .lds-roller div:nth-child(8) {
+   animation-delay: -0.288s;
+ }
+ .lds-roller div:nth-child(8):after {
+   top: 56px;
+   left: 12px;
+ }
+ @keyframes lds-roller {
+   0% {
+     transform: rotate(0deg);
+   }
+   100% {
+     transform: rotate(360deg);
+   }
+ }
+ 

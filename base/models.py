@@ -105,11 +105,11 @@ class Tournament(models.Model):
    )
    
    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-   title = models.CharField(max_length=100, verbose_name='Title')
-   slug = models.SlugField(max_length=100, unique=True, default='')
+   title = models.CharField(max_length=300, verbose_name='Title')
+   slug = models.SlugField(max_length=300, unique=True, default='')
    logo = models.ImageField(upload_to='tournament_logo', blank=True)
    logos = models.ManyToManyField(Logos, default=[], blank=True, related_name='logos')
-   about = models.TextField(max_length=1000, blank=True)
+   about = models.TextField(max_length=3000, blank=True)
    
    rang = models.CharField(max_length=40,choices=RANGS, blank=True)
    
@@ -123,7 +123,6 @@ class Tournament(models.Model):
    
    tatamis_count = models.CharField(default=0, blank=True, max_length=2)
    
-   # weight_categories = models.ManyToManyField(WeightCategory, blank=True, default=[])
    participants = models.ManyToManyField(Participant, default=[], blank=True)
    
    sponsors = models.ManyToManyField(Sponsors, blank=True, default=[], related_name='sponsors')

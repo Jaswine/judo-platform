@@ -3,117 +3,37 @@
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournament.css' %}">
-<title>{% trans 'Tournaments' %}</title>
+<title>{% trans 'Турниры' %}</title>
 {% endblock title %}
 
 {% block content %}
-<h2 class="title">{% trans 'List of competitions' %}</h2>
+<h2 class="title">{% trans 'Лист турниров' %}</h2>
 <div class="home">
-   <form class="home__filters" >
-      <h3>{% trans 'Tournament filter' %}</h3>
-      <span class="home__card__span"></span>
+   <form class="form" method="GET" id="TournamentForm" >
       {% csrf_token %}
-      {{ filter.form }}
-
-      <button class="btn">{% trans 'Sort' %}</button>
-   </form>
-   <div class="all__tournaments tournament_list">
-      {% if tournaments|length > 0 %}
-      {% for tournament in tournaments %}
-         {% if tournament.public %}
-         <div class="tournament">
-            <div class="tourname__header">
-               <img src="/static/media/{{tournament.logo}}" alt="{{tournament.logo}}">
-               <a href="{% url 'base:tournamet_show' tournament.slug %}">{{tournament.title}}</a>
-            </div>
-            <div class="tournament__description">
-               <div class="tournament__description__line">
-                     <h4><i class="fa-solid fa-city"></i>{%  trans 'Place' %}:</h4>
-                   {{tournament.place}}
-               </div>
-               <div class="tournament__description__line">
-                  <h4>  <i class="fa-solid fa-earth-americas"></i>{% trans 'Rang' %}:</h4>
-                  {% if tournament.rang == 'Клубный' %}
-                     {% trans 'Club' %}
-                  {% elif tournament.rang == 'Городской' %}
-                     {% trans 'City' %}
-                  {% elif tournament.rang == 'Областной' %}
-                     {% trans 'Regional' %}
-                  {% elif tournament.rang == 'Региональный' %}
-                     {% trans 'Regional' %}
-                  {% elif tournament.rang == 'Республиканский' %}
-                     {% trans 'Republican' %}
-                  {% elif tournament.rang == 'Чемпионат РК' %}
-                     {% trans 'Championship' %}
-                  {% elif tournament.rang == 'Международный турнир' %}
-                     {% trans 'International Tournament' %}
-                  {% endif %}
-               </div>
-               <div class="tournament__description__line">
-                     <h4><i class="fa-solid fa-calendar-days"></i>{% trans 'Date' %}:</h4>
-                  {{tournament.startData}} - {{tournament.finishData}}
-               </div>
-               <div class="tournament__description__line"
-               >
-                  <h4><i class="fa-solid fa-square-pen"></i>{% trans 'Status' %}: </h4>
-                  <span
-                  {% if tournament.status == "Регистрация завершенa" %} 
-                     style="color: #ff8181 "
-                  {% else %} 
-                     style="color: #81a7ff;"
-                  {% endif %}
-                  >
-                  {% if tournament.status == "Регистрация завершенa" %} 
-                     {% trans "Registration completed" %}
-                  {% else %} 
-                     {% trans "Registration is open" %}
-                  {% endif %}
-                  </span>
-               </div>
-               <div class="tournament__description__line">
-                  <i class="fa-solid fa-users"></i>{{tournament.participants.count}}
-               </div>
-            </div>
-            <div class="tournament__categories">
-               {% for tournament_category in tournament.weightcategory_set.all  %}
-               <div 
-                  class="tournament__category"
-                  {% if tournament_category.gender == 'Мужской' %}
-                     style = "border: 2px solid #81a7ff; color: #81a7ff"
-                  {% else %}
-                     style = "border: 2px solid #ff81a7; color: #ff81a7;"
-                  {% endif %}
-               >
-                  {% if tournament_category.gender == 'Мужской' %}
-                  <i class="fa-solid fa-person"></i>
-                  {% else %}
-                     <i class="fa-solid fa-person-dress"></i>
-                  {% endif %}
-                  {{tournament_category.category}} {{tournament_category.year}}
-               </div>
-               {% endfor %}
-            </div>
-            <div class="tournament__buttons">
-               {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser  %}
-                  {% if tournament.status == 'Регистрация открыта' %}
-                     <a href="{% url 'base:registration_on_tournament' tournament.slug %}" class="btn">{% trans 'Registration' %}</a>
-                  {% endif %}
-               {% endif  %}
-               {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser  %}
-                  <a href="{% url 'base:tournamets_admin_update_info' tournament.slug %}" class="btn">{% trans 'Change' %}</a>
-               {% endif  %}
-               {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser  %}
-                  <a href="{% url 'base:toss' tournament.slug %}" class="btn">{% trans 'Toss' %}</a>
-               {% endif  %}
-            </div>
-         </div>
-         {% endif %}
-      {% endfor %}
-      {% else %}
-      <div class="tournaments__not__found">
-         <h2>{% trans 'Tournaments Not Found' %}</h2>
+      <h3>
+         <i class="fa-solid fa-sliders"></i>
+         {% trans 'Фильтры' %}</h3>
+      
+      <div class="form__component">
+         <input type="search" name="search" placeholder="Поиск" />
       </div>
-      {% endif %}
+
+      <div class="form__component">
+         <label for="">Дата начала:</label>
+         <input type="date" name="startDate" />
+      </div>
+
+      <div class="form__component">
+         <label for="">Дата конца:</label>
+         <input type="date" name="endDate" />
+      </div>
+
+      <button class="btn">{% trans 'Сортировать' %}</button>
+   </form>
+   <div class="all__tournaments tournament_list" id="TournamentList">
+      <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
    </div>   
 </div>
+<script src="/static/js/tournament-list.js"></script>
 {% endblock content %}  

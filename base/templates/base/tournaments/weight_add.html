@@ -3,18 +3,36 @@
 
 {% block title %}
    <link rel="stylesheet" href="{% static 'css/tournaments/weight_categories.css' %}">
-   <title>{% trans 'Add' %}</title>
+   <link rel="stylesheet" href="{% static 'css/tournaments/create_tournament.css' %}">
+
+   <title>{% trans ' ' %}</title>
 {% endblock title %}
 
 {% block content %}
+<div class="categories_header">
+   <div class="form__tournaments__pre__header">
+      <p>
+         <a href="{% url 'base:show_tournaments' %}">{% trans 'Лист турниров' %}</a>/<a href="{% url 'base:weight_categories' tournament.slug %}">{{ tournament.title }}</a>/ <span>{{ weight_category.year }}</span>
+      </p>
+   </div>
+   
+   <div class="form__tournaments__header">
+         <h3>{% trans 'Добавление веса для категории' %}</h3>
+         <div class="form__tournaments__header__buttons">
+            <a href="{% url 'base:weight_categories' tournament.slug %}" class="btn btn--primary">{% trans 'Назад' %}</a>
+            <a class="btn" href="{% url 'base:weight_categories' tournament.slug %}">{% trans 'Продолжть' %} <i class="fa-solid fa-arrow-right"></i></a>
+         </div>
+   </div>
+</div>
+
   <div class="home add_weight">
-   <div class="categories">
+   <div class="categories__form">
       <form action="" class="create__tournament" method="POST">
-      <h2>{% trans 'Add weight' %}</h2>
+      <h2>{% trans 'Добавить вес' %}</h2>
          {% csrf_token %}
          <div class="form__component">
             <label for="">{% trans 'Enter weight' %}:</label>
-            <input type="text" name="weight" placeholder="{% trans 'Add weight' %}..." class="input" required>
+            <input type="number" name="weight" placeholder="{% trans 'Add weight' %}..." class="input" required>
          </div>
          <div class="show__all__weight">
             {% for weight in weight_category.weight.all %}
@@ -24,15 +42,8 @@
                </span>
             {% endfor %}
          </div>
-         <button class="btn" >Save</button>
+         <button class="btn" >{% trans 'Сохранить' %}</button>
       </form>
    </div>
-   <a
-   {% if weight_category.weight.count == 0 %}style='opacity: .1'{% endif %}
-   class="btn btn--continue"
-   href="{% url 'base:weight_categories' tournament.slug %}"
-   >
-      Continue <i class="fa-solid fa-arrow-right"></i>
-   </a>
   </div>
 {% endblock content %}

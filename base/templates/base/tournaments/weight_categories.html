@@ -11,14 +11,15 @@
    <div class="categories_header">
       <div class="form__tournaments__pre__header">
          <p>
-            <a href="{% url 'base:show_tournaments' %}">{% trans 'Tournament list' %}</a>/<span>{{ tournament.title }}</span>
+            <a href="{% url 'base:show_tournaments' %}">{% trans 'Лист турниров' %}</a>/<span>{{ tournament.title }}</span>
          </p>
       </div>
       
       <div class="form__tournaments__header">
-            <h3>{% trans 'Adding categories for a tournament' %}</h3>
+            <h3>{% trans 'Добавление категорий для турнира' %}</h3>
             <div class="form__tournaments__header__buttons">
-               <a class="btn" href="{% url 'base:show_tournaments' %}">{% trans 'Continue' %} <i class="fa-solid fa-arrow-right"></i></a>
+               <a href="{% url 'base:show_tournaments' %}" class="btn btn--primary">{% trans 'Отменить' %}</a>
+               <a class="btn" href="{% url 'base:show_tournaments' %}">{% trans 'Продолжть' %} <i class="fa-solid fa-arrow-right"></i></a>
             </div>
       </div>
    </div>
@@ -26,20 +27,17 @@
       <form method="POST" class="create__tournament">
          <input type="text" name="form_type" value="weight__category" style="display: none" required>
 
-         <h2>{% trans 'Add New Category' %}</h2>
+         <h2>{% trans 'Добавить новую категорию' %}</h2>
          {% csrf_token %}
-         {% for field in form  %}
-            <div class = "form__component">
-               {% if field.errors %}
-               <ul class="errorlist">
-                  {% for error in field.errors %}
-                  <li>{{ error }}</li>
-                  {% endfor %}
-               </ul>
-               {% endif %}
-               {{ field.label_tag }} {{ field }}
-            </div>
-         {% endfor %}
+         <div class = "form__component">
+            <label for="">{%  trans 'Года' %}:</label>
+            {{ form.year }}
+         </div>
+
+         <div class = "form__component">
+            <label for="">{%  trans 'Пол' %}:</label>
+            {{ form.gender }}
+         </div>
 
          <button type="submit" class="btn btn-primary" id="button">{% trans 'Save' %}</button>
       </form>
@@ -66,8 +64,8 @@
                      {% endfor %}
                   </td>
 
-                  <td scope="col" class="td_delete"><a href="{% url 'base:weight_category_weight' tournament.slug category.id %}" class="">+</a></td>
-                  <td scope="col" class="td_delete"><a href="{% url 'base:weight_categories_delete' tournament.slug category.id %}" >x</a></td>
+                  <td scope="col" class="td_delete"><a href="{% url 'base:weight_category_weight' tournament.slug category.id %}" title="{% trans 'Добавить больше весовых разновидностей' %}" class="">+</a></td>
+                  <td scope="col" class="td_delete"><a href="{% url 'base:weight_categories_delete' tournament.slug category.id %}" title="{% trans 'Удалить' %}" >x</a></td>
                </tr>
          {% endfor %}
          

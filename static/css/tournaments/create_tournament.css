@@ -14,15 +14,18 @@ form {
    justify-content: start;
    align-items: center;
    width: 100%;
-   margin: 3vh 0;
+   margin: 4vh 0;
 }
 .form__tournaments__pre__header p {
+   font-size: 16px;
    text-align: center;
 }
 .form__tournaments__pre__header p a {
+   font-size: 16px;
    margin: 0 4px;
 }
 .form__tournaments__pre__header p span {
+   font-size: 16px;
    font-weight: 600;
    margin: 0 4px;
 }
@@ -38,7 +41,10 @@ form {
    align-items: center;
    width: 100%;
    padding: 10px 0;
-   margin-bottom: 10px 0;
+   margin-bottom: 10px ;
+}
+.form__tournaments__header h3 {
+   margin-bottom: 10px;
 }
 .form__tournaments__header__buttons {
    display: flex;
@@ -68,9 +74,41 @@ form {
 .form__section h3 {
    margin-bottom: 12px;
    color: rgb(20,20,20,.85);
+   font-size: 18px;
 }
 .form__chapter {
    display: flex;
    flex-direction: column;
    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+   .form__tournaments__header {
+      flex-direction: column;
+   }
+   .form__tournaments__header h2 {
+      margin-bottom: 10px;
+   }
+   .form__section h3 {
+      font-size: 20px;
+   }
+   .form__tournaments__header__buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      font-size: 14px;
+      gap: 10px;
+   }
+   .form__tournaments__header__buttons a {
+      height: 100%;
+   }
+   .form__more {
+      display: grid;
+      grid-template-columns: 1fr;
+   }
+   #create__tournire {
+      padding: 0 1%;
+   }
+   .form__section {
+      padding:  14px;
+   }
 }
