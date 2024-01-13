@@ -12,7 +12,7 @@ from ..services import get_tournaments
 
 
 def index(request):
-   tournaments = get_tournaments().order_by('updated')
+   tournaments = get_tournaments().order_by('-updated')
    
    context = {
       'tournaments': tournaments,     

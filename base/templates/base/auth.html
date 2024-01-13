@@ -5,11 +5,11 @@
    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
    {% if page_type == 'login' %}
       <title>
-         {% trans 'Login' %}
+         {% trans 'Вход' %}
       </title>
    {% else %}
       <title>
-         {% trans 'Registration' %}
+         {% trans 'Регистрация' %}
       </title>
    {% endif %}
 {% endblock title %}
@@ -21,8 +21,8 @@
          {% csrf_token %}
 
          {% if page_type == 'login' %}
-            <h1>{% trans 'Login' %}</h1>
-            <p>{% trans 'Please login to your account and start the adventure' %}</p>
+            <h1>{% trans 'Вход' %}</h1>
+            <p>{% trans 'Пожалуйста, введите логин и пароль для продолжения использования сайта.' %}</p>
 
             <div class = "form__component">
                <label>{% trans 'Email' %}:</label>
@@ -34,8 +34,8 @@
                <input type="password" name="password" id="password" required />
             </div>
          {% else %}
-            <h1>{% trans 'Registration' %}</h1>
-            <p>{% trans 'Please register and start the adventure' %}</p>
+            <h1>{% trans 'Регистрация' %}</h1>
+            <p>{% trans 'Пожалуйста, зарегестрируйтесь для продолжения использования сайта.' %}</p>
 
             {% for field in form  %}
                <div class = "form__component">
@@ -52,12 +52,12 @@
 
          {% endif %}
 
-         <button type="submit" class="btn">{% trans 'Continue' %}</button>
+         <button type="submit" class="btn">{% trans 'Продолжить' %}</button>
       
          {% if page_type == 'login' %}
-            <p>{% trans 'New on our platform?' %} <a href="{% url 'base:registration' %}">{% trans 'Create an account' %}</a></p>
+            <p>{% trans 'Впервые?' %} <a href="{% url 'base:registration' %}">{% trans 'Создать аккаунт' %}</a></p>
          {% else %}
-            <p>{% trans 'Already have an account?' %} <a href="{% url 'base:login' %}">{% trans 'Sign in instead' %}</a></p>
+            <p>{% trans 'Уже имеете аккаунт?' %} <a href="{% url 'base:login' %}">{% trans 'Войти в созданный' %}</a></p>
          {% endif %}
       </form>
    </div>

@@ -4,11 +4,11 @@
 <span class="home__card__span"></span>
 <a href="{% url 'base:tournamets_admin_update_info' tournire.slug %}" class="link">
    <i class="fa-solid fa-pen-to-square"></i>
-   {% trans 'Update Info' %}
+   {% trans 'Обновить информацию' %}
 </a>
 <a href="{% url 'base:weight_categories' tournire.slug %}" class="link">
    <i class="fa-solid fa-plus"></i>
-  {% trans 'Add New Weight Category' %}
+  {% trans 'Добавить новую категорию' %}
 </a>
 {% for category in  tournire.weightcategory_set.all %}
    <a href="{% url 'base:athletes_admin_category' tournire.slug category.year category.gender %}" class="link">
@@ -18,5 +18,5 @@
 {% endfor %}
 <a href="{% url 'base:tournamets_admin_delete' tournire.slug %}" class="link delete">
    <i class="fa-regular fa-trash-can"></i>
-   {% trans 'Delete Tournament' %}
+   {% trans 'Удаление турнира' %}
 </a>

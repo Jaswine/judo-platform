@@ -1,9 +1,17 @@
-from django.forms import ModelForm, forms, DateField, TimeField, SelectDateWidget, CharField
+from django.forms import (ModelForm, 
+                                          DateField, 
+                                          SelectDateWidget, 
+                                          CharField, 
+                                          Select, 
+                                          DateInput, 
+                                          TimeField, 
+                                          TimeInput)
 from django.contrib.auth.models import User
 from .models import Profile, Tournament, Logos, WeightCategory, Participant
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.forms import FileField, ClearableFileInput
-
+import datetime
+from django.utils.translation import gettext_lazy as _
 
 # create user
 class CreateUserForm(UserCreationForm):
@@ -20,13 +28,24 @@ class UpdateUserForm(ModelForm):
 class UpdateProfileForm(ModelForm):
    class Meta:
       model = Profile
-      fields = ['fullName', 'phone', 'image', 'organization', 'city', 'region']   
+      fields = ['fullName', 'phone', 'image', 'organization', 'city', 'region'] 
+
+class DateInput(DateInput):
+   input_type = 'date'  
+
+class TimeInput(TimeInput):
+   input_type = 'time'  
 
 # Tournament
 class TournamentForm(ModelForm):
    title_en = CharField(required=True)
    title_ru = CharField(required=True)
    title_kk = CharField(required=True)
+   tatamis_count = CharField(required=True)
+   # startData = DateField(widget=SelectDateWidget(years=range(datetime.date.today().year - 100, datetime.date.today().year + 1)))
+   startData=  DateField(widget=DateInput())
+   finishData=  DateField(widget=DateInput())
+   startTime = TimeField(widget=TimeInput())
 
    class Meta:
       model = Tournament
@@ -38,13 +57,17 @@ class TournamentForm(ModelForm):
                         'startData', 'finishData', 'startTime', 'credit', 'tatamis_count', 
                         'chiefJustice_en', 'chiefJustice_ru', 'chiefJustice_kk', 
                         'chiefSecretary_en', 'chiefSecretary_ru', 'chiefSecretary_kk', 
+                        'chiefJustice_en', 'chiefJustice_ru', 'chiefJustice_kk', 
+                        'chiefSecretary_en', 'chiefSecretary_ru', 'chiefSecretary_kk',
                         'status', 'public']
       
 class WeightCategoryForm(ModelForm):
+   year = CharField(required=True)
+   gender = CharField(required=True)
+
    class Meta:
       model = WeightCategory
       fields = [
-               # 'weight', 
                'year', 
                'gender',
             ]
@@ -54,8 +77,15 @@ class SortingTournamentForm(ModelForm):
       model = Tournament
       fields = ['rang']
       
+class DateParticipantInput(DateInput):
+   input_type = 'date'  
+
 # Participant
 class ParticipantForm(ModelForm):
+   firstName = CharField(required=True)
+   lastName = CharField(required=True)
+   year = DateField(widget=DateParticipantInput())
+   
    class Meta:
       model = Participant
       fields = ['firstName', 'lastName', 'thirdName', 'year', 'discharge', 'gender']

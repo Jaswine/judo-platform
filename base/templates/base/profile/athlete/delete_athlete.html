@@ -4,7 +4,7 @@
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournaments/add_new_athlete.css' %}">
 <link rel="stylesheet" href="{% static 'css/tournaments/pre__form__tournaments.css' %}">
-<title>{% trans 'Delete Athlete' %}</title>
+<title>{% trans 'Удалить спортсмена' %}</title>
 {% endblock %}
 
 <div class="pre__form__tournaments">
@@ -12,10 +12,10 @@
       
       <form method="POST" action=' '>
          {% csrf_token %}
-         <h2></h2>
+         <h2>Вы точно хотите удалить этого спортсмена?</h2>
         <div class="form__delete">
-            <a class="link" href="{{request.META.HTTP_REFERER}}">{% trans 'Come Back' %}</a>
-            <button type="submit" class="btn btn--delete" id="button">{% trans 'Delete' %}</button>
+            <a class="link" href="{{request.META.HTTP_REFERER}}">{% trans 'Вернуться обратно' %}</a>
+            <button type="submit" class="btn btn--delete" id="button">{% trans 'Удалить' %}</button>
         </div>
       </form>
 

@@ -54,8 +54,8 @@
    justify-content: start;
    align-items: center;
    width: 100%;
-   padding: 6px 10px;
-   background-color: rgb(20,20,20,.05);
+   padding: 10px 10px;
+   background-color: rgb(20,20,20,.03);
    border-radius: 10px;
    margin-bottom: 10px;
    gap:10px;
@@ -127,6 +127,7 @@
    align-items: center;
    flex-direction: column;
    max-width: 800px;
+   padding: 5% 0;
 }
 /*  Delete Account */
 .delete__account__choices {
@@ -137,27 +138,32 @@
    min-width: 100%;
    margin-top: 5%;
 }
-.delete__account__choices a {
-   color: var(--black);
-   transition:  all .3s linear;
-}
-.delete__account__choices a:hover {
-   color: var(--lightblue);
-}
 .delete__Account {
-   font-size: 18px;
-   margin: 4px 0;
-   padding: 10px 10%;
-   transition: all .3s linear;
-   color: rgb(255, 186, 186) !important;
-   background-color: darkred !important;
-   border-color: rgb(255, 186, 186) !important;
+   font-size: 16px;
+   padding: 13px 30px 13px;
    cursor: pointer;
+   border: none;
+   position: relative;
+   background-color: rgba(0, 0, 0, 0);
+   user-select: none;
+   -webkit-user-select: none;
+   touch-action: manipulation;
+   background-color: var(--lightblue);
+   color: white;
+   border-radius: 5px;
+   transition: all .3s linear;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 5px;
+   background-color: #dc5757;
+   width: 160px;
+   text-align: center;
 }
 .delete__Account:hover {
-   color: darkred !important;
-   background-color: rgb(255, 186, 186) !important;
-   border: 2px solid darkred !important;
+   background-color: #202020;
+   box-shadow:  0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .photos {

@@ -7,15 +7,16 @@
 {% endblock title %}
 
 {% block content %}
+<input type="hidden" id="TournamentID" value="{{ tournament.id }}" />
 <div class="home pre__athlete_regisration">
    <h2>{{tournament.title}}</h2>
    <div class="athlete_regisration">
       <div class="athlete_regisration__left">
-         <h2>{% trans 'Registration' %}</h2>
+         <h2>{% trans 'Регистрация' %}</h2>
          {% if page_type == 'registration' %}
             <div class="athlete_regisration__left__header">
-               <a href="{% url 'base:registration_on_tournament' tournament.slug %}" class="active">{% trans 'Registration' %}</a>
-               <a href="{% url 'base:list_of_registered_on_tournament' tournament.slug %}">{% trans 'List of registered' %}</a>
+               <a href="{% url 'base:registration_on_tournament' tournament.slug %}" class="active">{% trans 'Регистрация' %}</a>
+               <a href="{% url 'base:list_of_registered_on_tournament' tournament.slug %}">{% trans 'Список зарегистрированных' %}</a>
             </div>
             <div class="athlete_regisration__left__body">
                {% for athlete in participants %}
@@ -43,12 +44,12 @@
                   <button type="submit" class='btn'>+</button>
                </form>
                {% endfor %}
-   <a href="{% url 'base:add_new_athlete' %}" class="btn btn--primary">{% trans 'Add New Athlete' %}</a>
+                  <a href="{% url 'base:add_new_athlete' %}" class="btn btn--primary">{% trans 'Добавить нового спортсмена' %}</a>
             </div>
          {% else %}
          <div class="athlete_regisration__left__header">
-            <a href="{% url 'base:registration_on_tournament' tournament.slug %}">{% trans 'Registration' %}</a>
-            <a href="{% url 'base:list_of_registered_on_tournament' tournament.slug %}"  class="active">{% trans 'List of registered' %}</a>
+            <a href="{% url 'base:registration_on_tournament' tournament.slug %}">{% trans 'Регистрация' %}</a>
+            <a href="{% url 'base:list_of_registered_on_tournament' tournament.slug %}"  class="active">{% trans 'Список зарегистрированных' %}</a>
          </div>
          <div class="athlete_regisration__left__body">
             {% for athlete in athletes %}
@@ -82,7 +83,7 @@
       </div>
       <form class="athlete_regisration__right" method="POST">
          {% csrf_token %}
-         <h2>{% trans 'Weight Categories' %}</h2>
+         <h2>{% trans 'Весовые категории' %}</h2>
          <div class="athlete_regisration__weight__categories">
             {% for weight_category in tournament.weightcategory_set.all  %}
                <div class="athlete_regisration__weight__category">
@@ -101,4 +102,7 @@
       </form>
    </div>
 </div>
+
+<script src="/static/js/athlete-registration.js"></script>
+
 {% endblock content %}  

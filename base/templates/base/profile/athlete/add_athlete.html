@@ -3,7 +3,7 @@
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournaments/add_new_athlete.css' %}">
 <link rel="stylesheet" href="{% static 'css/tournaments/pre__form__tournaments.css' %}">
-<title>{% trans 'Add New Athlete' %}</title>
+<title>{% trans 'Добавить нового спортсмена' %}</title>
 {% endblock %}
 
 <div class="pre__form__tournaments">
@@ -12,11 +12,11 @@
       <form method="POST" action=''>
          {% csrf_token %}
          {% if page_type == 'add_new_athlete'  %}
-            <h2>{% trans 'Add New Athlete' %}</h2>
+            <h2>{% trans 'Добавить нового спортсмена' %}</h2>
          {% else %}
-         <h2>{% trans 'Update Athlete' %}</h2>
+         <h2>{% trans 'Обновить информацию' %}</h2>
          {% endif %}
-         {% for field in form  %}
+         {% comment %} {% for field in form  %}
             <div class = "form__component">
                {% if field.errors %}
                <ul class="errorlist">
@@ -27,10 +27,44 @@
                {% endif %}
                {{ field.label_tag }} {{ field }}
             </div>
-         {% endfor %}
+         {% endfor %} {% endcomment %}
+            
+         <div class="form__component">
+            <label for="">{%  trans 'Имя' %}:</label>
+            {{ form.firstName }}
+         </div>
+
+         <div class="form__component">
+            <label for="">{%  trans 'Фамилия' %}:</label>
+            {{ form.lastName }}
+         </div>
+
+         <div class="form__component">
+            <label for="">{%  trans 'Отчество' %}:</label>
+            {{ form.thirdName }}
+         </div>
+
+        <div class="form__row">
+            <div class="form__component">
+               <label for="">{%  trans 'Год рождения' %}:</label>
+               {{ form.year }}
+            </div>
+
+            <div class="form__component">
+               <label for="">{%  trans 'Пол' %}:</label>
+               {{ form.gender }}
+            </div>
+        </div>
+
+         <div class="form__component">
+            <label for="">{%  trans 'Пояс' %}:</label>
+            {{ form.discharge }}
+         </div>
+
+         
          
          <div class="form__component">
-            <label>{% trans 'Coach' %}: </label>
+            <label>{% trans 'Тренер' %}: </label>
             <input 
                type="text" 
                name="coach" 
@@ -50,7 +84,10 @@
                >
          </div>
       
-         <button type="submit" class="btn btn-primary" id="button">{% trans 'save' %}</button>
+         <div class="buttons">
+            <a class="btn btn--primary" href="{% url 'base:show_all_athletes' user.username %}">{% trans 'Отменить' %}</a>
+            <button type="submit" class="btn btn-primary" id="button">{% trans 'Сохранить' %}</button>
+         </div>
       </form>
 
    </div>  

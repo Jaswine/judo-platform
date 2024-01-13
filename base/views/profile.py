@@ -8,6 +8,8 @@ from ..services import get_user, get_user_profile
 from ..forms import UpdateUserForm, UpdateProfileForm
 from ..utils import password_checking
 from ..models import Participant
+from django.db.models import Q
+
 
 
 @login_required(login_url='base:login')
@@ -126,6 +128,7 @@ def delete_account(request, username):
    }
    return render(request, 'base/profile.html', context)
 
+@login_required(login_url='base:login')
 def show_all_athletes_profile(request, username):
    page_type = 'show_all_athletes'
    
@@ -133,14 +136,33 @@ def show_all_athletes_profile(request, username):
    profile = get_user_profile(user)
    
    participants = Participant.objects.filter(user=user).order_by('-updated')
-   # participants_count = Participant.objects.filter(user=user).count()  
-   
+
+   if request.method == 'GET':
+      search = request.GET.get('search', '')
+      new_last = request.GET.get('new_last', '')
+
+      if search is not '':
+         participants = Participant.objects.filter(Q(firstName__icontains=search) 
+                                                                        | Q(lastName__icontains=search) 
+                                                                        | Q(thirdName__icontains=search) 
+                                                                        | Q(year__icontains=search) 
+                                                                        | Q(discharge__icontains=search)
+                                                                        | Q(gender__icontains=search) ).order_by('-updated')
+      if new_last is not '':
+         if new_last == 'new':
+            participants = participants.order_by('-created')
+         if new_last == 'last':
+            participants = participants.order_by('created')
+
    context =  {
       'page_type': page_type,
       
       'user': user,
       'profile': profile,
       
-      'participants': participants
+      'participants': participants,
+
+      'search': search,
+      'new_last': new_last,
    }
    return render(request, 'base/profile.html', context)

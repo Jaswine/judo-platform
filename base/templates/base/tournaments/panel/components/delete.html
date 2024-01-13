@@ -1,11 +1,11 @@
 {% load static i18n %}
 
 <form method="post" class="pre__delete__account__choices">
-   <h3>{% trans 'Delete Tournament' %}</h3>
+   <h1>{% trans 'Удалить турнир?' %}</h1>
 {% csrf_token %}
 
 <div class="delete__account__choices">
-<a class="btn" href="{{request.META.HTTP_REFERER}}">{% trans 'Come back' %}</a>
-<button type="submit" class="delete__Account">{% trans 'Delete' %}</button>
+<a class="btn" href="{{request.META.HTTP_REFERER}}">{% trans 'Вернуться назад' %}</a>
+<button type="submit" class="delete__Account">{% trans 'Да' %}</button>
 </div>
 </form>

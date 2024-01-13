@@ -136,13 +136,13 @@ header form {
    color: var(--white);
 }
 ::-webkit-scrollbar {
-   background-color: rgb(254,254,254,.1);
-   width: 5px;
+   background-color: rgb(20,20,20, .02);
+   width: 10px;
    transition: all .3s linear;
 }
 ::-webkit-scrollbar-thumb {
    background-color:#5f80cd ;
-   border-radius: 10px;
+   border-radius: 2px;
 }
 ::-webkit-scrollbar:hover {
    width: 14px;
@@ -237,6 +237,14 @@ header form {
    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+.form__row {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   margin-bottom: 6px;
+   gap: 3%;
+}
 .form__component {
    display: flex;
    justify-content: center;
@@ -329,7 +337,6 @@ input:focus {
    width: 100%;   
 }
 .delete__account__choices a {
-   color: var(--black);
    transition:  all .3s linear;
 }
 .delete__account__choices a:hover {
@@ -362,3 +369,21 @@ input:focus {
    color: rgb(20,20,20,.4);
 }
 
+input[type="checkbox"] {
+   appearance: none;
+   -webkit-appearance: none;
+   -moz-appearance: none; 
+   border-style: solid;
+   border-width: 2px;
+   border-color: rgb(20,20,20,.2); 
+   border-radius: 6px;
+   width: 30px;
+   height: 30px;
+   min-width: 30px;
+   max-width: 30px;
+   cursor: pointer;
+}
+input[type="checkbox"]:checked {
+   background-color: #577fdc;
+   border-color: #577fdc;
+}

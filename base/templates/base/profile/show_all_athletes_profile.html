@@ -3,52 +3,66 @@
 
 <h2>
    <i class="fa-solid fa-users"></i>
-   {% trans 'My athletes' %}
+   {% trans 'Мои спортсмены' %}
    <span>{{participants.count}}</span>
 </h2>
 
-<form class="athletes__filter">
-   <input type="text" name="form_type" value="change__status" style="display: none">
+<form class="athletes__filter" method='GET'>
+      {% csrf_token %}
+   <input type="text" name="form_type" value="change__status" style="display: none" />
    <div class = "form__component">
-      <input type="text" placeholder="search..." name="{% trans 'search' %}..">
+      <input  
+         type="search" 
+         name="search" 
+         value="{{ search }}"
+         placeholder="{% trans 'Поиск' %}" />
    </div>
    <div class="form__component">
-      <select name="filter" id="">
-         <option value="" selected disabled>{% trans 'Filter' %}</option>
-         <option value="new">{% trans 'new' %}</option>
-         <option value="last">{% trans 'last' %}</option>
+      <select name="new_last" id="">
+         <option value="" selected disabled>{% trans 'Сортировка' %}</option>
+         <option value="new" {% if new_last == 'new' %}selected{% endif %} >{% trans 'Новые' %}</option>
+         <option value="last" {% if new_last == 'last' %}selected{% endif %}>{% trans 'Старые' %}</option>
       </select>
    </div>
+   <button type="submit" class="btn" title="{% trans 'Искать' %}">
+      <i class="fa-solid fa-magnifying-glass"></i>
+   </button>
    {% if  request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь' %}
-   <a href="{% url 'base:add_new_athlete' %}" class="btn">{% trans 'Add New Athlete' %}</a>
+   <a href="{% url 'base:add_new_athlete' %}" class="btn" title="{% trans 'Добавить нового спортсмена' %}">
+      <i class="fa-solid fa-plus"></i>
+   </a>
    {% endif %}
 </form>
 
 <div class="athletes__all">
-   {% for athlete in participants %}
-   <div class="athlete"> 
-      <h3>{{athlete.firstName}} {{athlete.lastName}} {{athlete.thirdName}}</h3>
-      <h5>{{athlete.coach}}</h5>
-      <div class="athlete__info">
-         <div class="athlete__info__left">
-            <div class="athlete__info__left__desc">
-               <h4><i class="fa-solid fa-calendar-days"></i> {% trans 'Year' %}:</h4>
-               <span>{{athlete.year}}</span>
+   {% if participants.count != 0 %}
+      {% for athlete in participants %}
+      <div class="athlete"> 
+         <h3>{{athlete.firstName}} {{athlete.lastName}} {{athlete.thirdName}}</h3>
+         <h5>{{athlete.coach}}</h5>
+         <div class="athlete__info">
+            <div class="athlete__info__left">
+               <div class="athlete__info__left__desc">
+                  <h4><i class="fa-solid fa-calendar-days"></i> {% trans 'Год' %}:</h4>
+                  <span>{{athlete.year}}</span>
+               </div>
+               <div class="athlete__info__left__desc">
+                  <h4><i class="fa-solid fa-certificate"></i> {% trans 'Пояс' %}:</h4>
+                  <span>{{athlete.discharge}}</span>
+               </div>
+               <div class="athlete__info__left__desc">
+                  <h4><i class="fa-solid fa-person-half-dress"></i> {% trans 'Пол' %}:</h4>
+                  <span>{{athlete.gender}}</span>
+               </div>
             </div>
-            <div class="athlete__info__left__desc">
-               <h4><i class="fa-solid fa-certificate"></i> {% trans 'Discharge' %}:</h4>
-               <span>{{athlete.discharge}}</span>
+            <div class="athlete__info__right">
+               <a href="{% url 'base:update_athlete' athlete.id %}" class="btn">Изменить</a>
+               <a href="{% url 'base:delete_athlete' athlete.id %}" class="btn btn--delete">Удалить</a>
             </div>
-            <div class="athlete__info__left__desc">
-               <h4><i class="fa-solid fa-person-half-dress"></i> {% trans 'Gender' %}:</h4>
-               <span>{{athlete.gender}}</span>
-            </div>
-         </div>
-         <div class="athlete__info__right">
-            <a href="{% url 'base:update_athlete' athlete.id %}" class="btn">Change</a>
-            <a href="{% url 'base:delete_athlete' athlete.id %}" class="btn btn--delete">Delete</a>
          </div>
       </div>
-   </div>
-   {% endfor %}
+      {% endfor %}
+   {% else %}
+      <h2>{% trans 'Спортсмены не найдены' %}</h2>
+   {% endif %}
 </div>

@@ -12,6 +12,13 @@
 .form__component {
    width: 60%;
 }
+.athletes__filter .form__component {
+   margin-bottom: 0;
+}
+.athletes__filter .btn {
+   font-size: 18px;
+   padding: 14px ;
+}
 .form__component select {
    background-color: white;
    padding: 10px 10px;
@@ -46,17 +53,29 @@ h2 span {
 
 /* athletes__all */
 .athletes__all {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+
+   gap: 1%;
+   row-gap: 2%;
+   width: 100%;
+   height: 100%;
+}
+.athlete__info__right {
    display: flex;
-   justify-content: flex-start;
-   align-items: flex-start;
-   flex-wrap: wrap;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   width: 100%;
+   gap: 6px;
+}
+.athlete__info__right .btn {
    width: 100%;
 }
 .athlete {
    /* background-color: var(--white); */
    border: 2px solid var(--white);
    padding: 10px;
-   margin: 6px;
    border-radius: 10px;
    transition: all .3s linear;
    width: 100%;
@@ -67,22 +86,20 @@ h2 span {
    margin-bottom: 4px;
 }
 .athlete:hover {
+   scale: 1.02;
    box-shadow: 0 0 10px rgb(0,0,0,.1);
 }
 .athlete__info {
-   display: flex;
-   justify-content: start;
-   align-items: start;
+   display: grid;
+   grid-template-columns: 2fr 1fr;
    width: 100%;
    gap: 8px;
-}
-.athlete__info__left {
-   width: 70%;
+   font-size: 16px;
 }
 .athlete__info__left__desc {
    display: flex;
    justify-content: space-between;
-   align-items: center;
+   align-items: start;
    width: 100%;
    margin-bottom: 5px;
    gap: 10px;
@@ -95,15 +112,8 @@ h2 span {
 }
 .athlete__info__left__desc span {
    font-size: 16px;
-   font-weight: 700;
-}
-.athlete__info__right {
-   width: 30%;
-   display: flex;
-   justify-content: start;
-   align-items: center;
-   flex-direction: column;
-   row-gap: 5px;
+   font-weight: 300;
+   text-align: right;
 }
 
 @media screen and (max-width: 700px) {

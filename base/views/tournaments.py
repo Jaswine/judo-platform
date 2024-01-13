@@ -14,16 +14,7 @@ from ..filters import TournamentFilter
 
 
 def show_tournaments(request):
-   tournaments = get_tournaments()
-   
-   filter = TournamentFilter(request.GET, queryset=tournaments)
-   tournaments = filter.qs
-   
-   context = {
-      'filter': filter,
-      'tournaments': tournaments,     
-   }
-   return render(request, 'base/tournaments/show_tournaments.html', context)
+   return render(request, 'base/tournaments/show_tournaments.html')
    
 def tournamet_show(request, slug):
    tournament = get_object_or_404(Tournament, slug=slug)

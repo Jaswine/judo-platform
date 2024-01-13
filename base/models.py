@@ -63,11 +63,6 @@ class Participant(models.Model):
    gender = models.CharField(max_length=10, choices=GENDER)
    coach = models.CharField(max_length=245, blank=True)
    
-   # country = models.CharField(max_length=100, blank=True)
-   # city = models.CharField(max_length=100, blank=True)
-   
-   # weight = models.IntegerField(blank=True, default=0)
-   
    created = models.DateTimeField(auto_now_add=True)
    updated = models.DateTimeField(auto_now=True)
    
@@ -160,7 +155,7 @@ class WeightCategory(models.Model):
    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, blank=True)
    weight = models.ManyToManyField(Weight, default=[])
    
-   year = models.CharField(max_length=20)
+   year = models.DateField(null=True)
    gender = models.CharField(max_length=20, choices=GENDER)
       
    def delete(self):

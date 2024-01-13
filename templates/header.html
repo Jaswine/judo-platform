@@ -15,19 +15,19 @@
 
    <div class="header__center">
       <a href="{% url "base:show_tournaments" %}" class="link">
-         {% trans 'Tournaments' %}
+         {% trans 'Турниры' %}
          <i class="fa-solid fa-calendar-days"></i>
       </a>
       <a href="{% url "base:medals" %}" class="link">
-         {% trans 'Medals' %}
+         {% trans 'Медали' %}
          <i class="fa-solid fa-medal"></i>
       </a>
       <a href="{% url "base:sorting" %}" class="link">
-         {% trans 'Sorting' %}
+         {% trans 'Сортировка' %}
          <i class="fa-solid fa-arrow-up-wide-short"></i>
       </a>
       <a href="{% url "base:instructions" %}" class="link">
-         {% trans 'Instructions' %}
+         {% trans 'Инструкции' %}
          <i class="fa-solid fa-circle-info"></i>
       </a>
    </div>
@@ -41,13 +41,15 @@
             <!-- {% trans 'Add New Tournament' %} -->
          </a>
       {% endif %}
-   <a href="{% url 'base:show_profile' request.user.username %}" class="link">{{request.user.username}}</a>
+   <a href="{% url 'base:show_profile' request.user.username %}" class="link">
+      {{request.user.username}}
+   </a>
    <a href="{% url 'base:logout' %}" class="link">
-      {% trans 'Logout' %}
+      {% trans 'Выход' %}
    </a>
 {% else %}
-   <a href="{% url 'base:registration' %}" class="link">{% trans 'Registration' %}</a>
-   <a href="{% url 'base:login' %}" class="link">{% trans 'Login' %}</a>
+   <a href="{% url 'base:registration' %}" class="link">{% trans 'Регистрация' %}</a>
+   <a href="{% url 'base:login' %}" class="link">{% trans 'Вход' %}</a>
 {% endif %}
    <form action="{% url 'set_language' %}" method="post" id="LanguageForm">{% csrf_token %}
       <input name="next" type="hidden" value="{{ redirect_to }}">
