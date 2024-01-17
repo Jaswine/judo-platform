@@ -6,8 +6,9 @@
    align-items: center;
    flex-direction: column;
    width: 100%;
-   padding: 10px 6vw;
+   padding: 10px 3vw;
    height: 100%;
+   overflow: none;
 }
 .home__card {
    display: grid;
@@ -17,9 +18,10 @@
 
    width: 100%;
    max-width: 1600px;
-   height: 100%;
-   margin-bottom: 5%;
-   margin-top: 30px;
+   /* height: 100%; */
+   height: 80vh;
+   margin-bottom: 3vh;
+   margin-top: 3vh;
 
    /* background-color:  var(--white); */
    background-color: white;
@@ -98,9 +100,11 @@
 .home__card__right {
    padding: 10px;
    width: 100%;
+   height: 80vh;
+   overflow-y: auto;
 }
 .home__card__right h2 {
-   margin-bottom: 10px;
+   margin: 10px 0;
 }
 .home__card__right__image {
    max-width: 200px;

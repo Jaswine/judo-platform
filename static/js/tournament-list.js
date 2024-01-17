@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`/api/tournament-list/?search=${search}&startDate=${startDate}&endDate=${endDate}`)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data)
+
                 TournamentList.innerHTML = ''
 
                 if (data.tournament_list.length > 0) {                    
@@ -44,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         >${tournament.status} </span>
                     </div>
                     <div class="tournament__description__line">
-                        <i class="fa-solid fa-users"></i>0
+                        <i class="fa-solid fa-users"></i>${tournament.peopleCount}
                     </div>
                         `
                     

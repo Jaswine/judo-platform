@@ -11,15 +11,20 @@ from django.contrib.auth.models import User
 from ..services import get_tournaments
 
 
+"""
+   Главная страница 
+"""
 def index(request):
-   tournaments = get_tournaments().order_by('-updated')
+   tournaments = get_tournaments().order_by('-updated')[:3]
    
    context = {
       'tournaments': tournaments,     
    }
    return render(request, 'base/index.html', context)
 
-# registraion
+"""
+   Страница регистрации новых пользователей
+"""
 def registration_view(request):
    page_type = 'registration'
    
@@ -52,7 +57,9 @@ def registration_view(request):
    }
    return render(request, 'base/auth.html', context)
 
-# login
+"""
+   Страница аутентификации пользователей
+"""
 def login_view(request):
    page_type = 'login'
    
@@ -76,7 +83,9 @@ def login_view(request):
    }
    return render(request, 'base/auth.html', context)
 
-# logout
+"""
+   Выход пользователя из аккаунта
+"""
 def logout_view(request):
    logout(request)
    return redirect('base:index') 

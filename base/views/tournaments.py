@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.forms import ValidationError, IntegerField
 
 from ..models import Tournament, Logos, WeightCategory, Sponsors, Weight ,Participant
-from ..forms import TournamentForm, WeightCategoryForm
+from ..forms import CreateTournamentForm, WeightCategoryForm
 from ..utils import slug_generator, checking_slug, generate_slug
 from ..services import get_tournaments, get_all_weight_category, get_user_profile
 from ..filters import TournamentFilter
@@ -43,10 +43,10 @@ def create_tournamets(request):
    page_type = 'create_tournament__part__one'
    
    if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser):
-      form = TournamentForm()
+      form = CreateTournamentForm()
       
       if request.method == 'POST':
-         form = TournamentForm(request.POST, request.FILES)
+         form = CreateTournamentForm(request.POST, request.FILES)
          print('form', form)
          
          if form.is_valid():
@@ -254,16 +254,17 @@ def list_of_registered_on_tournament(request, slug):
       tournament = get_object_or_404(Tournament, slug=slug)
       
       participants = Participant.objects.filter(user=request.user) 
+      print('Participants', participants)
       
       if request.method == 'POST':
          athlete = request.POST.get('athlete', None)
          weight = request.POST.get('weight', None)
          
          weight_category = Weight.objects.get(id=weight) 
-         weight_category.participants.remove(athlete)   
+         weight_category.participants.remove(athlete)
+         
          return redirect('base:list_of_registered_on_tournament', slug)
          
-      
       context = {
          'page_type': page_type,
          

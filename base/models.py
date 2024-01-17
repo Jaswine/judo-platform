@@ -58,7 +58,7 @@ class Participant(models.Model):
    lastName = models.CharField(max_length=100)
    thirdName = models.CharField(max_length=100, blank=True)
    
-   year = models.CharField(max_length=30)
+   year = models.DateField(null=True)
    discharge = models.CharField(max_length=40, choices=DISCHARGES)
    gender = models.CharField(max_length=10, choices=GENDER)
    coach = models.CharField(max_length=245, blank=True)
@@ -117,9 +117,7 @@ class Tournament(models.Model):
    credit = models.CharField(max_length=100, blank=True, choices=CREDIT_TYPE)
    
    tatamis_count = models.CharField(default=0, blank=True, max_length=2)
-   
-   participants = models.ManyToManyField(Participant, default=[], blank=True)
-   
+      
    sponsors = models.ManyToManyField(Sponsors, blank=True, default=[], related_name='sponsors')
    
    chiefJustice = models.CharField(max_length=200, blank=True)
@@ -155,7 +153,7 @@ class WeightCategory(models.Model):
    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, blank=True)
    weight = models.ManyToManyField(Weight, default=[])
    
-   year = models.DateField(null=True)
+   year = models.CharField(max_length=20, null=True)
    gender = models.CharField(max_length=20, choices=GENDER)
       
    def delete(self):

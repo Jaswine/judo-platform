@@ -11,7 +11,9 @@ from ..models import Participant
 from django.db.models import Q
 
 
-
+"""
+   Страница профиля пользователя с информацией о нем
+"""
 @login_required(login_url='base:login')
 def show_profile(request, username):
    page_type = 'view_profile'
@@ -36,6 +38,9 @@ def show_profile(request, username):
    }
    return render(request, 'base/profile.html', context)
    
+"""
+   Страница редактирования информации о пользователе
+"""
 @login_required(login_url='base:login')
 def edit_profile(request, username):
    page_type = 'edit_profile'
@@ -70,6 +75,9 @@ def edit_profile(request, username):
    else:
       return redirect('base:show_profile', username=user.username)
    
+"""
+   Страница изменения паролья пользователя
+"""
 @login_required(login_url='base:login')
 def edit_password_profile(request, username):
    page_type = 'edit_password'
@@ -104,6 +112,9 @@ def edit_password_profile(request, username):
    else:
       return redirect('base:show_profile', username=user.username)
    
+"""
+   Страница удаления аккаунта
+"""
 @login_required(login_url='base:login')
 def delete_account(request, username):
    page_type = 'delete_account'
@@ -128,6 +139,9 @@ def delete_account(request, username):
    }
    return render(request, 'base/profile.html', context)
 
+"""
+   Страница с выводом, фильтрацией и сортировкой всех спортсменов, добавленых пользователем
+"""
 @login_required(login_url='base:login')
 def show_all_athletes_profile(request, username):
    page_type = 'show_all_athletes'

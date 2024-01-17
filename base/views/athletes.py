@@ -8,6 +8,9 @@ from ..models import Participant
 from ..forms import ParticipantForm
 
 
+"""
+   Страница добавления нового спортсмена
+"""
 @login_required(login_url='base:login')
 def add_new_athlete(request):
    page_type = 'add_new_athlete'
@@ -39,6 +42,9 @@ def add_new_athlete(request):
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')
    
+"""
+   Страница обновления выбранного спортсмена взятого по ID
+"""
 @login_required(login_url='base:login')
 def update_athlete(request, athlete_id):
    page_type = 'update_athlete'
@@ -69,7 +75,10 @@ def update_athlete(request, athlete_id):
    else:
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')
-   
+
+"""
+   Страница удаления выбранного спортсмена взятого по ID
+"""
 @login_required(login_url='base:login')
 def delete_athlete(request, athlete_id):
    page_type = 'delete_athlete'

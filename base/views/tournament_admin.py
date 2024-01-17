@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.core.files.storage import FileSystemStorage
 
 from ..models import Tournament, Logos, WeightCategory, Sponsors, Participant, Weight
-from ..forms import TournamentForm, WeightCategoryForm, ParticipantForm
+from ..forms import UpdateTournamentMainInformationForm
 from ..services import get_tournaments
 
 
@@ -17,11 +17,11 @@ def tournamets_admin_update_info(request, slug):
    
    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournire = get_object_or_404(Tournament, slug=slug)
-      form = TournamentForm(instance=tournire)
+      form = UpdateTournamentMainInformationForm(instance=tournire)
    
       # get data from form        
       if request.method == 'POST':
-         form = TournamentForm(request.POST, request.FILES, instance=tournire)
+         form = UpdateTournamentMainInformationForm(request.POST, request.FILES, instance=tournire)
          
          if form.is_valid():           
             logotips = request.FILES.getlist('files')
@@ -138,26 +138,6 @@ def tournamets_admin_delete(request, slug):
    else:
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')
-   
-# @csrf_exempt
-# @login_required(login_url='base:login')
-# def tournamets_admin_category(request, slug, category_slug):
-#    page_type = 'tournament_panel_category'
-   
-#    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
-#       tournire = get_object_or_404(Tournament, slug=slug)
-#       weight_category = get_object_or_404(WeightCategory, slug=category_slug)
-      
-#       context = {
-#          'page_type': page_type,
-         
-#          'tournire': tournire,
-#          'category': weight_category,
-#       }         
-#       return render(request, 'base/tournaments/panel/tournament_panel.html', context)
-#    else:
-#       messages.error(request, "You don't have permission to create tournament ;)")
-#       return redirect('base:show_tournaments')
    
 @login_required(login_url='base:login')
 def athletes_admin_category(request, slug, year, gender):

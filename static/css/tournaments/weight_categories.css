@@ -64,12 +64,18 @@ td, th {
    border-radius: 4px;
    transition: all .3s linear;
 }
-td:hover {
-   background-color: rgb(87, 126, 219, .05);
+tr:hover {
+   transition: all .3s linear;
+}
+tr:hover {
+   background-color: rgb(20,20,20,.1) !important;
 }
 .td_delete {
    transition: all .3s linear;
    padding: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 .td_delete a {
    display: flex;
@@ -84,10 +90,6 @@ td:hover {
    min-height: 20px;
    max-height: 100%;
    padding: 5px 10px;
-}
-.td_delete:hover {
-   background-color: var(--gold);
-   cursor: pointer;
 }
 
 @media screen and (max-width: 700px) {

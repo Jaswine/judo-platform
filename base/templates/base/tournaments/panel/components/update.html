@@ -1,9 +1,46 @@
 {% load static i18n %}  
+<style>
+   .photos input[type="checkbox"] {
+      width: 100px;
+      height: 100px;
+      max-width: 100px;
+      min-width: 100px;
+   }
+   .photos input[type="checkbox"]::after{
+      display: block;
+      content: '';
+      width: 6px;
+      height: 60px;
+      background-color: white;
+      position: absolute;
+      border-radius: 6px;
+      rotate:-45deg;
+      top: 25%;
+      left: 50%;
+   }
+   .photos input[type="checkbox"]::before{
+      display: block;
+      content: '';
+      width: 6px;
+      height: 60px;
+      background-color: white;
+      position: absolute;
+      border-radius: 6px;
+      rotate: 45deg;
+      top: 25%;
+      left: 50%;
+   }
+   .photos input[type="checkbox"]:checked {
+      background-color: #dc5757;
+      border-color: #dc5757;
+      opacity: .6;
+   }
+</style>
 <h2>{% trans 'Обновить турнир' %}</h2>
 <form action="" method="post" id="create__tournire" enctype="multipart/form-data">
 {% csrf_token %}
 
-{% for field in tournament_form %}
+{% comment %} {% for field in tournament_form %}
    <div class="form__component">
       {% if field.errors %}
          <ul class="errorlist">
@@ -14,7 +51,133 @@
       {% endif %}
       {{ field.label_tag }}{{ field }}
    </div>
-{% endfor %}
+{% endfor %} {% endcomment %}
+
+{% if tournament_form.errors  %}
+<div class="errorlist">
+   <p><strong>{% trans 'Упс! Где-то ошибка.' %}</strong></p>
+   <ul>
+      {% for error in tournament_form.errors %}
+         <li>{{ error }}</li>
+      {% endfor %}
+   </ul>
+</div>
+{% endif %}
+
+<div class = "form__component">
+   <label for="">{% trans 'Название турнира на русском' %}:</label>
+   {{ tournament_form.title_ru }}
+</div>
+
+<div class="form__component">
+   <label for="">{% trans 'Название турнира на казахском' %}:</label>
+   {{ tournament_form.title_kk }}
+</div>
+
+<div class="form__component">
+   <label>{% trans 'Название турнира на английском' %}:</label>
+   {{tournament_form.title_en }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Логотип' %}:</label>
+   {{ tournament_form.logo }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Описание на русском' %}:</label>
+   {{ tournament_form.about_ru }}
+   </div>
+
+<div class="form__component">
+   <label> {% trans 'Описание на казахском' %}:</label>
+   {{tournament_form.about_kk }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Описание на английском' %}:</label>
+   {{ tournament_form.about_en }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Местоположение на русском' %}:</label>
+   {{tournament_form.place_ru }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Местоположение на казахском' %}:</label>
+   {{ tournament_form.place_kk }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Местоположение на английском' %}:</label>
+   {{ tournament_form.place_en }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Дата начала' %}:</label>
+   {{ tournament_form.startData }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Дата конца' %}:</label>
+   {{ tournament_form.finishData }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Время начала' %}:</label>
+   {{ tournament_form.startTime }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Статус мероприятия' %}:</label>
+   {{ tournament_form.status }}
+</div>
+<div class="form__component">
+   <label> {% trans 'Ранг' %}:</label>
+   {{ tournament_form.rang }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Зачет' %}:</label>
+   {{ tournament_form.credit }}
+</div>
+
+<div class="form__component">
+   <label> {% trans 'Число татами' %}:</label>
+   {{ tournament_form.tatamis_count }}
+</div>
+
+<div class="form__component">
+   <label for="">{% trans 'ФИО главного судьи на русском' %}:</label>
+   {{ tournament_form.chiefJustice_ru }}
+</div>
+
+<div class="form__component">
+   <label for="">{% trans 'ФИО главного судьи на казахском' %}:</label>
+   {{ tournament_form.chiefJustice_kk }}
+</div>
+
+<div class="form__component">
+   <label for="">{% trans 'ФИО главного судьи на английском' %}:</label>
+   {{ tournament_form.chiefJustice_en }}
+</div>
+
+<div class="form__component">
+   <label for="">{% trans 'ФИО главного секретаря на русском' %}:</label>
+   {{ tournament_form.chiefSecretary_ru }}
+</div>
+
+<div class="form__component">
+   <label for="">{% trans 'ФИО главного секретаря на казахском' %}:</label>
+   {{ tournament_form.chiefSecretary_kk }}
+</div>
+
+<div class="form__component">
+   <label for="">{% trans 'ФИО главного секретаря на английском' %}:</label>
+   {{ tournament_form.chiefSecretary_en }}
+</div>
+
 
 {% if weight_categories_selected|length %}
    <div class="form__component">
@@ -77,6 +240,10 @@
       <input type = "file" multiple name="sponsors-logotips" id="sponsors-logos"/>
    </div>
 
+   <div class="form__component">
+      <label> {% trans 'Опубликовать' %}:</label>
+      {{ tournament_form.public }}
+   </div>
    
 <button class="btn" type="submit" id="button">{% trans 'Сохранить' %}</button>
 </form>

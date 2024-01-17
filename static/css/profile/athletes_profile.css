@@ -56,8 +56,8 @@ h2 span {
    display: grid;
    grid-template-columns: 1fr 1fr;
 
-   gap: 1%;
-   row-gap: 2%;
+   gap: 10px;
+   row-gap: 10px;
    width: 100%;
    height: 100%;
 }
@@ -75,11 +75,10 @@ h2 span {
 .athlete {
    /* background-color: var(--white); */
    border: 2px solid var(--white);
-   padding: 10px;
+   padding: 2vh 1vw;
    border-radius: 10px;
    transition: all .3s linear;
    width: 100%;
-   max-width: 450px;
 }
 .athlete h5 {
    color: darkgray;

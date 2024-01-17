@@ -11,40 +11,42 @@
 </div>
 
 <div class="tournament__category__toolbar">
-   <table class="show__all__categories">
+   <table class="show__all__categories" >
       <thead>
          <tr class="table__head">
-            <th>{% trans 'First Name' %}</th>
-            <th>{% trans 'Last Name' %}</th>
-            <th>{% trans 'Third Name' %}</th>
-            <th>{% trans 'year' %}</th>
-            <th>{% trans 'discharge' %}</th>
-            <th>{% trans 'gender' %}</th>
-            <th>{% trans 'coach' %}</th>
+            <th>{% trans 'ФИО' %}</th>
+            <th>{% trans 'Год' %}</th>
+            <th>{% trans 'Пол' %}</th>
+            <th>{% trans 'Пояс' %}</th>
+            <th>{% trans 'Тренер' %}</th>
             <th></th>
          </tr>
       </thead>
       <tbody>
       {% for weigh in category.weight.all  %}
-        <form action="" method="POST">
+      <form action="" method="POST">
          {% csrf_token %}
          <input type="hidden"  name="weight" value="{{weigh.id}}">
          {% for participant in weigh.participants.all %}
-         <tr class="candidates-list participant">
-            <td scope="col" class="participant" >{{ participant.firstName }}</td>
-            <td scope="col" class="participant">{{participant.lastName}}</td>
-            <td scope="col" class="participant">{{participant.thirdName}}</td>
-            <td scope="col" class="participant">{{participant.year}}</td>
-            <td scope="col" class="participant">{{participant.discharge}}</td>
+         <tr class="candidates-list participant" 
+            {% if forloop.counter|divisibleby:2%}
+            style="background-color: rgba(87, 127, 220, 0.1);"
+            {% endif %}
+         >
+            <td scope="col" class="participant" >{{ participant.firstName }} {{participant.lastName}} {{participant.thirdName}}</td>
+            <td scope="col" class="participant">
+               {{ participant.year|date:'Y' }}
+            </td>
             <td scope="col" class="participant">{{participant.gender}}</td>
+            <td scope="col" class="participant">{{participant.discharge}}</td>
             <td scope="col" class="participant">{{participant.coach}}</td>
    
             <input type="hidden"  name="participant" value="{{participant.id}}">
-            <td scope="col" class="td_delete"><button type="submit">x</button></td>
+            <td scope="col" class="td_delete"><button class="btn" type="submit">x</button></td>
 
          </tr>
          {% endfor %}
-        </form>
+      </form>
       {% endfor %}
       
       </tbody>

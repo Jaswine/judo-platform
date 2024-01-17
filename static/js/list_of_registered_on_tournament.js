@@ -1,10 +1,9 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const left_body = document.querySelector('.athlete_regisration__left__body')
     const TournamentID = document.querySelector('#TournamentID').value
 
     const getAthletes = () => {
-        fetch(`/api/athlete-registration/${TournamentID}/`)
+        fetch(`/api/list-of-registered-on-tournament/${TournamentID}/`)
             .then((response) => response.json())
             .then(data => {
                 console.log(data)
@@ -21,24 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             <b>${athlete.fio}</b>
                             <span>${athlete.year}</span>
                             <span>${athlete.discharge}</span>
+                            <input type="hidden" name="weight" value="${athlete.weights[0].id}" />
+                            <span>${athlete.weights[0].name}</span>
+                            <button type="button" class='btn'>-</button>
                         `
-                        const athlete_span = document.createElement('span')
-                        const athlete_select = document.createElement('select')
-                        athlete_select.name = 'weight'
-                        
-                        athlete.weights.forEach(weight => {
-                            const option = document.createElement('option')
-
-                            option.value = weight.id
-                            option.innerHTML = weight.name
-
-                            athlete_select.appendChild(option)
-                        })
-                        
-                        athlete_span.appendChild(athlete_select)
-                        athlete_form.appendChild(athlete_span)
-
-                        athlete_form.innerHTML += '<button type="button" class="btn">+</button>'
                         
                         left_body.appendChild(athlete_form)
                     })
@@ -55,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const athlete  = e.target.parentNode
             let formData = new FormData(athlete);
 
-            fetch(`/api/athlete-registration/${TournamentID}/`, {
+            fetch(`/api/list-of-registered-on-tournament/${TournamentID}/`, {
                 method: 'POST',
                 body: formData,
             })
