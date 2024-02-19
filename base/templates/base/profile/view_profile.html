@@ -2,7 +2,7 @@
    <div class="home__card__right__title">
       <h3> 
          <i class="fa-solid fa-user"></i>
-         {% trans 'Personal Data' %}
+         {% trans 'Профиль' %}
       </h3>
       <h3>
          {% if request.user.is_authenticated %}
@@ -15,13 +15,13 @@
    <div class="home__card__right__info">
       {% if profile.fullName %}
          <div class="">
-            <b>{% trans 'FullName' %}: </b>
+            <b>{% trans 'ФИО' %}: </b>
             {{profile.fullName}}
          </div>
       {% endif %}
       {% if profile.phone %}
          <div class="">
-            <b>{% trans 'Phone' %}: </b>
+            <b>{% trans 'Телефон' %}: </b>
             {{profile.phone}}
          </div>
       {% endif %}
@@ -34,7 +34,7 @@
          {% if request.user.is_superuser or profile.userType == 'Админ' %}
          <div class="">
             {% if profile.userType %}
-            <b>{% trans 'User Type' %}: </b>
+            <b>{% trans 'Статус пользователя' %}: </b>
             {% if request.user.is_superuser and profile.user.is_superuser and profile.user.username == request.user.username  %}
                {% trans 'Admin' %}
             {% else %}
@@ -45,7 +45,7 @@
             <form action="" method="post" class="change__user__type">
                <input type="text" name="form_type" value="change__status" style="display: none">
                {% csrf_token %}
-               <label for="">{% trans 'Change User Status' %}: </label>
+               <label for="">{% trans 'Изменить статус пользователя' %}: </label>
                <select name="user_type" id="">
                   <option 
                   {% if profile.user.is_superuser and profile.user.username == request.user.username   %}
@@ -55,26 +55,26 @@
                   {% endif %} 
                   selected disabled>
                      {% if profile.user.is_superuser and profile.user.username == request.user.username  %}
-                        {% trans 'Admin' %}
+                        {% trans 'Админ' %}
                      {% else %}
                         {{profile.userType}}
                      {% endif %}
                   </option>
 
-                  <option value = 'Админ'>{% trans 'Admin' %}</option>
-                  <option value = 'Секретарь'>{% trans 'Secretary' %}</option>
-                  <option value = 'Свободный'>{% trans 'Free' %}</option>
+                  <option value = 'Админ'>{% trans 'Админ' %}</option>
+                  <option value = 'Секретарь'>{% trans 'Секретарь' %}</option>
+                  <option value = 'Свободный'>{% trans 'Простой' %}</option>
 
                </select>
-               <button class="btn">{% trans 'save' %}</button>
+               <button class="btn">{% trans 'Сохранить' %}</button>
             </form>
          </div>
          {% else %}
       {% if profile.userType %}
          <div class="">
-            <b>{% trans 'User Type' %}: </b>
+            <b>{% trans 'Статус пользователя' %}: </b>
             {% if profile.user.is_superuser %}
-            {% trans 'Admin' %}
+            {% trans 'Админ' %}
             {% else %}
             {{profile.userType}}
          </div>

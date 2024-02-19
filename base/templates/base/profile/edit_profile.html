@@ -2,9 +2,9 @@
 {% if request.user.username == user.username %}
    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      <h2>{% trans 'Update Info' %}</h2>
+      <h2>{% trans 'Обновить профиль' %}</h2>
+
       {% for field in user_form %}
-         <div class = "form__component">
             {% if field.errors %}
             <ul class="errorlist">
                {% for error in field.errors %}
@@ -12,12 +12,9 @@
                {% endfor %}
             </ul>
             {% endif %}
-            {{ field.label_tag }} {{ field }}
-         </div>
       {% endfor %}
 
       {% for field in profile_form %}
-         <div class = "form__component">
             {% if field.errors %}
             <ul class="errorlist">
                   {% for error in field.errors %}
@@ -25,18 +22,56 @@
                {% endfor %}
             </ul>
             {% endif %}
-            {{ field.label_tag }} {{ field }}
-         </div>
-      {% endfor %}   
-      
+      {% endfor %}
+
+      <div class="form__component">
+         <label>{% trans 'Имя пользователя' %}:</label>
+         {{ user_form.username }}
+      </div>
+
+
+      <div class="form__component">
+         <label>{% trans 'Email' %}:</label>
+         {{ user_form.email }}
+      </div>
+
+       <div class="form__component">
+         <label>{% trans 'ФИО' %}:</label>
+         {{ profile_form.fullName }}
+      </div>
+
+      <div class="form__component">
+         <label>{% trans 'Телефон' %}:</label>
+         {{ profile_form.phone }}
+      </div>
+
+      <div class="form__component">
+         <label>{% trans 'Фото' %}:</label>
+         {{ profile_form.image }}
+      </div>
+
+        <div class="form__component">
+         <label>{% trans 'Организация' %}:</label>
+         {{ profile_form.organization }}
+      </div>
+
+      <div class="form__component">
+         <label>{% trans 'Город' %}:</label>
+         {{ profile_form.city }}
+      </div>
+
+      <div class="form__component">
+         <label>{% trans 'Регион' %}:</label>
+         {{ profile_form.region }}
+      </div>
 
       <div class="profile__danger">
-         <div class="profile__danger__name">{% trans 'Danger zone' %}</div>
+         <div class="profile__danger__name">{% trans 'Опасная зона' %}</div>
          <div class="profile__right__passwords">
-            <a href="{% url "base:edit_password_profile" user.username %}" class="">{% trans 'Change Password' %}</a>
-            <a href="{% url "base:delete_profile" user.username %}" class="delete__Account">{% trans 'Delete Account' %}</a> 
+            <a href="{% url "base:edit_password_profile" user.username %}" class="">{% trans 'Изменить пароль' %}</a>
+            <a href="{% url "base:delete_profile" user.username %}" class="delete__Account">{% trans 'Удалить аккаунт' %}</a>
          </div>
       </div>
-      <button type="submit" class="btn">{% trans 'save' %}</button>
+      <button type="submit" class="btn">{% trans 'Сохранить' %}</button>
    </form>
 {% endif %}

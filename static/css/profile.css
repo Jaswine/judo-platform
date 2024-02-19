@@ -11,34 +11,29 @@
    overflow: none;
 }
 .home__card {
-   display: grid;
-   grid-template-columns: 1fr 3fr;
-   justify-content: space-between;
-   align-items: start;
-
-   width: 100%;
-   max-width: 1600px;
-   /* height: 100%; */
-   height: 80vh;
-   margin-bottom: 3vh;
-   margin-top: 3vh;
-
-   /* background-color:  var(--white); */
-   background-color: white;
-   border-radius: 5px;
-   box-shadow: 1px 1px 10px rgb(20,20,20, .1);
+   display: flex;
+  justify-content: space-between;
+  align-items: start;
+  width: 100%;
+  max-width: 1600px;
+  height: 100%;
+  margin-bottom: 5%;
+  margin-top: 30px;
+  gap: 2%;
 }
 .home__card__left {
    max-width: 300px;
-   height: 100%;
-   width: 100%;
-
-   padding: 5px;
-   background-color: rgba(87, 127, 220, 0.06);
-   padding: 10px;
-   border-radius: 5px 0 0 5px;
+  height: 100%;
+  width: 100%;
+  padding: 5px;
+  background-color: rgba(87, 127, 220, 0.06);
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px 0 0 5px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px rgb(20,20,20, .1);
 } 
-.home__card__left__about{
+.home__card__left__about {
    display: flex;
    justify-content: start;
    align-items: center;
@@ -98,10 +93,18 @@
    background-color: rgb(20,20,20, .1);
 }
 .home__card__right {
-   padding: 10px;
    width: 100%;
-   height: 80vh;
-   overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 0 10px rgb(20,20,20, .1);
+  border-radius: 8px;
+}
+.home__card__right form {
+    width: 100%;
 }
 .home__card__right h2 {
    margin: 10px 0;
@@ -138,7 +141,8 @@ form {
    padding: 10px;
 }
 form h3 {
-   margin-bottom: 10px;
+   margin-bottom: 4%;
+   font-size: 28px
 }
 
 .profile__right__passwords {

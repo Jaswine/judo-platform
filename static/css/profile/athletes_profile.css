@@ -54,7 +54,7 @@ h2 span {
 /* athletes__all */
 .athletes__all {
    display: grid;
-   grid-template-columns: 1fr 1fr;
+   grid-template-columns: 48% 48%;
 
    gap: 10px;
    row-gap: 10px;
@@ -79,6 +79,7 @@ h2 span {
    border-radius: 10px;
    transition: all .3s linear;
    width: 100%;
+   margin: 1% 1%
 }
 .athlete h5 {
    color: darkgray;
