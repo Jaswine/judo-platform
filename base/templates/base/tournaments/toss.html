@@ -3,37 +3,35 @@
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournaments/toss.css' %}">
-<title>{% trans 'Toss' %} -  {{tournament.title}}</title>
+<title>{{tournament.title}}</title>
 {% endblock title %}
    
 {% block content %}
 <div class="toss">
-   <input type="hidden" value='{{tournament.slug}}' id='tossTitle'  />
-   <h3 class="title">{{tournament.title}}</h3>
-   <div class="toss__menu">
-      <select id="weight_category">
-         <option selected disabled>Select Category</option>
-      </select>
-      <select  id="weight">
-         <option selected disabled>Select Weight</option>
-      </select>
-      <span></span>
-      <button id="draw" class="btn"><i class="fa-solid fa-pen-ruler"></i> Draw</button>
-      <button id="confirm" class="btn"><i class="fa-solid fa-check"></i> Confirm</button>
-      <button id="clear" class="btn"><i class="fa-solid fa-xmark"></i> Clear</button>
-      <span></span>
-      <button id="print"  class="btn"><i class="fa-solid fa-print"></i> Print</button>
-      <button id="download"  class="btn"><i class="fa-solid fa-file-arrow-down"></i> Download</button>
-   </div>
-   <div class="toss__content">
-      <div class="toss__content__left">
-         <h4>Show All Athletes</h4>
-         <div class="toss__content__show__athletes">
-            <p>not found</p>
+   <input type="hidden" value='{{tournament.id}}' id='TournamentId'  />
+   <div class="toss__header">
+      <h3 class="title">{{tournament.title}}</h3>
+      <div class="toss__bar">
+         <div class="toss__header__left">
+            <button class="btn" id="HideContentCategories">Hide</button>
+         </div>
+         <div class="toss__header__right">
+            <button class="btn" id="DrawSorting">{% trans 'Отрисовать' %}</button>
+            <button class="btn" id="ClearSorting">{% trans 'Очистить' %}</button>
+            <button class="btn" id="ConfirmSorting">{% trans 'Подтвердить' %}</button>
          </div>
       </div>
-      <div class="toss__content__right"></div>
    </div>
+
+   <div class="toss__content">
+      <div class="toss__content__left" id="ContentLeft" >
+         <div class="toss__content__left__category" id="ContentLeftCategories"></div>
+         <div class="toss__content__left__category" id="ContentLeftWeights"></div>
+         <div class="toss__content__left__category" id="ContentLeftPeople"></div>
+      </div>
+      <div class="toss__content__right" id="ContentRight"></div>
+   </div>
+
 </div>
 
 <script src="{% static 'js/toss.js' %}"></script>

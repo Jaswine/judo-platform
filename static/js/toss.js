@@ -1,115 +1,134 @@
-// const toss__content = document.querySelector('.toss__content')
-const slug = document.querySelector('#tossTitle').value
+document.addEventListener('DOMContentLoaded', () => {
+    // Query Selector
+    const querySelector = (selector) => { return document.querySelector(selector) }
 
-const place_participants = document.querySelector('.toss__content__show__athletes')
-const place_sort = document.querySelector('.toss__content__right')
+    // Tournament ID
+    const tournamentId = querySelector('#TournamentId').value
 
-const weight_category__select = document.querySelector('#weight_category')
-const weight__select = document.querySelector('#weight')
+    // Buttons
+    const HideContentCategories = querySelector('#HideContentCategories')
 
-const drawButton = document.querySelector('#draw')
-const confirmButton = document.querySelector('#confirm')
-const clearButton = document.querySelector('#clear')
+    // Draw Buttons
+    const DrawSorting = querySelector('#DrawSorting')
+    const ClearSorting = querySelector('#ClearSorting')
+    const ConfirmSorting = querySelector('#ConfirmSorting')
 
+    // Content
+    const ContentLeftCategories = querySelector('#ContentLeftCategories')
+    const ContentLeftWeights = querySelector('#ContentLeftWeights')
+    const ContentLeftPeople = querySelector('#ContentLeftPeople')
 
-// Get data from API
-const getDataFromApi = async (url) => {
-   try {
-      let response = await fetch(url)
-      let data = await response.json()
-      return data
-   } catch (error) {
-      throw new Error(`Error fetching data from API: ${error}`);
-   }
-}
+    const ContentLeft = querySelector('#ContentLeft')
+    const ContentRight = querySelector('#ContentRight')
 
-// Without reload page
-window.addEventListener('beforeunload', function(event) {
-   // Отменить перезагрузку страницы по умолчанию
-   event.preventDefault();
+    // Get Tournament 
+    const getTournamentCategoriesWeights = async () => {
+        const response = await fetch(`/api/tournament/${tournamentId}/show-all-categories-weights/`)
+        const data = await response.json()
 
-   // Отобразить пользовательское сообщение
-   event.returnValue = 'Вы уверены, что хотите покинуть эту страницу?';  // Старые браузеры
-   return 'Вы уверены, что хотите покинуть эту страницу?';  // Современные браузеры
-});
+        if (data.status == 'success') {
+            renderTournamentCategoriesData(data.weights, 'categories')
+        } else {
+            console.error(`Couldn't get tournament ${data.message}`)
+        }
+    }
 
-let category__weight = localStorage.getItem('category__weight') ?? ''
-let weight = localStorage.getItem('weight') ?? ''
+    getTournamentCategoriesWeights()
 
-// get data from local storage
-if (category__weight != null && weight!= null || category__weight != '' && weight != '') {   
-   console.log(category__weight, weight)
-   showParticipants()
-}
+    // Render Tournament Categories
+    function renderTournamentCategoriesData(data, status='') {
+        if (status == 'categories') { // TODO: Categories
+            ContentLeftCategories.innerHTML = ''
+        } else if (status == 'weights') { // TODO: Weights
+            ContentLeftWeights.innerHTML = ''
+        } else if (status == 'athletes') { // TODO: Athletes
+            ContentLeftPeople.innerHTML = ''
+        }
 
-// Add weight categories
-getDataFromApi(`/api/tournaments/${slug}/weight_categories`)
-   .then((data) => {
-      // render all weight categories in options
-      data.map(item => {
-         weight_category__select.innerHTML += `<option value="${item.id}">${item.gender} ${item.year}</option>`
-      })
-   })
+        data.forEach((category, index) => {
+            console.log('category: ', category)
 
-// when user select some category
-weight_category__select.onchange = (e) => {
-   weight__select.innerHTML = '<option value="" selected disabled >Select Weight</option>'
-   
-   category__weight =  e.target.value
-   localStorage.setItem('category__weight', category__weight)
+            const div = document.createElement('div')
+            div.classList.add('toss__content__category')
 
-   getDataFromApi(`/api/tournaments/${slug}/weight_categories/${category__weight}/weights`)
-      .then((data) => {
-         // render all weight in options
-         data.map(item => {
-            console.log(data)
-            weight__select.innerHTML += `<option value="${item.id}">${item.name} - (${item.participants_count})</option>`
-         })
-      })
-}
+            if (status == 'categories') {
+                // TODO: Categories
 
-// when user select some weight
-weight__select.onchange = (e) => {
-   weight = e.target.value
-   localStorage.setItem('weight', weight)
-   showParticipants()
-}
+                div.addEventListener('click', () => {
+                    renderTournamentCategoriesData(category.weights, 'weights')
+                })
 
-// Show participants
-function showParticipants() {
-   place_participants.innerHTML = ''
-   place_sort.innerHTML = ''
+                div.innerHTML = `
+                    ${category.gender == 'Мужской' ? '<i class="fa-solid fa-mars-stroke"></i>' : '<i class="fa-solid fa-venus"></i>' }
+                    <h3 class='toss__content__category__title'>${category.year}</h3>
+                `
+            } else if (status == 'weights') {
+                // TODO: Weights
 
-   getDataFromApi(`/api/tournaments/${slug}/weight_categories/${category__weight}/weights/${weight}/participants`)
-      .then((data) => {
-         if (data.length > 0) {
-            for (let i = 0; i < data.length; i++) {
-               place_participants.innerHTML += `<div class='toss__participant' draggable='true'>${data[i].firstName} ${data[i].lastName} ${data[i].thirdName} (${data[i].discharge})</div>` 
-               
-               let div = document.createElement('div');
-               div.classList.add('place');
-               div.classList.add(`seet${i}`)
-   
-               if (i % 2 == 0) {
-                  div.classList.add('place__top')
-               } else {
-                  div.classList.add('place__bottom')
-               }
-   
-               place_sort.appendChild(div)
+                let athletes_count = category.athletes.length
+                div.innerHTML = `
+                    <h3 class='toss__content__category__title'>${category.name}</h3>
+                    <span>${athletes_count}</span>
+                `
+                
+                if (athletes_count > 0) {
+                    div.addEventListener('click', () => {
+                        renderTournamentCategoriesData(category.athletes, 'athletes')
+                        generateContentPlaces(athletes_count)
+                    })
+                } else {
+                    div.style.opacity = .3
+                }
+            } else if (status == 'athletes') {
+                // TODO: Athletes
+
+                div.innerHTML = `
+                    <h3 class='toss__content__category__title'>${category.fio}</h3>
+                `
+
+                div.draggable = true
+
             }
-         } else {
-            place_sort.innerHTML = '<h1>Participants Not Found</h1>'
-            place_participants.innerHTML = '<h5>Participants Not Found</h5>'
-         }
-      })
-}
 
-// If You Click on Clear Button (clear everything)
-clearButton.onclick = () => {
-   let result = confirm('Вы уверены, что хотите очистить?');
+            if (status == 'categories') { // TODO: Categories
+                ContentLeftCategories.appendChild(div)
+            } else if (status == 'weights') { // TODO: Weights
+                ContentLeftWeights.appendChild(div)
+            } else if (status == 'athletes') { // TODO: Athletes
+                ContentLeftPeople.appendChild(div)
+            }
 
-   if (result) {
-      showParticipants()
-   }
-}
+        })
+
+    }
+
+    function generateContentPlaces(num) {
+        ContentRight.innerHTML = ''
+
+        for (let i=0; i < num; i++) {
+            console.log('Place', i)
+            const div = document.createElement('div')
+            div.classList.add('toss__content__place')
+
+            ContentRight.appendChild(div)            
+        }
+    }
+
+    HideContentCategories.addEventListener('click', () => {
+        console.log(ContentLeft.style.gridTemplateColumns)
+
+        if (ContentLeft.style.gridTemplateColumns == '' 
+            || ContentLeft.style.gridTemplateColumns == '30% 15% 55%' ) {
+            ContentLeft.style.gridTemplateColumns = '0 0 100%'
+
+            ContentLeftCategories.style.opacity = "0"
+            ContentLeftWeights.style.opacity = "0"
+        } else {
+            ContentLeft.style.gridTemplateColumns = '30% 15% 55%'
+
+            ContentLeftCategories.style.opacity = "1"
+            ContentLeftWeights.style.opacity = "1"
+        }
+
+    })
+})
