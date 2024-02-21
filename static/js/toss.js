@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Сетка участников
+    var jsonGrid = []
+
     // Query Selector
     const querySelector = (selector) => { return document.querySelector(selector) }
 
@@ -63,9 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (status == 'weights') {
                 // TODO: Weights
 
+                jsonGrid = []
                 let athletes_count = category.athletes.length
                 div.innerHTML = `
-                    <h3 class='toss__content__category__title'>${category.name}</h3>
+                    <h3 class='toss __content__category__title'>${category.name}</h3>
                     <span>${athletes_count}</span>
                 `
                 
@@ -83,8 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 div.innerHTML = `
                     <h3 class='toss__content__category__title'>${category.fio}</h3>
                 `
+                let id = `Element-${category.id}-${category.fio}`
 
+                div.id = id
+                div.style.cursor = 'grab'
                 div.draggable = true
+
+                div.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', id); 
+                })
 
             }
 
@@ -105,15 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO:               куда будут вставляться пользователи
     */
     function generateContentPlaces(num) {
-        ContentRight.innerHTML = ''
-
-        let jsonGrid = []
         let baseNumber = 4
         
-
         if ( num > 5 && num < 8) baseNumber = 3
-        else if (num > 3 && num < 6) baseNumber = 2
-        else if (num > 1 && num < 4)  baseNumber = 1
+        else if (num > 2 && num < 6) baseNumber = 2
+        else if (num > 1 && num < 3)  baseNumber = 1
         else if (num < 2)  return null
 
 
@@ -121,16 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let rangeI = 0
         let [firstHalf, secondHalf] = splitNumber(num);
-        console.log(firstHalf, secondHalf)
+        // console.log(firstHalf, secondHalf)
 
         for (let i=0; i<firstHalf.length; i++) {
             rangeI % baseNumber == 0 ? rangeI = 1 : rangeI++
 
             let newObj = {}
             firstHalf[i] ? newObj[firstHalf[i]] = "" : ""
-            secondHalf[i] ? newObj[secondHalf[i]] = "" : ""
-            
-            console.log(`${rangeI} секция`, i)
+            secondHalf[i] ? newObj[secondHalf[i]] = "" : ""            
 
             const gridMapping = [
                 [0, 1],        // baseNumber = 2, 
@@ -184,15 +189,87 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Рендеринг сетки в виде полей 
     */
     function renderContentPlaces(data) {
-        // const div = document.createElement('div')
-        // div.classList.add('toss__content__place')
+        ContentRight.innerHTML = ''
 
-        // div.innerHTML += `<i>${i}.</i>`
+        // console.log('Базовая сетка: ', data)
 
-        // ContentRight.appendChild(div)
-        console.log('Базовая сетка: ', data)    
+        if (data.length == 4) {
+            for (let i = 0; i < data.length; i++) {
+                const data_reverse = data[i]
+
+                for (let j = 0; j < data_reverse.length; j++) {
+                    const div = document.createElement('div')
+                    div.classList.add('toss__content__two__place')
+                    div.id = `Place-${i}-${j}`
+
+                    let obj = data_reverse[j]
+
+                    for (const key in obj) {
+                        if (Object.hasOwnProperty.call(obj, key)) {
+                            const div_el = document.createElement('div')
+                            div_el.classList.add('toss__content__place')
+
+                            const id = `Place-${i}-${j}-${key}`
+                            div_el.id = id
+
+                            if (i % 2 == 0) {
+                                div_el.style.backgroundColor = 'rgb(87,127,220, .2)'
+                            }
+
+                            div_el.innerHTML += `<i>${key}.</i>`
+
+                            if (obj[key].length != 0) {
+                                const div_cat = document.createElement('div')
+                                div_cat.classList.add('toss__content__category')
+
+                                div_cat.innerHTML = `<h3 class='toss__content__category__title'>${obj[key]}</h3>`
+
+                                let div_cat_id = `Element-${obj[key]}`
+
+                                div_cat.id = div_cat_id
+                                div_cat.style.cursor = 'grab'
+                                div_cat.draggable = true
+
+                                div_cat.addEventListener('dragstart', (e) => {
+                                    e.dataTransfer.setData('text/plain', id); 
+                                })
+
+                                div_el.appendChild(div_cat)
+                            }
+
+                            div_el.addEventListener('dragover', (e) => {
+                                e.preventDefault();
+                            }) 
+                            
+                            div_el.addEventListener('drop', (e) => {
+                                e.preventDefault();
+                                const eData = e.dataTransfer.getData('text/plain');
+                                const eDataList = eData.split('-')
+                                console.log('Order:', id, 'Item: ', eData)
+                                
+                                // jsonGrid[i].splice(j, 0, newObj);
+                                // console.log(jsonGrid[i][j][key])
+                                jsonGrid[i][j][key] = eDataList[2]
+                                renderContentPlaces(jsonGrid)
+
+                                // const draggedItem = document.getElementById(data);
+                                // e.target.appendChild(draggedItem);
+                            })
+
+                            div.appendChild(div_el)
+                        }
+                    }
+
+                    ContentRight.appendChild(div)
+                }
+            }
+        }
+
     }
 
+    /*
+        TODO: Скрытие 2 списков категорий
+    */
     HideContentCategories.addEventListener('click', () => {
         if (ContentLeft.style.gridTemplateColumns == '' 
             || ContentLeft.style.gridTemplateColumns == '30% 15% 55%' ) {

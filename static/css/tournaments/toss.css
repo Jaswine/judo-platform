@@ -47,7 +47,7 @@
 }
 .toss__content {
     display: flex;
-    height: 76vh
+    height: 77vh
 }
 .toss__content__left {
     /* display: flex;
@@ -111,6 +111,9 @@
     padding: 4px;
     overflow-y: auto;
 }
+.toss__content__two__place {
+
+}
 .toss__content__place {
     display: flex;
     justify-content: center;
@@ -120,16 +123,21 @@
 
     height: 40px;
     min-height: 40px;
-    min-width: 300px;
+    min-width: 340px;
+    width: 100%;
     background-color: rgb(20,20,20,.05);
     border-radius: 6px;
     border: -2px -2px 2px rgba(20,20, 20, .2);
     margin-bottom: 4px;
+    font-size: 16px;
 }
 .toss__content__place i {
     position: absolute;
     font-size: 14px;
     color: rgb(20,20,20,.8);
     margin: 0 2px;
-    left: 5%;
+    left: 4px;
+}
+.toss__content__place p {
+    margin-left: 10px;
 }
