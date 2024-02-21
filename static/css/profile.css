@@ -22,7 +22,8 @@
   gap: 2%;
 }
 .home__card__left {
-   max-width: 300px;
+   max-width: 260px;
+   min-width: 260px;
   height: 100%;
   width: 100%;
   padding: 5px;
