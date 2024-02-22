@@ -141,3 +141,7 @@
 .toss__content__place p {
     margin-left: 10px;
 }
+#HideContentCategories {
+    rotate: 90deg;
+    padding: 8px;
+}

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Сетка участников
-    var jsonGrid = []
+    var jsonGrid = globalAthletes = []
 
     // Query Selector
     const querySelector = (selector) => { return document.querySelector(selector) }
@@ -24,7 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const ContentLeft = querySelector('#ContentLeft')
     const ContentRight = querySelector('#ContentRight')
 
-    // Get Tournament 
+
+    /*
+        TODO: Взятие категорий с апи
+    */
     const getTournamentCategoriesWeights = async () => {
         const response = await fetch(`/api/tournament/${tournamentId}/show-all-categories-weights/`)
         const data = await response.json()
@@ -36,9 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    getTournamentCategoriesWeights()
-
-    // Render Tournament Categories
+    /*
+        TODO: Рендеринг категорий
+    */
     function renderTournamentCategoriesData(data, status='') {
         if (status == 'categories') { // TODO: Categories
             ContentLeftCategories.innerHTML = ''
@@ -67,15 +70,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 // TODO: Weights
 
                 jsonGrid = []
+
                 let athletes_count = category.athletes.length
                 div.innerHTML = `
-                    <h3 class='toss __content__category__title'>${category.name}</h3>
+                    <h3 class='toss__content__category__title'>${category.name}</h3>
                     <span>${athletes_count}</span>
                 `
                 
                 if (athletes_count > 0) {
                     div.addEventListener('click', () => {
-                        renderTournamentCategoriesData(category.athletes, 'athletes')
+                        globalAthletes = category.athletes
+
+                        renderTournamentCategoriesData(globalAthletes, 'athletes')
+
                         renderContentPlaces(generateContentPlaces(athletes_count))
                     })
                 } else {
@@ -83,20 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } else if (status == 'athletes') {
                 // TODO: Athletes
-
-                div.innerHTML = `
-                    <h3 class='toss__content__category__title'>${category.fio}</h3>
-                `
-                let id = `Element-${category.id}-${category.fio}`
-
-                div.id = id
-                div.style.cursor = 'grab'
-                div.draggable = true
-
-                div.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', id); 
-                })
-
+                
+                FormationAthletesData(div, category)
             }
 
             if (status == 'categories') { // TODO: Categories
@@ -123,12 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (num > 1 && num < 3)  baseNumber = 1
         else if (num < 2)  return null
 
-
         jsonGrid = generateBaseFourArrays(jsonGrid, baseNumber)
 
         let rangeI = 0
         let [firstHalf, secondHalf] = splitNumber(num);
-        // console.log(firstHalf, secondHalf)
 
         for (let i=0; i<firstHalf.length; i++) {
             rangeI % baseNumber == 0 ? rangeI = 1 : rangeI++
@@ -169,15 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* 
         TODO:   Деление даваемого числа на два 
-        TODO:           и создание с помощью него 2 списков с числами 
+        TODO:               и создание с помощью него 2 списков с числами 
     */
     function splitNumber(num) {
         let massive = []
         let del_num1 = num
 
-        for (let i = 1; i <= num; i++) {
-            massive.push(i)
-        }
+        for (let i = 1; i <= num; i++) { massive.push(i) }
         
         num % 2 == 0 ? del_num1 = num / 2  : del_num1 = num / 2 + 0.5
 
@@ -190,8 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
     */
     function renderContentPlaces(data) {
         ContentRight.innerHTML = ''
-
-        // console.log('Базовая сетка: ', data)
 
         if (data.length == 4) {
             for (let i = 0; i < data.length; i++) {
@@ -218,43 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             div_el.innerHTML += `<i>${key}.</i>`
 
-                            if (obj[key].length != 0) {
+                            if (obj[key] && obj[key].length != 0) {
                                 const div_cat = document.createElement('div')
                                 div_cat.classList.add('toss__content__category')
 
-                                div_cat.innerHTML = `<h3 class='toss__content__category__title'>${obj[key]}</h3>`
-
-                                let div_cat_id = `Element-${obj[key]}`
-
-                                div_cat.id = div_cat_id
-                                div_cat.style.cursor = 'grab'
-                                div_cat.draggable = true
-
-                                div_cat.addEventListener('dragstart', (e) => {
-                                    e.dataTransfer.setData('text/plain', id); 
-                                })
-
+                                FormationAthletesData(div_cat, obj[key])
+                                
                                 div_el.appendChild(div_cat)
                             }
 
-                            div_el.addEventListener('dragover', (e) => {
-                                e.preventDefault();
-                            }) 
-                            
-                            div_el.addEventListener('drop', (e) => {
-                                e.preventDefault();
-                                const eData = e.dataTransfer.getData('text/plain');
-                                const eDataList = eData.split('-')
-                                console.log('Order:', id, 'Item: ', eData)
-                                
-                                // jsonGrid[i].splice(j, 0, newObj);
-                                // console.log(jsonGrid[i][j][key])
-                                jsonGrid[i][j][key] = eDataList[2]
-                                renderContentPlaces(jsonGrid)
-
-                                // const draggedItem = document.getElementById(data);
-                                // e.target.appendChild(draggedItem);
-                            })
+                            DropAndDragOverFormation(div_el, jsonGrid, i, j, key)
 
                             div.appendChild(div_el)
                         }
@@ -264,8 +226,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
-
     }
+
+    /* 
+        TODO: Формирование компонента студента
+    */
+    function FormationAthletesData(div, category) {
+        div.innerHTML = `
+            <h3 class='toss__content__category__title'>${category.fio}</h3>
+        `
+
+        let id = `Element-${category.id}`
+        div.id = id
+
+        let newObj = {}
+        newObj['id'] = category.id
+        newObj['fio'] = category.fio
+        newObj['elementId'] = id
+
+        div.style.cursor = 'grab'
+        div.draggable = true
+
+        div.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', JSON.stringify(newObj)); 
+        })
+
+        return div
+    }
+
+    /*
+        TODO:    
+    */
+   function DropAndDragOverFormation(place, jsonGrid, i, j, key) {
+        place.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        }) 
+
+        place.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const eDataId = e.dataTransfer.getData('text/plain');
+            const data = JSON.parse(eDataId)
+
+            const getAthleteFromContentLeftPeopleById = document.querySelector(`#${data.elementId}`)
+            ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById)
+
+            let newObj = {}
+            newObj['id'] = data.id
+            newObj['fio'] = data.fio
+            
+            jsonGrid[i][j][key] = newObj
+            renderContentPlaces(jsonGrid)
+        })
+   }
+
+
+    getTournamentCategoriesWeights()
+
+
+    /*
+        TODO: Очистка всех данных в схеме
+    */
+    ClearSorting.addEventListener('click', () => {
+        if (confirm('Полностью очистить текущую схему?')) {
+            jsonGrid = []
+
+            renderTournamentCategoriesData(globalAthletes, 'athletes')
+
+            renderContentPlaces(generateContentPlaces(globalAthletes.length))
+        }
+    })
 
     /*
         TODO: Скрытие 2 списков категорий

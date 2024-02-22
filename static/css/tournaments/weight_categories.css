@@ -7,7 +7,6 @@
    align-items: flex-start;
    width: 100%;
    padding: 10px 5%;
-   margin-top: 1%;
    gap: 3%;
 }
 .categories__form {
@@ -68,14 +67,11 @@ tr:hover {
    transition: all .3s linear;
 }
 tr:hover {
-   background-color: rgb(20,20,20,.1) !important;
+   background-color: rgb(20,20,20,.07) !important;
 }
 .td_delete {
    transition: all .3s linear;
    padding: 0;
-   display: flex;
-   justify-content: center;
-   align-items: center;
 }
 .td_delete a {
    display: flex;
