@@ -276,19 +276,25 @@ document.addEventListener('DOMContentLoaded', () => {
             if (dragged.parentNode.id == 'ContentLeftPeople') {
                 const getAthleteFromContentLeftPeopleById = document.querySelector(`#${data.elementId}`)
                 ContentLeftPeople.querySelector(`#${data.elementId}`)? ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById) : ""
-            } else if (dragged.parentNode.id.slice(0, 5) == 'Place') {
-                // if (dropped.classList.contains('toss__content__category__title')) {
-                //    
-                // } else {
-                //     
-                // }
 
+                if (!dropped.querySelector('i')) {
+                    const div_cat = document.createElement('div')
+                    div_cat.classList.add('toss__content__category')
+
+                    let oldObj = {}
+                    oldObj['id'] = dropped.parentNode.id.slice(8)
+                    oldObj['fio'] = dropped.innerHTML
+
+                    FormationAthletesData(div_cat, oldObj)
+                    
+                    ContentLeftPeople.appendChild(div_cat)
+                }
+            } else if (dragged.parentNode.id.slice(0, 5) == 'Place') {
                 if (dropped.querySelector('i')) {
                     let dragged_place = dragged.parentNode.id.slice(6).split('-')
                     jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = {}
                     // console.log(' dragged.parentNode', dragged.parentNode)
                 } else {
-                    console.log('Dropped Subject', dropped)
                     let oldObj = {}
                     oldObj['id'] = dropped.parentNode.id.slice(8)
                     oldObj['fio'] = dropped.innerHTML
@@ -308,7 +314,6 @@ document.addEventListener('DOMContentLoaded', () => {
    }
 
     getTournamentCategoriesWeights()
-
 
     /*
         TODO: Очистка всех данных в схеме
