@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Сетка участников
-    var jsonGrid = globalAthletes = []
+    var jsonGrid = globalAthletes = removedElements = []
 
     // Query Selector
     const querySelector = (selector) => { return document.querySelector(selector) }
@@ -68,9 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 `
             } else if (status == 'weights') {
                 // TODO: Weights
-
-                jsonGrid = []
-
                 let athletes_count = category.athletes.length
                 div.innerHTML = `
                     <h3 class='toss__content__category__title'>${category.name}</h3>
@@ -80,10 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (athletes_count > 0) {
                     div.addEventListener('click', () => {
                         globalAthletes = category.athletes
-
+                        jsonGrid = []
+                        
                         renderTournamentCategoriesData(globalAthletes, 'athletes')
-
-                        renderContentPlaces(generateContentPlaces(athletes_count))
+                        renderContentPlaces(generateContentPlaces(jsonGrid, athletes_count))
                     })
                 } else {
                     div.style.opacity = .3
@@ -110,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Генерация базовой сетки, 
         TODO:               куда будут вставляться пользователи
     */
-    function generateContentPlaces(num) {
+    function generateContentPlaces(jsonGrid, num) {
         let baseNumber = 4
         
         if ( num > 5 && num < 8) baseNumber = 3
@@ -205,15 +202,17 @@ document.addEventListener('DOMContentLoaded', () => {
                                 div_el.style.backgroundColor = 'rgb(87,127,220, .2)'
                             }
 
-                            div_el.innerHTML += `<i>${key}.</i>`
+                            div_el.innerHTML += `<i class="non-selectable">${key}.</i>`
 
                             if (obj[key] && obj[key].length != 0) {
-                                const div_cat = document.createElement('div')
-                                div_cat.classList.add('toss__content__category')
+                                if (Object.keys(obj[key]).length) {
+                                    const div_cat = document.createElement('div')
+                                    div_cat.classList.add('toss__content__category')
 
-                                FormationAthletesData(div_cat, obj[key])
-                                
-                                div_el.appendChild(div_cat)
+                                    FormationAthletesData(div_cat, obj[key])
+                                    
+                                    div_el.appendChild(div_cat)
+                                }
                             }
 
                             DropAndDragOverFormation(div_el, jsonGrid, i, j, key)
@@ -248,6 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         div.draggable = true
 
         div.addEventListener('dragstart', (e) => {
+            dragged = e.target;
             e.dataTransfer.setData('text/plain', JSON.stringify(newObj)); 
         })
 
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-        TODO:    
+        TODO: Добавление DragOver и Drop к чему-то
     */
    function DropAndDragOverFormation(place, jsonGrid, i, j, key) {
         place.addEventListener('dragover', (e) => {
@@ -264,21 +264,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
         place.addEventListener('drop', (e) => {
             e.preventDefault();
+
             const eDataId = e.dataTransfer.getData('text/plain');
             const data = JSON.parse(eDataId)
 
-            const getAthleteFromContentLeftPeopleById = document.querySelector(`#${data.elementId}`)
-            ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById)
+            const dropped = e.target;
 
+            console.warn('dragged.parentNode: ', dragged.parentNode)
+            console.log('dropped.classList: ', dropped.classList)
+
+            if (dragged.parentNode.id == 'ContentLeftPeople') {
+                const getAthleteFromContentLeftPeopleById = document.querySelector(`#${data.elementId}`)
+                ContentLeftPeople.querySelector(`#${data.elementId}`)? ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById) : ""
+            } else if (dragged.parentNode.id.slice(0, 5) == 'Place') {
+                // if (dropped.classList.contains('toss__content__category__title')) {
+                //    
+                // } else {
+                //     
+                // }
+
+                if (dropped.querySelector('i')) {
+                    let dragged_place = dragged.parentNode.id.slice(6).split('-')
+                    jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = {}
+                    // console.log(' dragged.parentNode', dragged.parentNode)
+                } else {
+                    console.log('Dropped Subject', dropped)
+                    let oldObj = {}
+                    oldObj['id'] = dropped.parentNode.id.slice(8)
+                    oldObj['fio'] = dropped.innerHTML
+
+                    let dragged_place = dragged.parentNode.id.slice(6).split('-')
+                    jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = oldObj
+                }
+            }
+            
             let newObj = {}
             newObj['id'] = data.id
             newObj['fio'] = data.fio
-            
+
             jsonGrid[i][j][key] = newObj
             renderContentPlaces(jsonGrid)
         })
    }
-
 
     getTournamentCategoriesWeights()
 
@@ -292,26 +319,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             renderTournamentCategoriesData(globalAthletes, 'athletes')
 
-            renderContentPlaces(generateContentPlaces(globalAthletes.length))
+            renderContentPlaces(generateContentPlaces(jsonGrid, globalAthletes.length))
         }
     })
 
     /*
-        TODO: Скрытие 2 списков категорий
+        TODO: Скрытие 2 списков категорий,
+        TODO:                    при нажатии на кнопку c ID =
     */
     HideContentCategories.addEventListener('click', () => {
         if (ContentLeft.style.gridTemplateColumns == '' 
             || ContentLeft.style.gridTemplateColumns == '30% 15% 55%' ) {
-            ContentLeft.style.gridTemplateColumns = '0 0 100%'
-
-            ContentLeftCategories.style.opacity = '0'
-            ContentLeftWeights.style.opacity = '0'
+            changeHideContentCategoriesStyles( '0 0 100%', 0, 0)
         } else {
-            ContentLeft.style.gridTemplateColumns = '30% 15% 55%'
-
-            ContentLeftCategories.style.opacity = '1'
-            ContentLeftWeights.style.opacity = '1'
+            changeHideContentCategoriesStyles('30% 15% 55%', 1, 1)
         }
-
     })
+
+    function changeHideContentCategoriesStyles(gtc, catOpac, weightOpac ) {
+        ContentLeft.style.gridTemplateColumns = gtc
+
+        ContentLeftCategories.style.opacity = catOpac
+        ContentLeftWeights.style.opacity = weightOpac
+    }
 })

@@ -208,7 +208,7 @@ def weight_categories_delete(request, slug, pk):
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')
 
-@login_required(login_url='base:sign-in')
+@login_required(login_url='base:login')
 def registration_on_tournament(request, slug):
    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
    
@@ -246,7 +246,7 @@ def registration_on_tournament(request, slug):
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')
 
-@login_required(login_url='base:sign-in')
+@login_required(login_url='base:login')
 def list_of_registered_on_tournament(request, slug):
    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
    
@@ -276,7 +276,7 @@ def list_of_registered_on_tournament(request, slug):
       messages.error(request, "You don't have permission to create tournament ;)")
       return redirect('base:show_tournaments')
    
-@login_required(login_url='base:sign-in')
+@login_required(login_url='base:login')
 def tournament_toss(request, slug):
    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
       tournament = get_object_or_404(Tournament, slug=slug)
