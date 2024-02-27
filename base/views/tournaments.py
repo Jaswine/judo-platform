@@ -51,7 +51,7 @@ def create_tournamets(request):
          
          if form.is_valid():
                try:
-                  slug = checking_slxug(slug_generator(form.cleaned_data.get('title_en')))
+                  slug = checking_slug(slug_generator(form.cleaned_data.get('title_en')))
                   tournament = form.save(commit=False)
                   tournament.user = request.user
                   tournament.slug = slug

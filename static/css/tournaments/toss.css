@@ -65,7 +65,7 @@
     flex-direction: column;
     border-right: 1px solid rgb(20, 20, 20, .08);
     height: 100%;
-    padding: 4px;
+    padding: 4px 6px;
     overflow-y: auto;
 }
 ::-webkit-scrollbar {
@@ -84,13 +84,19 @@
     cursor: pointer;
     min-height: 40px;
     max-width: 450px;
-    width: 100%
+    width: 100%;
+    transition: all .3s ease-in-out;
+}
+.toss__content__category:hover {
+    box-shadow: 0 0 10px rgb(20,20,20,.09);
+    scale: 1.02;
 }
 .toss__content__category h3 {
     font-size: 16px;
 }
 .toss__content__category i {
-    margin-right: 8px
+    margin-right: 8px;
+
 }
 .toss__content__category span {
     background-color: rgb(20,20,20,.08);
@@ -108,7 +114,7 @@
     align-items: start;
     flex-direction: column;
     width: 45vw;
-    padding: 4px;
+    padding: 4px 6px;
     overflow-y: auto;
 }
 .toss__content__two__place {
@@ -123,13 +129,17 @@
 
     height: 40px;
     min-height: 40px;
-    min-width: 340px;
+    min-width: 350px;
     width: 100%;
     background-color: rgb(20,20,20,.05);
     border-radius: 6px;
     border: -2px -2px 2px rgba(20,20, 20, .2);
     margin-bottom: 4px;
     font-size: 16px;
+    padding: 2px;
+}
+.toss__content__place .toss__content__category {
+    scale: .98;
 }
 .toss__content__place i {
     position: absolute;
@@ -137,6 +147,12 @@
     color: rgb(20,20,20,.8);
     margin: 0 2px;
     left: 4px;
+    z-index: 8;
+    
+}
+.toss__content__category_i {
+    background-color: white;
+    border-radius: 10px;
 }
 .toss__content__place p {
     margin-left: 10px;

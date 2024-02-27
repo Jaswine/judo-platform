@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Сетка участников
-    var jsonGrid = globalAthletes = removedElements = []
+    var jsonGrid = globalAthletes = []
+    var currentCategory = currentWeight = ""
 
     // Query Selector
     const querySelector = (selector) => { return document.querySelector(selector) }
@@ -60,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 div.addEventListener('click', () => {
                     renderTournamentCategoriesData(category.weights, 'weights')
+                    currentCategory = category.id
                 })
 
                 div.innerHTML = `
@@ -78,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     div.addEventListener('click', () => {
                         globalAthletes = category.athletes
                         jsonGrid = []
+                        
+                        currentWeight = category.id
                         
                         renderTournamentCategoriesData(globalAthletes, 'athletes')
                         renderContentPlaces(generateContentPlaces(jsonGrid, athletes_count))
@@ -109,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     */
     function generateContentPlaces(jsonGrid, num) {
         let baseNumber = 4
-        
+
         if ( num > 5 && num < 8) baseNumber = 3
         else if (num > 2 && num < 6) baseNumber = 2
         else if (num > 1 && num < 3)  baseNumber = 1
@@ -142,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
         }
 
+        console.log("jsonGrid", jsonGrid)
         return jsonGrid
     }
 
@@ -270,9 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const dropped = e.target;
 
-            console.warn('dragged.parentNode: ', dragged.parentNode)
-            console.log('dropped.classList: ', dropped.classList)
-
             if (dragged.parentNode.id == 'ContentLeftPeople') {
                 const getAthleteFromContentLeftPeopleById = document.querySelector(`#${data.elementId}`)
                 ContentLeftPeople.querySelector(`#${data.elementId}`)? ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById) : ""
@@ -286,14 +288,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     oldObj['fio'] = dropped.innerHTML
 
                     FormationAthletesData(div_cat, oldObj)
-                    
                     ContentLeftPeople.appendChild(div_cat)
                 }
             } else if (dragged.parentNode.id.slice(0, 5) == 'Place') {
                 if (dropped.querySelector('i')) {
                     let dragged_place = dragged.parentNode.id.slice(6).split('-')
                     jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = {}
-                    // console.log(' dragged.parentNode', dragged.parentNode)
                 } else {
                     let oldObj = {}
                     oldObj['id'] = dropped.parentNode.id.slice(8)
@@ -316,6 +316,40 @@ document.addEventListener('DOMContentLoaded', () => {
     getTournamentCategoriesWeights()
 
     /*
+        TODO: Отрисовка
+    */
+    DrawSorting.addEventListener('click', () => {
+        let sorted_athletes = globalAthletes.sort(() => Math.random() - 0.5)
+
+        let data = jsonGrid
+        
+        if (data.length == 4) {
+            let c = 0
+            for (let i = 0; i < data.length; i++) {
+                for (let j = 0; j < data[i].length; j++) {
+                    let obj = data[i][j]
+
+                    for (const key in obj) {
+                        if (Object.hasOwnProperty.call(obj, key)) {
+                            let el = sorted_athletes[c]
+
+                            const getAthleteFromContentLeftPeopleById = document.querySelector(`#Element-${el.id}`)
+                            ContentLeftPeople.querySelector(`#Element-${el.id}`)? 
+                                ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById) : ""
+
+                            obj[key] = el
+                            c++
+                        }
+                    }
+
+                }
+            }
+        }
+
+        renderContentPlaces(data)
+    })
+
+    /*
         TODO: Очистка всех данных в схеме
     */
     ClearSorting.addEventListener('click', () => {
@@ -327,6 +361,54 @@ document.addEventListener('DOMContentLoaded', () => {
             renderContentPlaces(generateContentPlaces(jsonGrid, globalAthletes.length))
         }
     })
+
+    /*
+        TODO: Подтверждение и сохранение
+    */
+    ConfirmSorting.addEventListener('click', async () => {
+        let isFieldsSaved = JsonGridCheckFull(jsonGrid)
+
+        if (isFieldsSaved) {
+            if (confirm('Вы действительно хотите сохранить изменения?')) {
+                console.log("Current Category/Weight", currentCategory, currentWeight)
+
+                let formData = {}
+                formData['data'] = jsonGrid
+
+                const response = await fetch(`/api/tournaments/weight/${currentWeight}/update`, {
+                    method: "POST",
+                    body: JSON.stringify(formData)
+                })
+                const data = await response.json()
+
+                console.log('DATA:', data)
+            } 
+        } else {
+            alert('Для продолжения заполните все ячейки!')
+        }
+    })
+
+    /*
+        TODO: Проверка, что сетка полностью заполнена
+    */
+    function JsonGridCheckFull(data) {
+        let allFilled = true
+
+        for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < data[i].length; j++) { 
+                for (const key in data[i][j]) {
+                    if (Object.hasOwnProperty.call(data[i][j], key)) {                          
+                        if (!data[i][j][key]) {
+                            allFilled = false
+                            break
+                        }
+                    }
+                }
+            }
+        }
+
+        return allFilled
+    }
 
     /*
         TODO: Скрытие 2 списков категорий,

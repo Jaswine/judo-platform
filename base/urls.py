@@ -56,7 +56,7 @@ urlpatterns = [
    path('tournaments/weight-categories-delete/<str:slug>/<int:pk>', tournaments.weight_categories_delete, name='weight_categories_delete'),
    path('tournaments/weight-categories/<str:slug>/<int:id>/weight', tournaments.weight_category_weight, name='weight_category_weight'),
    path('tournaments/weight-categories/<str:slug>/<int:id>/weight/<int:weight_id>/delete', tournaments.weight_category_weight_delete, name='weight_category_weight_delete'),
-   
+
    # Main pages
    path('instructions', main.instructions_view, name='instructions'),
    path('medals', main.medals_view, name='medals'),

@@ -137,7 +137,8 @@ class Tournament(models.Model):
    
 class Weight(models.Model):
    name = models.CharField(max_length=10)
-   
+   sorting = models.JSONField(blank=True, null=True)
+
    participants = models.ManyToManyField(Participant, default=[], blank=True)
    
    def __str__(self):
