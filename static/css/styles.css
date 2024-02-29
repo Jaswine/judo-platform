@@ -148,24 +148,56 @@ header form {
    width: 14px;
 }
 
-.message {
+.global__message {
    position: fixed;
 
-   top: 70px;
-   width: 100%;
+   top: 10vh;
+   left: 5vw;
    height: 40px;
+   border-radius: 6px;
 
    display: flex;
    justify-content: space-between;
    align-items: center;
-   padding: 5px 10%;
+   gap: 20px;
+   padding: 5px 10px;
+   background-color: #a1a1a1;
+   color: white;
+   font-weight: 600;
+
+   transition: all .3s ease-in-out;
+}
+.global__message_close {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   position: relative;
+   width: 30px;
+   cursor: pointer;
+}
+.global__message_close::after, .global__message_close::before {
+   display: block;
+   content: "";
+   width: 3px;
+   height: 15px;
    background-color: #fff;
-   color: #577fdc;
-   box-shadow: 0 0 10px 0px rgb(20,20,20,.1);
+   border-radius: 4px;
+   position: absolute;
+   opacity: .5;
+   
+}
+
+.global__message_close::after {
+   rotate: -45deg;
+}
+
+.global__message_close::before {
+   rotate: 45deg;
 }
 
 @media screen and (max-width:700px) {
-   .message {
+   .global__message {
       top: 80px
    }
 }

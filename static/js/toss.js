@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var currentCategory = currentWeight = ""
     const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]')
 
+    const messages = document.querySelector('.global__messages')
+
     // Query Selector
     const querySelector = (selector) => { return document.querySelector(selector) }
 
@@ -147,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
         }
 
-        console.log("jsonGrid", jsonGrid)
         return jsonGrid
     }
 
@@ -321,12 +322,12 @@ document.addEventListener('DOMContentLoaded', () => {
     */
     DrawSorting.addEventListener('click', () => {
         if (currentCategory.length == 0) {
-            alert('Для продолжения выберите категорию!')
+            MessageRender("Для продолжения выберите категорию!", 'error')
             return
         }
 
         if (currentWeight.length == 0) {
-            alert('Для продолжения выберите вес!')
+            MessageRender('Для продолжения выберите вес!', 'error')
             return
         }
         
@@ -365,12 +366,12 @@ document.addEventListener('DOMContentLoaded', () => {
     */
     ClearSorting.addEventListener('click', () => {
         if (currentCategory.length == 0) {
-            alert('Для продолжения выберите категорию!')
+            MessageRender('Для продолжения выберите категорию!', 'error')
             return
         }
 
         if (currentWeight.length == 0) {
-            alert('Для продолжения выберите вес!')
+            MessageRender('Для продолжения выберите вес!', 'error')
             return
         }
         
@@ -388,12 +389,12 @@ document.addEventListener('DOMContentLoaded', () => {
     */
     ConfirmSorting.addEventListener('click', async () => {
         if (currentCategory.length == 0) {
-            alert('Для продолжения выберите категорию!')
+            MessageRender('Для продолжения выберите категорию!', 'error')
             return
         }
 
         if (currentWeight.length == 0) {
-            alert('Для продолжения выберите вес!')
+            MessageRender('Для продолжения выберите вес!', 'error')
             return
         }
 
@@ -401,15 +402,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isFieldsSaved) {
             if (confirm('Вы действительно хотите сохранить изменения?')) {
-                console.log("Current Category/Weight", currentCategory, currentWeight)
 
                 let formData = new FormData(ContentRight)
 
                 formData.append('data', jsonGrid)
                 formData.append('csrfmiddlewaretoken', csrfToken.value);
-
-                console.log(formData.get('csrfmiddlewaretoken'))
-                console.log(formData.get('data'))
 
                 fetch(`/api/tournaments/${tournamentId}/weight/${currentWeight}/update`, {
                     method: 'POST',
@@ -417,17 +414,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.status == "success") {
-                            console.log(data.message)
-                            alert(data.message)
-                        }
+                        MessageRender(data.message, data.status)
                     })
                     .catch(err => {
                         console.error(err)
                     })
             } 
         } else {
-            alert('Для продолжения заполните все ячейки!')
+            MessageRender('Для продолжения заполните все ячейки!', 'error')
         }
     })
 
@@ -452,6 +446,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return allFilled
     }
+
+
+    /*
+        TODO: Рендеринг сообщений
+    */
+   function MessageRender(message, status) {
+        const div = document.createElement('div')
+        div.classList.add('global__message')
+
+        div.innerHTML = message
+
+        switch (status) {
+            case "success": 
+                div.style.backgroundColor = `#10ef7f`;
+                break;
+            case "error":
+                div.style.backgroundColor = `#ff5b5b`;
+                break;
+            case "warn":
+                div.style.backgroundColor = `#ffd21e`;
+                break;
+            case "info":
+                div.style.backgroundColor = `#a1a1a1`;
+                break;
+        }
+
+        setTimeout(() => {
+            div.style.opacity = 0
+
+            setTimeout(() => {
+                div.style.display = 'none'
+            }, 300)
+        }, 3000)
+        
+        messages.appendChild(div)
+   }
+
 
     /*
         TODO: Скрытие 2 списков категорий,

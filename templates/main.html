@@ -12,16 +12,14 @@
    {% block title %}{% endblock title %}
 </head>
 <body>
-   {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class='message'>
-                    {{message}}
-                    <i class="fa-solid fa-xmark message_close"></i>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+    <div class="global__messages">
+        {% for message in messages %}
+            <div class='global__message'>
+                {{message}}
+                <i class="fa-solid fa-xmark message_close"></i>
+            </div>
+        {% endfor %}
+    </div>
         {% include 'header.html' %}
         {% block content %}{% endblock content %}
 
