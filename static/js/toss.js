@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Сетка участников
     var jsonGrid = globalAthletes = []
     var currentCategory = currentWeight = ""
+    const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]')
 
     // Query Selector
     const querySelector = (selector) => { return document.querySelector(selector) }
@@ -319,6 +320,16 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Отрисовка
     */
     DrawSorting.addEventListener('click', () => {
+        if (currentCategory.length == 0) {
+            alert('Для продолжения выберите категорию!')
+            return
+        }
+
+        if (currentWeight.length == 0) {
+            alert('Для продолжения выберите вес!')
+            return
+        }
+        
         let sorted_athletes = globalAthletes.sort(() => Math.random() - 0.5)
 
         let data = jsonGrid
@@ -353,6 +364,16 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Очистка всех данных в схеме
     */
     ClearSorting.addEventListener('click', () => {
+        if (currentCategory.length == 0) {
+            alert('Для продолжения выберите категорию!')
+            return
+        }
+
+        if (currentWeight.length == 0) {
+            alert('Для продолжения выберите вес!')
+            return
+        }
+        
         if (confirm('Полностью очистить текущую схему?')) {
             jsonGrid = []
 
@@ -366,22 +387,44 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Подтверждение и сохранение
     */
     ConfirmSorting.addEventListener('click', async () => {
+        if (currentCategory.length == 0) {
+            alert('Для продолжения выберите категорию!')
+            return
+        }
+
+        if (currentWeight.length == 0) {
+            alert('Для продолжения выберите вес!')
+            return
+        }
+
         let isFieldsSaved = JsonGridCheckFull(jsonGrid)
 
         if (isFieldsSaved) {
             if (confirm('Вы действительно хотите сохранить изменения?')) {
                 console.log("Current Category/Weight", currentCategory, currentWeight)
 
-                let formData = {}
-                formData['data'] = jsonGrid
+                let formData = new FormData(ContentRight)
 
-                const response = await fetch(`/api/tournaments/weight/${currentWeight}/update`, {
-                    method: "POST",
-                    body: JSON.stringify(formData)
+                formData.append('data', jsonGrid)
+                formData.append('csrfmiddlewaretoken', csrfToken.value);
+
+                console.log(formData.get('csrfmiddlewaretoken'))
+                console.log(formData.get('data'))
+
+                fetch(`/api/tournaments/${tournamentId}/weight/${currentWeight}/update`, {
+                    method: 'POST',
+                    body: formData,
                 })
-                const data = await response.json()
-
-                console.log('DATA:', data)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.status == "success") {
+                            console.log(data.message)
+                            alert(data.message)
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err)
+                    })
             } 
         } else {
             alert('Для продолжения заполните все ячейки!')

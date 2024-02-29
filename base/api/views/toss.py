@@ -54,34 +54,40 @@ def show_weight_categories_and_weights(request, id):
         }, status=403)
 
 
-def show_weight_categories_and_weights_update(request, weight_id):
-    # if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser):
-        tournament = Tournament.objects.get(id=id)
+def show_weight_categories_and_weights_update(request, tournament_id, weight_id):
+    if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser):
+        tournament = Tournament.objects.get(id=tournament_id)
         weight = Weight.objects.get(id=weight_id)
 
         if request.method == 'POST':
             data = request.POST.get('data')
 
-            if data is not None and data != weight.data:
-                weight.sorting = data
-                weight.save()
-
-                return JsonResponse({
-                    "status": "success",
-                    "message": "Weight updated successfully"
-                }, status=200)
-            else:
+            if data is None:
                 return JsonResponse({
                     "status": "error",
                     "message": "Invalid data"
                 }, status=400)
+
+            if data == weight.sorting:
+                return JsonResponse({
+                    "status": "success",
+                    "message": "Data is sorted"
+                }, status=200)
+
+            weight.sorting = data
+            weight.save()
+
+            return JsonResponse({
+                "status": "success",
+                "message": "Weight updated successfully"
+            }, status=200)
         else:
             return JsonResponse({
                 "status": "error",
                 "message": "Method not allowed"
             }, status=402)
-    # else:
-    #     return JsonResponse({
-    #         "status": "error",
-    #         "message": "You are not a superuser"
-    #     }, status=403)
+    else:
+        return JsonResponse({
+            "status": "error",
+            "message": "You are not a superuser"
+        }, status=403)

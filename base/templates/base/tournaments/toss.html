@@ -52,10 +52,12 @@
          <div class="toss__content__left__category" id="ContentLeftWeights"></div>
          <div class="toss__content__left__category" id="ContentLeftPeople"></div>
       </div>
-      <div
+      <form
            class="toss__content__right"
-           id="ContentRight">
-      </div>
+           id="ContentRight"
+           method="POST">
+         {% csrf_token %}
+      </form>
    </div>
 
 </div>

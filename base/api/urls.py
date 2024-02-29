@@ -14,7 +14,7 @@ urlpatterns = [
    path('tournament/<int:id>/show-all-categories-weights/',
         toss.show_weight_categories_and_weights,
         name="show_weight_categories_and_weights"),
-   path('tournaments/weight/<int:weight_id>/update',
+   path('tournaments/<int:tournament_id>/weight/<int:weight_id>/update',
         toss.show_weight_categories_and_weights_update,
         name='show_weight_categories_and_weights_update'),
 ]
