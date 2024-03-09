@@ -61,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (status == 'categories') {
                 // TODO: Categories
-
                 div.addEventListener('click', () => {
                     renderTournamentCategoriesData(category.weights, 'weights')
                     currentCategory = category.id
@@ -94,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } else if (status == 'athletes') {
                 // TODO: Athletes
-                
                 FormationAthletesData(div, category)
             }
 
@@ -149,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
         }
 
+        console.log(jsonGrid)
         return jsonGrid
     }
 
@@ -186,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderContentPlaces(data) {
         ContentRight.innerHTML = ''
 
-        if (data.length == 4) {
+        if (data.length >= 2) {
             for (let i = 0; i < data.length; i++) {
                 const data_reverse = data[i]
 
@@ -231,6 +230,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     ContentRight.appendChild(div)
                 }
             }
+        } else {
+            const div = document.createElement('div')
+            div.classList.add('little-people')
+            div.innerHTML = "Not many people in the area"
+            ContentRight.appendChild(div)
         }
     }
 
@@ -335,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let data = jsonGrid
         
-        if (data.length == 4) {
+        if (data.length >= 2) {
             let c = 0
             for (let i = 0; i < data.length; i++) {
                 for (let j = 0; j < data[i].length; j++) {
@@ -356,6 +360,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 }
             }
+        } else {
+            MessageRender('Слишком мало людей для сортировки!', 'error')
         }
 
         renderContentPlaces(data)
@@ -374,13 +380,17 @@ document.addEventListener('DOMContentLoaded', () => {
             MessageRender('Для продолжения выберите вес!', 'error')
             return
         }
-        
-        if (confirm('Полностью очистить текущую схему?')) {
-            jsonGrid = []
 
-            renderTournamentCategoriesData(globalAthletes, 'athletes')
+        if (jsonGrid.length > 1) {
+            if (confirm('Полностью очистить текущую схему?')) {
+                jsonGrid = []
 
-            renderContentPlaces(generateContentPlaces(jsonGrid, globalAthletes.length))
+                renderTournamentCategoriesData(globalAthletes, 'athletes')
+
+                renderContentPlaces(generateContentPlaces(jsonGrid, globalAthletes.length))
+            }
+        } else {
+            MessageRender('Слишком мало людей!', 'error')
         }
     })
 
@@ -398,30 +408,32 @@ document.addEventListener('DOMContentLoaded', () => {
             return
         }
 
-        let isFieldsSaved = JsonGridCheckFull(jsonGrid)
+        if (jsonGrid != [] && jsonGrid.length > 1) {
+            let isFieldsSaved = JsonGridCheckFull(jsonGrid)
 
-        if (isFieldsSaved) {
-            if (confirm('Вы действительно хотите сохранить изменения?')) {
+            if (isFieldsSaved) {
+                if (confirm('Вы действительно хотите сохранить изменения?')) {
 
-                let formData = new FormData(ContentRight)
+                    let formData = new FormData(ContentRight)
 
-                formData.append('data', jsonGrid)
-                formData.append('csrfmiddlewaretoken', csrfToken.value);
+                    formData.append('data', JSON.stringify(jsonGrid))
+                    formData.append('csrfmiddlewaretoken', csrfToken.value);
 
-                fetch(`/api/tournaments/${tournamentId}/weight/${currentWeight}/update`, {
-                    method: 'POST',
-                    body: formData,
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        MessageRender(data.message, data.status)
+                    fetch(`/api/tournaments/${tournamentId}/weight/${currentWeight}/update`, {
+                        method: 'POST',
+                        body: formData,
                     })
-                    .catch(err => {
-                        console.error(err)
-                    })
-            } 
+                        .then(res => res.json())
+                        .then(data => {
+                            MessageRender(data.message, data.status)
+                        })
+                        .catch(err => {
+                            console.error(err)
+                        })
+                }
+            }
         } else {
-            MessageRender('Для продолжения заполните все ячейки!', 'error')
+            MessageRender('Слишком мало людей!', 'error')
         }
     })
 

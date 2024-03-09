@@ -68,6 +68,12 @@ def show_weight_categories_and_weights_update(request, tournament_id, weight_id)
                     "message": "Invalid data"
                 }, status=400)
 
+            if data == weight.sorting:
+                return JsonResponse({
+                    "status": "info",
+                    "message": "Data is sorted"
+                }, status=200)
+
             weight.sorting = data
             weight.save()
 
