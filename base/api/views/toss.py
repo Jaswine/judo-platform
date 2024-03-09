@@ -26,6 +26,7 @@ def show_weight_categories_and_weights(request, id):
                     weight['id'] = w.id
                     weight['name'] = w.name
                     weight['participants_count'] = w.participants.count()
+                    weight['sorting'] = w.sorting
 
                     for participant in w.participants.all():
                         athlete = dict()

@@ -77,16 +77,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 class='toss__content__category__title'>${category.name}</h3>
                     <span>${athletes_count}</span>
                 `
-                
+
                 if (athletes_count > 0) {
                     div.addEventListener('click', () => {
                         globalAthletes = category.athletes
                         jsonGrid = []
                         
                         currentWeight = category.id
-                        
-                        renderTournamentCategoriesData(globalAthletes, 'athletes')
-                        renderContentPlaces(generateContentPlaces(jsonGrid, athletes_count))
+
+                        if (category.sorting) {
+                            jsonGrid = JSON.parse(category.sorting)
+                            renderContentPlaces(jsonGrid)
+                        } else {
+                            renderTournamentCategoriesData(globalAthletes, 'athletes')
+                            renderContentPlaces(generateContentPlaces(jsonGrid, athletes_count))
+                        }
                     })
                 } else {
                     div.style.opacity = .3
