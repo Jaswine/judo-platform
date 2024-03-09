@@ -8,7 +8,11 @@
    
 {% block content %}
 <div class="toss">
-   <input type="hidden" value='{{tournament.id}}' id='TournamentId'  />
+   <input type="hidden" value='{{ tournament.id }}' id='TournamentId'  />
+
+   <input type="hidden" value='{{ tournament.startData }}' id='TournamentStartDate'  />
+   <input type="hidden" value='{{ tournament.finishData }}' id='TournamentEndDate'  />
+
    <div class="toss__header">
       <h3 class="title">{{tournament.title}}</h3>
       <div class="toss__bar">

@@ -5,12 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]')
 
     const messages = document.querySelector('.global__messages')
+    const dateTime = new Date()
 
     // Query Selector
     const querySelector = (selector) => { return document.querySelector(selector) }
 
-    // Tournament ID
+    // Tournament Data
     const tournamentId = querySelector('#TournamentId').value
+    const tournamentStartDate = querySelector('#TournamentStartDate').value
+    const tournamentEndDate = querySelector('#TournamentEndDate').value
+
+    const tournamentStartDateFormat = new Date(tournamentStartDate);
+    const tournamentEndDateFormat = new Date(tournamentEndDate);
 
     // Buttons
     const HideContentCategories = querySelector('#HideContentCategories')
@@ -205,6 +211,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (Object.hasOwnProperty.call(obj, key)) {
                             const div_el = document.createElement('div')
                             div_el.classList.add('toss__content__place')
+                            
+                            if (dateTime > tournamentStartDateFormat) {
+                                div_el.style.opacity = .5
+                            }
 
                             const id = `Place-${i}-${j}-${key}`
                             div_el.id = id
@@ -274,54 +284,58 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Добавление DragOver и Drop к чему-то
     */
    function DropAndDragOverFormation(place, jsonGrid, i, j, key) {
-        place.addEventListener('dragover', (e) => {
-            e.preventDefault();
-        }) 
+        if (dateTime < tournamentStartDateFormat) {
+            place.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            }) 
 
-        place.addEventListener('drop', (e) => {
-            e.preventDefault();
+            place.addEventListener('drop', (e) => {
+                e.preventDefault();
 
-            const eDataId = e.dataTransfer.getData('text/plain');
-            const data = JSON.parse(eDataId)
+                const eDataId = e.dataTransfer.getData('text/plain');
+                const data = JSON.parse(eDataId)
 
-            const dropped = e.target;
+                const dropped = e.target;
 
-            if (dragged.parentNode.id == 'ContentLeftPeople') {
-                const getAthleteFromContentLeftPeopleById = document.querySelector(`#${data.elementId}`)
-                ContentLeftPeople.querySelector(`#${data.elementId}`)? ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById) : ""
+                if (dragged.parentNode.id == 'ContentLeftPeople') {
+                    const getAthleteFromContentLeftPeopleById = document.querySelector(`#${data.elementId}`)
+                    ContentLeftPeople.querySelector(`#${data.elementId}`)? ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById) : ""
 
-                if (!dropped.querySelector('i')) {
-                    const div_cat = document.createElement('div')
-                    div_cat.classList.add('toss__content__category')
+                    if (!dropped.querySelector('i')) {
+                        const div_cat = document.createElement('div')
+                        div_cat.classList.add('toss__content__category')
 
-                    let oldObj = {}
-                    oldObj['id'] = dropped.parentNode.id.slice(8)
-                    oldObj['fio'] = dropped.innerHTML
+                        let oldObj = {}
+                        oldObj['id'] = dropped.parentNode.id.slice(8)
+                        oldObj['fio'] = dropped.innerHTML
 
-                    FormationAthletesData(div_cat, oldObj)
-                    ContentLeftPeople.appendChild(div_cat)
+                        FormationAthletesData(div_cat, oldObj)
+                        ContentLeftPeople.appendChild(div_cat)
+                    }
+                } else if (dragged.parentNode.id.slice(0, 5) == 'Place') {
+                    if (dropped.querySelector('i')) {
+                        let dragged_place = dragged.parentNode.id.slice(6).split('-')
+                        jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = {}
+                    } else {
+                        let oldObj = {}
+                        oldObj['id'] = dropped.parentNode.id.slice(8)
+                        oldObj['fio'] = dropped.innerHTML
+
+                        let dragged_place = dragged.parentNode.id.slice(6).split('-')
+                        jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = oldObj
+                    }
                 }
-            } else if (dragged.parentNode.id.slice(0, 5) == 'Place') {
-                if (dropped.querySelector('i')) {
-                    let dragged_place = dragged.parentNode.id.slice(6).split('-')
-                    jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = {}
-                } else {
-                    let oldObj = {}
-                    oldObj['id'] = dropped.parentNode.id.slice(8)
-                    oldObj['fio'] = dropped.innerHTML
+                
+                let newObj = {}
+                newObj['id'] = data.id
+                newObj['fio'] = data.fio
 
-                    let dragged_place = dragged.parentNode.id.slice(6).split('-')
-                    jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = oldObj
-                }
-            }
-            
-            let newObj = {}
-            newObj['id'] = data.id
-            newObj['fio'] = data.fio
-
-            jsonGrid[i][j][key] = newObj
-            renderContentPlaces(jsonGrid)
-        })
+                jsonGrid[i][j][key] = newObj
+                renderContentPlaces(jsonGrid)
+            })
+        } else {
+            MessageRender("Срок изменения истек!", 'error')
+        }
    }
 
     getTournamentCategoriesWeights()
@@ -330,6 +344,11 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Отрисовка
     */
     DrawSorting.addEventListener('click', () => {
+        if (dateTime > tournamentStartDateFormat) {
+            MessageRender('Срок изменения истек!', 'error')
+            return
+        }
+        
         if (currentCategory.length == 0) {
             MessageRender("Для продолжения выберите категорию!", 'error')
             return
@@ -376,6 +395,11 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Очистка всех данных в схеме
     */
     ClearSorting.addEventListener('click', () => {
+        if (dateTime > tournamentStartDateFormat) {
+            MessageRender('Срок изменения истек!', 'error')
+            return
+        }
+
         if (currentCategory.length == 0) {
             MessageRender('Для продолжения выберите категорию!', 'error')
             return
@@ -403,6 +427,11 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Подтверждение и сохранение
     */
     ConfirmSorting.addEventListener('click', async () => {
+        if (dateTime > tournamentStartDateFormat) {
+            MessageRender('Срок изменения истек!', 'error')
+            return
+        }
+
         if (currentCategory.length == 0) {
             MessageRender('Для продолжения выберите категорию!', 'error')
             return
