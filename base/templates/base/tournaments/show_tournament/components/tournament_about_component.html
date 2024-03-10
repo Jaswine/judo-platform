@@ -1,0 +1,75 @@
+{% load static i18n %}
+
+<div class="tournament__left">
+  <a href="{% url 'base:tournament_show' tournament.slug %}" ><h3>{{ tournament.title }}</h3></a>
+  <p>
+     <span>
+        <i class="fa-solid fa-calendar-days"></i>
+        {% trans 'Дата' %}: {{tournament.startData}} - {{tournament.finishData}}
+     </span>
+     <span>
+        <i class="fa-regular fa-clock"></i>
+        {% trans 'Время' %}: {{tournament.startTime}}
+     </span>
+     <span>
+        {% trans 'Статус' %} Открыто
+     </span>
+  </p>
+  <p>
+     <span>
+        <i class="fa-solid fa-users"></i> {% trans 'Участники' %}: {{person_count }}
+     </span>
+  </p>
+  <p>
+     <span>
+        <i class="fa-solid fa-location-dot"></i> {% trans 'Местоположение' %}: {{tournament.place}}
+     </span>
+     <span>
+        <i class="fa-solid fa-ranking-star"></i> {% trans 'Ранг' %}: {{tournament.rang}}
+     </span>
+  </p>
+  <div class="slider">
+     <button id="slider__left" >
+        <i class="fa-solid fa-chevron-left"></i>
+     </button>
+
+     <img src="" alt="" id="slider__gallery">
+
+     <button id="slider__right">
+        <i class="fa-solid fa-chevron-right"></i>
+     </button>
+  </div>
+  <div class="tournament__images" id="images__collection">
+     {% for logo in tournament.logos.all %}
+        <img src="/static/media/{{logo.image}}" alt="{{ image.name }}" class="slider__image">
+     {% endfor %}
+  </div>
+  <p>
+     <span>
+        <i class="fa-solid fa-user-tie"></i> {% trans 'Chief Justice' %}: {{ tournament.chiefJustice}}
+     </span>
+  </p>
+  <p>
+     <span>
+        <i class="fa-solid fa-user-tie"></i> {% trans 'Chief Secretary' %}: {{ tournament.chiefSecretary }}
+     </span>
+  </p>
+  <p>
+     <span>
+        <i class="fa-solid fa-highlighter"></i>{% trans 'About' %}: {{tournament.about}}
+     </span>
+  </p>
+  <div class="tournament__sponsors">
+     <span>
+        <i class="fa-solid fa-users"></i>
+        {% trans 'Sponsors' %}:
+     </span>
+
+     {% for sponsor in tournament.sponsors.all %}
+     <img src="/static/media/{{sponsor.image}}" alt="{{ sponsor.name }}" />
+     {% endfor %}
+  </div>
+
+</div>
+
+<script src="{% static '/js/gallery.js' %}"></script>

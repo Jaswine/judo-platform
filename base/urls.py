@@ -25,8 +25,8 @@ urlpatterns = [
    
    # Athletes
    path('athletes/create', athletes.add_new_athlete, name = 'add_new_athlete'),
-   path('athletes/<int:athlete_id>/update', athletes.update_athlete, name = 'update_athlete'),
-   path('athletes/<int:athlete_id>/delete', athletes.delete_athlete, name = 'delete_athlete'),
+   path('athletes/<int:athlete_id>/update', athletes.update_athlete, name='update_athlete'),
+   path('athletes/<int:athlete_id>/delete', athletes.delete_athlete, name='delete_athlete'),
    
    # Tournaments
    path('tournaments', tournaments.show_tournaments, name='show_tournaments'),
@@ -34,10 +34,14 @@ urlpatterns = [
    path('tournaments/<str:slug>/create-tournamets-images', tournaments.create_tournamets__images, name='create_tournamets__images'),
    
    # Show One Tournament
-   path('tournaments/<str:slug>/', tournaments.tournamet_show, name='tournamet_show' ),
-   path('tournaments/<str:slug>/weight_categories/<int:pk>/', tournaments.show_tournament_category, name='tournamet_show_category' ),
-   
-   # Tournaments Register 
+   path('tournaments/<str:slug>/', tournaments.tournament_show_about, name='tournament_show'),
+   path('tournaments/<str:slug>/participants', tournaments.tournament_show_participants, name='tournament_show_participants'),
+   path('tournaments/<str:slug>/protocol', tournaments.tournament_show_protocol, name='tournament_show_protocol'),
+   path('tournaments/<str:slug>/fights', tournaments.tournament_show_fights, name='tournament_show_fights'),
+   path('tournaments/<str:slug>/result', tournaments.tournament_show_results, name='tournament_show_results'),
+   path('tournaments/<str:slug>/medals', tournaments.tournament_show_medals, name='tournament_show_medals'),
+
+   # Tournaments Register
    path('tournaments/<str:slug>/registration-on-tournament', tournaments.registration_on_tournament, name='registration_on_tournament'),
    path('tournaments/<str:slug>/list-of-registered-on-tournament', tournaments.list_of_registered_on_tournament, name='list_of_registered_on_tournament'),
 

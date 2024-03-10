@@ -12,31 +12,58 @@ from ..utils import slug_generator, checking_slug, generate_slug
 from ..services import get_tournaments, get_all_weight_category, get_user_profile
 from ..filters import TournamentFilter
 
-
+""" Вывод всех турниров """
 def show_tournaments(request):
    return render(request, 'base/tournaments/show_tournaments.html')
-   
-def tournamet_show(request, slug):
-   tournament = get_object_or_404(Tournament, slug=slug)
-   person_count = 0
 
-   context = {
-      'tournament': tournament,
-   }
-   return render(request, 'base/tournaments/show_tournament.html', context)
 
-def show_tournament_category(request, slug, pk):
+""" Вывод одного турнира, описание """
+def tournament_show_about(request, slug):
    tournament = get_object_or_404(Tournament, slug=slug)
-   category = get_object_or_404(WeightCategory, id=pk)
-   weights = category.weight.all()
-   
-   context = {
+
+   return render(request, 'base/tournaments/show_tournament/pages/tournament_about.html', {
       'tournament': tournament,
-      
-      'category': category,
-      'weights': weights
-   }
-   return render(request, 'base/tournaments/show_tournament_category.html', context)
+   })
+
+""" Вывод одного турнира, участники """
+def tournament_show_participants(request, slug):
+   tournament = get_object_or_404(Tournament, slug=slug)
+
+   return render(request, 'base/tournaments/show_tournament/pages/tournament_participants.html', {
+      'tournament': tournament,
+   })
+
+""" Вывод одного турнира, протокол """
+def tournament_show_protocol(request, slug):
+   tournament = get_object_or_404(Tournament, slug=slug)
+
+   return render(request, 'base/tournaments/show_tournament/pages/tournament_protocol.html', {
+      'tournament': tournament,
+   })
+
+""" Вывод одного турнира, поединки """
+def tournament_show_fights(request, slug):
+   tournament = get_object_or_404(Tournament, slug=slug)
+
+   return render(request, 'base/tournaments/show_tournament/pages/tournament_fights.html', {
+      'tournament': tournament,
+   })
+
+""" Вывод одного турнира, результаты """
+def tournament_show_results(request, slug):
+   tournament = get_object_or_404(Tournament, slug=slug)
+
+   return render(request, 'base/tournaments/show_tournament/pages/tournament_results.html', {
+      'tournament': tournament,
+   })
+
+""" Вывод одного турнира, медали """
+def tournament_show_medals(request, slug):
+   tournament = get_object_or_404(Tournament, slug=slug)
+
+   return render(request, 'base/tournaments/show_tournament/pages/tournament_medals.html', {
+      'tournament': tournament,
+   })
 
 @login_required(login_url= 'base:login')
 def create_tournamets(request):

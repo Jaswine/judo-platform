@@ -1,0 +1,23 @@
+{% include 'main.html' %}
+{% load static i18n %}
+
+{% block title %}
+<link rel="stylesheet" href="{% static 'css/tournaments/tournament_show.css' %}">
+<title>{{ tournament.title }}</title>
+{% endblock title %}
+
+{% block content %}
+<div class="tournament">
+    {% include 'base/tournaments/show_tournament/components/tournament_header.html' %}
+   <style>
+      .tournament__menu__fights__button {
+          background-color: rgb(87, 127, 220, 1);
+          color: white;
+          scale: 1.12;
+      }
+   </style>
+
+</div>
+
+<script src="{% static '/js/gallery.js' %}"></script>
+{% endblock content %}
