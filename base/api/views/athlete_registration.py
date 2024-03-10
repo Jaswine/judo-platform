@@ -34,10 +34,11 @@ def show_weight_categories(request, id):
                             
                         if user_in_weight_category_count == 0:
                             for w in weight_category.weight.all():
-                                weights_for_registration.append({
-                                    'id': w.id,
-                                    'name': w.name,
-                                }) 
+                                if participant.gender == weight_category.gender:
+                                    weights_for_registration.append({
+                                        'id': w.id,
+                                        'name': w.name,
+                                    })
                 
                 if len(weights_for_registration) > 0:
                     user['id'] = participant.id
@@ -101,11 +102,11 @@ def list_of_registered_on_tournament(request, id):
                         for w in weight_category.weight.all():
                             if participant in w.participants.all():
                                 user_in_weight_category_count += 1
-                                
+
                                 weights_for_registration.append({
                                     'id': w.id,
                                     'name': w.name,
-                                }) 
+                                })
                                 
                 
                 if len(weights_for_registration) > 0:

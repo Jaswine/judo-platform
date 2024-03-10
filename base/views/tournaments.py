@@ -21,8 +21,14 @@ def show_tournaments(request):
 def tournament_show_about(request, slug):
    tournament = get_object_or_404(Tournament, slug=slug)
 
+   tournament_women_categories = tournament.weightcategory_set.filter(gender="Женский")
+   tournament_men_categories = tournament.weightcategory_set.filter(gender="Мужской")
+
    return render(request, 'base/tournaments/show_tournament/pages/tournament_about.html', {
       'tournament': tournament,
+
+      'tournament_women_categories': tournament_women_categories,
+      'tournament_men_categories': tournament_men_categories,
    })
 
 """ Вывод одного турнира, участники """

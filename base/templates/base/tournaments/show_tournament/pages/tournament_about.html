@@ -3,6 +3,8 @@
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'css/tournaments/tournament_show.css' %}">
+<link rel="stylesheet" href="{% static 'css/tournaments/tournament/tournament_about.css' %}">
+
 <title>{{ tournament.title }}</title>
 {% endblock title %}
 
@@ -20,8 +22,31 @@
     {% include 'base/tournaments/show_tournament/components/tournament_about_component.html' %}
 
     <div class="tournament__about__categories">
+        <h2>{% trans 'Категории' %}</h2>
 
-    </div>
+        <div class="tournament__about__categories__list">
+            {% for weight_category in tournament.weightcategory_set.all %}
+                <div class="tournament__about__category">
+                    <h3>{{ weight_category.gender }} - {{ weight_category.year }}</h3>
+                    <div
+                            class="tournament__about__category__table"
+                            {% if weight_category.gender == "Мужской" %}
+                                style="background-color: #CFDDFF"
+                            {% else %}
+                                style="background-color: #FFD0D0"
+                            {% endif %}
+                    >
+                        {% for weight in weight_category.weight.all %}
+                            <div class="tournament__about__category__td" >-{{ weight.name }} kg</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="tournament__about__categories__list">
+
+        </div>
 
 </div>
 
