@@ -2,22 +2,39 @@
 {% load static i18n %}
 
 {% block title %}
+<link rel="stylesheet" href="{% static 'css/tournaments/toss.css' %}">
 <link rel="stylesheet" href="{% static 'css/tournaments/tournament_show.css' %}">
+<link rel="stylesheet" href="{% static 'css/tournaments/tournament/tournament__participants.css' %}">
+<link rel="stylesheet" href="{% static 'css/tournaments/tournament/tournament_protocol.css' %}">
+
+<style>
+  .tournament__menu__protocol__button {
+      background-color: rgb(87, 127, 220, 1) !important;
+      color: white;
+      scale: 1.12;
+  }
+</style>
+
 <title>{{ tournament.title }}</title>
 {% endblock title %}
 
 {% block content %}
 <div class="tournament">
+   <input type="hidden" value='{{ tournament.id }}' id='TournamentId'  />
+
     {% include 'base/tournaments/show_tournament/components/tournament_header.html' %}
-   <style>
-      .tournament__menu__protocol__button {
-          background-color: rgb(87, 127, 220, 1) !important;
-          color: white;
-          scale: 1.12;
-      }
-   </style>
+
+    <div class="toss__content tournament__participants">
+      <div class="toss__content__left tournament__participants__left" id="ContentLeft" >
+         <div class="toss__content__left__category tournament__participants__left__category" id="ContentLeftCategories"></div>
+         <div class="toss__content__left__category tournament__participants__left__category" id="ContentLeftWeights"></div>
+      </div>
+      <div
+          class="tournament__participants__right"
+          id="ContentRight" ></div>
+   </div>
 
 </div>
 
-<script src="{% static '/js/gallery.js' %}"></script>
+<script src="/static/js/tournament_show/tournament_protocol.js"></script>
 {% endblock content %}

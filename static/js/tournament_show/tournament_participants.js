@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="toss__content__category toss__participant__content__category toss__participant__content__category__spec ">
                     <h4>№</h4>
                     <h4>ФИО</h4>
-                    <h4>Год</h4>
+                    <h4>Дата рождения</h4>
                 </div>
             `
         }
@@ -58,8 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
 
                 div.innerHTML = `
-                    ${category.gender == 'Мужской' ? "<i class='fa-solid fa-mars-stroke'></i>" : "<i class='fa-solid fa-venus'></i>" }
+                    ${category.gender == 'Мужской' ? "<i class='fa-solid fa-mars-stroke' style='color: #84BEFF'></i>" :
+                                                            "<i class='fa-solid fa-venus' style='color: #FF8080'></i>" }
                     <h3 class='toss__content__category__title'>${category.year}</h3>
+                    <span class="toss__content__category__span" style="background-color:${category.gender == 'Мужской' ? '#84BEFF' : '#FF8080' }" ></span>
                 `
             } else if (status == 'weights') {
                 // TODO: Weights

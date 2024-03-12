@@ -4,55 +4,50 @@ from django.views.decorators.csrf import csrf_exempt
 from base.models import Tournament, Weight, WeightCategory
 
 def show_weight_categories_and_weights(request, id):
-    if (request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser):
-        tournament = Tournament.objects.get(id=id)
-        weight_categories = WeightCategory.objects.filter(tournament=tournament)
+    tournament = Tournament.objects.get(id=id)
+    weight_categories = WeightCategory.objects.filter(tournament=tournament)
 
-        if request.method == 'GET':
-            weights = []
+    if request.method == 'GET':
+        weights = []
 
-            for weight_category in weight_categories:
-                weight_cat = dict()
-                weights_cat = []
+        for weight_category in weight_categories:
+            weight_cat = dict()
+            weights_cat = []
 
-                weight_cat['id'] = weight_category.id
-                weight_cat['year'] = weight_category.year
-                weight_cat['gender'] = weight_category.gender
+            weight_cat['id'] = weight_category.id
+            weight_cat['year'] = weight_category.year
+            weight_cat['gender'] = weight_category.gender
 
-                for w in weight_category.weight.all():
-                    weight = dict()
-                    athletes = []
+            for w in weight_category.weight.all():
+                weight = dict()
+                athletes = []
 
-                    weight['id'] = w.id
-                    weight['name'] = w.name
-                    weight['participants_count'] = w.participants.count()
-                    weight['sorting'] = w.sorting
+                weight['id'] = w.id
+                weight['name'] = w.name
+                weight['participants_count'] = w.participants.count()
+                weight['sorting'] = w.sorting
 
-                    for participant in w.participants.all():
-                        athlete = dict()
+                for participant in w.participants.all():
+                    athlete = dict()
 
-                        athlete['id'] = participant.id
-                        athlete['fio'] = f'{participant.firstName} {participant.lastName} {participant.thirdName}'
-                        athlete['discharge'] = participant.discharge
-                        athlete['year'] = participant.year
+                    athlete['id'] = participant.id
+                    athlete['fio'] = f'{participant.firstName} {participant.lastName} {participant.thirdName}'
+                    athlete['discharge'] = participant.discharge
+                    athlete['year'] = participant.year
 
-                        athletes.append(athlete)
+                    athletes.append(athlete)
 
-                    weight['athletes'] = athletes
-                    weights_cat.append(weight)
+                weight['athletes'] = athletes
+                weights_cat.append(weight)
 
-                weight_cat['weights'] = weights_cat
-                weights.append(weight_cat)
+            weight_cat['weights'] = weights_cat
+            weights.append(weight_cat)
 
-            return JsonResponse({
-                "status": "success",
-                "weights": weights
-            }, status=200)
-    else:
         return JsonResponse({
-            "status": "error",
-            "message": "You are not a superuser"
-        }, status=403)
+            "status": "success",
+            "weights": weights
+        }, status=200)
+
 
 
 def show_weight_categories_and_weights_update(request, tournament_id, weight_id):

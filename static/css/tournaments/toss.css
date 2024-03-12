@@ -68,6 +68,16 @@
     padding: 4px 6px;
     overflow-y: auto;
 }
+.toss__content__category__span {
+    display: block;
+    content: "";
+    width: 6px;
+    height: 100%;
+    position: absolute;
+    top: -30%;
+    right: 1px;
+    transform: rotate(-38deg);
+}
 ::-webkit-scrollbar {
     width: 6px
 }
@@ -86,10 +96,14 @@
     max-width: 450px;
     width: 100%;
     transition: all .3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    opacity: .85
 }
 .toss__content__category:hover {
     box-shadow: 0 0 10px rgb(20,20,20,.09);
     scale: 1.02;
+    opacity: 1
 }
 .toss__content__category h3 {
     font-size: 16px;

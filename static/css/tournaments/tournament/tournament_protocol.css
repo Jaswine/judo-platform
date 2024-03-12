@@ -1,0 +1,31 @@
+.tournament__participants__right {
+    overflow-x: auto;
+}
+.toss__content__place {
+    max-width: 350px;
+}
+.protocol__content__category {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+.protocol__content__category:hover {
+    scale: 1;
+    box-shadow: none;
+}
+.toss__content__four__place {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+.toss__content__four__place h4 {
+    margin: 12px 0;
+    font-size: 22px;
+    text-align: center;
+    width: 100%;
+}
+.toss__content__two__place {
+    margin-bottom: 8px;
+}

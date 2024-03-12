@@ -73,8 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
 
                 div.innerHTML = `
-                    ${category.gender == 'Мужской' ? "<i class='fa-solid fa-mars-stroke'></i>" : "<i class='fa-solid fa-venus'></i>" }
+                    ${category.gender == 'Мужской' ? "<i class='fa-solid fa-mars-stroke' style='color: #84BEFF'></i>" :
+                                                            "<i class='fa-solid fa-venus' style='color: #FF8080'></i>" }
                     <h3 class='toss__content__category__title'>${category.year}</h3>
+                    <span class="toss__content__category__span" style="background-color:${category.gender == 'Мужской' ? '#84BEFF' : '#FF8080' }" ></span>
                 `
             } else if (status == 'weights') {
                 // TODO: Weights
@@ -94,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (category.sorting) {
                             jsonGrid = JSON.parse(category.sorting)
                             renderContentPlaces(jsonGrid)
+                            renderTournamentCategoriesData([], 'athletes')
                         } else {
                             renderTournamentCategoriesData(globalAthletes, 'athletes')
                             renderContentPlaces(generateContentPlaces(jsonGrid, athletes_count))
@@ -284,58 +287,59 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Добавление DragOver и Drop к чему-то
     */
    function DropAndDragOverFormation(place, jsonGrid, i, j, key) {
-        if (dateTime < tournamentStartDateFormat) {
-            place.addEventListener('dragover', (e) => {
-                e.preventDefault();
-            }) 
-
-            place.addEventListener('drop', (e) => {
-                e.preventDefault();
-
-                const eDataId = e.dataTransfer.getData('text/plain');
-                const data = JSON.parse(eDataId)
-
-                const dropped = e.target;
-
-                if (dragged.parentNode.id == 'ContentLeftPeople') {
-                    const getAthleteFromContentLeftPeopleById = document.querySelector(`#${data.elementId}`)
-                    ContentLeftPeople.querySelector(`#${data.elementId}`)? ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById) : ""
-
-                    if (!dropped.querySelector('i')) {
-                        const div_cat = document.createElement('div')
-                        div_cat.classList.add('toss__content__category')
-
-                        let oldObj = {}
-                        oldObj['id'] = dropped.parentNode.id.slice(8)
-                        oldObj['fio'] = dropped.innerHTML
-
-                        FormationAthletesData(div_cat, oldObj)
-                        ContentLeftPeople.appendChild(div_cat)
-                    }
-                } else if (dragged.parentNode.id.slice(0, 5) == 'Place') {
-                    if (dropped.querySelector('i')) {
-                        let dragged_place = dragged.parentNode.id.slice(6).split('-')
-                        jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = {}
-                    } else {
-                        let oldObj = {}
-                        oldObj['id'] = dropped.parentNode.id.slice(8)
-                        oldObj['fio'] = dropped.innerHTML
-
-                        let dragged_place = dragged.parentNode.id.slice(6).split('-')
-                        jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = oldObj
-                    }
-                }
-                
-                let newObj = {}
-                newObj['id'] = data.id
-                newObj['fio'] = data.fio
-
-                jsonGrid[i][j][key] = newObj
-                renderContentPlaces(jsonGrid)
-            })
-        } else {
-            MessageRender("Срок изменения истек!", 'error')
+        if (dateTime > tournamentStartDateFormat) {
+            MessageRender('Срок изменения истек!', 'error')
+            return
         }
+
+        place.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        })
+
+        place.addEventListener('drop', (e) => {
+            e.preventDefault();
+
+            const eDataId = e.dataTransfer.getData('text/plain');
+            const data = JSON.parse(eDataId)
+
+            const dropped = e.target;
+
+            if (dragged.parentNode.id == 'ContentLeftPeople') {
+                const getAthleteFromContentLeftPeopleById = document.querySelector(`#${data.elementId}`)
+                ContentLeftPeople.querySelector(`#${data.elementId}`)? ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById) : ""
+
+                if (!dropped.querySelector('i')) {
+                    const div_cat = document.createElement('div')
+                    div_cat.classList.add('toss__content__category')
+
+                    let oldObj = {}
+                    oldObj['id'] = dropped.parentNode.id.slice(8)
+                    oldObj['fio'] = dropped.innerHTML
+
+                    FormationAthletesData(div_cat, oldObj)
+                    ContentLeftPeople.appendChild(div_cat)
+                }
+            } else if (dragged.parentNode.id.slice(0, 5) == 'Place') {
+                if (dropped.querySelector('i')) {
+                    let dragged_place = dragged.parentNode.id.slice(6).split('-')
+                    jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = {}
+                } else {
+                    let oldObj = {}
+                    oldObj['id'] = dropped.parentNode.id.slice(8)
+                    oldObj['fio'] = dropped.innerHTML
+
+                    let dragged_place = dragged.parentNode.id.slice(6).split('-')
+                    jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = oldObj
+                }
+            }
+
+            let newObj = {}
+            newObj['id'] = data.id
+            newObj['fio'] = data.fio
+
+            jsonGrid[i][j][key] = newObj
+            renderContentPlaces(jsonGrid)
+        })
    }
 
     getTournamentCategoriesWeights()

@@ -17,6 +17,9 @@
     width: 100%;
     padding: 4px 6px;
 }
+.tournament__participants__left__category {
+    border-right: none
+}
 .toss__participant__content__category {
     max-width: 100%;
     width: 100%;

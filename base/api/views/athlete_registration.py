@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 
 @csrf_exempt
 def show_weight_categories(request, id):
-    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
         tournament = Tournament.objects.get(id=id)
         weight_categories = WeightCategory.objects.filter(tournament=tournament)
         participants = Participant.objects.filter(user=request.user)
@@ -55,22 +54,27 @@ def show_weight_categories(request, id):
             }, status=200)
             
         if request.method == 'POST':
-            athlete = request.POST.get('athlete', None)
-            weight = request.POST.get('weight', None)
-            
-            print('Athlete: ' + athlete, 'Weight: ' + weight)
-            
-            if weight:
-                weigh = Weight.objects.get(id=weight)
-                weigh.participants.add(athlete)
-                
-                return JsonResponse({
-                    'message': 'Athlete added successfully'
-                }, status=200)
+            if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
+                athlete = request.POST.get('athlete', None)
+                weight = request.POST.get('weight', None)
+
+                print('Athlete: ' + athlete, 'Weight: ' + weight)
+
+                if weight:
+                    weigh = Weight.objects.get(id=weight)
+                    weigh.participants.add(athlete)
+
+                    return JsonResponse({
+                        'message': 'Athlete added successfully'
+                    }, status=200)
+                else:
+                    return JsonResponse({
+                        'message': 'Invalid weight'
+                    }, status=400)
             else:
                 return JsonResponse({
-                    'message': 'Invalid weight'
-                }, status=400)
+                    'message': "You don't have any permissions"
+                }, status=401)
             
         return JsonResponse({
             'message': 'Method not allowed',
@@ -78,7 +82,6 @@ def show_weight_categories(request, id):
     
 @csrf_exempt
 def list_of_registered_on_tournament(request, id):
-    if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
         tournament = Tournament.objects.get(id=id)
         weight_categories = WeightCategory.objects.filter(tournament=tournament)
         participants = Participant.objects.filter(user=request.user)
@@ -124,20 +127,25 @@ def list_of_registered_on_tournament(request, id):
             }, status=200)
             
         if request.method == 'POST':
-            athlete = request.POST.get('athlete', None)
-            weight = request.POST.get('weight', None)
-            
-            if weight:
-                weight_category = Weight.objects.get(id=weight) 
-                weight_category.participants.remove(athlete)
-                    
-                return JsonResponse({
-                    'message': 'Athlete added successfully'
-                }, status=200)
+            if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
+                athlete = request.POST.get('athlete', None)
+                weight = request.POST.get('weight', None)
+
+                if weight:
+                    weight_category = Weight.objects.get(id=weight)
+                    weight_category.participants.remove(athlete)
+
+                    return JsonResponse({
+                        'message': 'Athlete added successfully'
+                    }, status=200)
+                else:
+                    return JsonResponse({
+                        'message': 'Invalid weight'
+                    }, status=400)
             else:
                 return JsonResponse({
-                    'message': 'Invalid weight'
-                }, status=400)
+                    'message': "User don't have any permissions"
+                }, status=401)
             
         return JsonResponse({
             'message': 'Method not allowed',
