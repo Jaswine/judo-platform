@@ -8,7 +8,7 @@ from ..forms import CreateUserForm
 
 from ..models import Profile
 from django.contrib.auth.models import User
-from ..services import get_tournaments
+from ..services_file import get_tournaments
 
 
 """

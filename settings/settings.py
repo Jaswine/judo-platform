@@ -19,6 +19,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# RUN: python manage.py test base.tests.services.tournament_services_test
 
 # Application definition
 INSTALLED_APPS = [

@@ -1,152 +1,200 @@
 from django.views.decorators.csrf import csrf_exempt
-from base.models import Weight
+from ..utils.data_utils import takeYearFromDate
+from ..utils.response_utils import create_response
 from ...models import Tournament, WeightCategory, Participant, Weight
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
+
+from base.utils.check_user_permissions import check_user_permissions
+from ...services.participant_service import filter_participants_by_user, participant_exists
+from ...services.tournament_services import get_tournament_by_id
+from ...services.weight_category_services import filter_weight_categories_by_tournament
+from ...services.weight_services import get_weight_by_id, weight_exists
 
 
 @csrf_exempt
-def show_weight_categories(request, id):
-        tournament = Tournament.objects.get(id=id)
-        weight_categories = WeightCategory.objects.filter(tournament=tournament)
-        participants = Participant.objects.filter(user=request.user)
-        
-        if request.method == 'GET':
-            athletes = []
+def show_weight_categories(request, id: int):
+    """
+        Показывает список категорий весов для выбора и
+                добавляет определенного человека в весовую категорию
+    """
+    # Берем турнир
+    tournament = get_tournament_by_id(id)
+    # Берем весовые категории турнира
+    weight_categories = filter_weight_categories_by_tournament(tournament)
+    # Берем участников текущего пользователя
+    participants = filter_participants_by_user(request.user)
 
-            for participant in participants:
-                user = {}
-                weights_for_registration = []
-                only_year = int(str(participant.year).split('-')[0])
-                
-                for weight_category in weight_categories:
-                    user_in_weight_category_count = 0
-                    year_list = [int(i) for i in weight_category.year.split('-')]
-                    
-                    if len(year_list) == 2:
-                        year_list = [year_list[1] - i for i in range(year_list[1] - year_list[0] + 1) ]
-                        
-                    if only_year in year_list:
+    if request.method == 'GET':
+        """
+            Показывает список категорий весов для выбора
+        """
+        athletes = []
+
+        # Прокручиваем участников текущего пользователя
+        for participant in participants:
+            user, weights_for_registration = {}, []
+            # Берем только год из даты
+            only_year = takeYearFromDate(participant.year)
+
+            # Прокручиваем весовые категории
+            for weight_category in weight_categories:
+                user_in_weight_category_count, year_list = 0, [int(i) for i in weight_category.year.split('-')]
+
+                # Если в year_list указано 2 даты,
+                #   то создаем список, содержащий последовательные года от начального до конечного, включительно
+                if len(year_list) == 2:
+                    year_list = [year_list[1] - i for i in range(year_list[1] - year_list[0] + 1)]
+
+                # Проверяем, если год пользователя,
+                #                       находится в списке годов, что указано в списке категорий
+                if only_year in year_list:
+                    # Прокручиваем все веса в весовой категории
+                    for w in weight_category.weight.all():
+                        # Если вес пользователя есть в весах у весовой категории,
+                        #                               то меняем значение состояния пользователя
+                        if participant in w.participants.all():
+                            user_in_weight_category_count += 1
+
+                    # Если значение состояния пользователя равно 0
+                    if user_in_weight_category_count == 0:
+                        # Прокручиваем все веса в весовой категории
                         for w in weight_category.weight.all():
-                            if participant in w.participants.all():
-                                user_in_weight_category_count += 1
-                            
-                        if user_in_weight_category_count == 0:
-                            for w in weight_category.weight.all():
-                                if participant.gender == weight_category.gender:
-                                    weights_for_registration.append({
-                                        'id': w.id,
-                                        'name': w.name,
-                                    })
-                
-                if len(weights_for_registration) > 0:
-                    user['id'] = participant.id
-                    user['fio'] = f'{participant.lastName} {participant.firstName} {participant.thirdName}'
-                    user['discharge'] = participant.discharge
-                    user['gender'] = participant.gender
-                    user['year'] = only_year
-                    user['weights'] = weights_for_registration
-
-                    athletes.append(user)
-
-            return JsonResponse({
-                'athletes': athletes,
-            }, status=200)
-            
-        if request.method == 'POST':
-            if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
-                athlete = request.POST.get('athlete', None)
-                weight = request.POST.get('weight', None)
-
-                print('Athlete: ' + athlete, 'Weight: ' + weight)
-
-                if weight:
-                    weigh = Weight.objects.get(id=weight)
-                    weigh.participants.add(athlete)
-
-                    return JsonResponse({
-                        'message': 'Athlete added successfully'
-                    }, status=200)
-                else:
-                    return JsonResponse({
-                        'message': 'Invalid weight'
-                    }, status=400)
-            else:
-                return JsonResponse({
-                    'message': "You don't have any permissions"
-                }, status=401)
-            
-        return JsonResponse({
-            'message': 'Method not allowed',
-        }, status=402)
-    
-@csrf_exempt
-def list_of_registered_on_tournament(request, id):
-        tournament = Tournament.objects.get(id=id)
-        weight_categories = WeightCategory.objects.filter(tournament=tournament)
-        participants = Participant.objects.filter(user=request.user)
-        
-        if request.method == 'GET':
-            athletes = []
-
-            for participant in participants:
-                user = {}
-                weights_for_registration = []
-                only_year = int(str(participant.year).split('-')[0])
-                
-                for weight_category in weight_categories:
-                    user_in_weight_category_count = 0
-                    year_list = [int(i) for i in weight_category.year.split('-')]
-                    
-                    if len(year_list) == 2:
-                        year_list = [year_list[1] - i for i in range(year_list[1] - year_list[0] + 1) ]
-                        
-                    if only_year in year_list:
-                        for w in weight_category.weight.all():
-                            if participant in w.participants.all():
-                                user_in_weight_category_count += 1
-
+                            # Проверяем, что пол пользователя равен полу указанному в категории
+                            if participant.gender == weight_category.gender:
+                                # Добавляем вес в специальный список
                                 weights_for_registration.append({
                                     'id': w.id,
                                     'name': w.name,
                                 })
-                                
-                
-                if len(weights_for_registration) > 0:
-                    user['id'] = participant.id
-                    user['fio'] = f'{participant.lastName} {participant.firstName} {participant.thirdName}'
-                    user['discharge'] = participant.discharge
-                    user['gender'] = participant.gender
-                    user['year'] = only_year
-                    user['weights'] = weights_for_registration
 
-                    athletes.append(user)
+            # Если значение состояния пользователя больше 0
+            if len(weights_for_registration) > 0:
+                # Заполняем словарь пользователя
+                user['id'] = participant.id
+                user['fio'] = f'{participant.lastName} {participant.firstName} {participant.thirdName}'
+                user['discharge'], user['gender'] = participant.discharge,  participant.gender
+                user['year'], user['weights'] = only_year, weights_for_registration
 
-            return JsonResponse({
-                'athletes': athletes,
-            }, status=200)
-            
-        if request.method == 'POST':
-            if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
-                athlete = request.POST.get('athlete', None)
-                weight = request.POST.get('weight', None)
+                # Добавляем пользователя в список спортсменов
+                athletes.append(user)
 
-                if weight:
-                    weight_category = Weight.objects.get(id=weight)
+        return JsonResponse({
+            'status': 'success',
+            'athletes': athletes,
+        }, status=200)
+
+    if request.method == 'POST':
+        """
+            Добавляет определенного человека в вес в весовой категории
+        """
+        if check_user_permissions(request.user):
+            # Берем ID спортсмена и ID веса, куда надо его добавить
+            athlete = request.POST.get('athlete', None)
+            weight = request.POST.get('weight', None)
+
+            # Убеждаемся во взятии ID веса и ID спортсмена
+            if weight and athlete:
+                # Проверяем, что спортсмен и вес по данным ID существуют
+                if participant_exists(athlete) and weight_exists(weight):
+                    # Берем вес по ID
+                    weigh = get_weight_by_id(weight)
+                    # Добавляем в вес ID спортсмена
+                    weigh.participants.add(athlete)
+
+                    return create_response('Athlete added successfully', 200)
+                return create_response('Invalid weight and athlete', 400)
+            return create_response('Invalid weight', 400)
+        return create_response('You don\'t have any permissions', 401)
+    return create_response('Method not allowed', 402)
+
+
+@csrf_exempt
+def list_of_registered_on_tournament(request, id: int):
+    """
+        Показывает список категорий весов для выбора и
+                добавляет определенного человека в весовую категорию
+    """
+    # Берем турнир
+    tournament = get_tournament_by_id(id)
+    # Берем весовые категории турнира
+    weight_categories = filter_weight_categories_by_tournament(tournament)
+    # Берем участников текущего пользователя
+    participants = filter_participants_by_user(request.user)
+        
+    if request.method == 'GET':
+        """
+           Показывает список категорий весов для выбора
+        """
+        athletes = []
+
+        # Прокручиваем участников текущего пользователя
+        for participant in participants:
+            user, weights_for_registration = {}, []
+
+            # Берем только год из даты
+            only_year = takeYearFromDate(participant.year)
+
+            # Прокручиваем весовые категории
+            for weight_category in weight_categories:
+                user_in_weight_category_count, year_list = 0, [int(i) for i in weight_category.year.split('-')]
+
+                # Если в year_list указано 2 даты,
+                #   то создаем список, содержащий последовательные года от начального до конечного, включительно
+                if len(year_list) == 2:
+                    year_list = [year_list[1] - i for i in range(year_list[1] - year_list[0] + 1) ]
+
+                # Проверяем, если год пользователя,
+                #                       находится в списке годов, что указано в списке категорий
+                if only_year in year_list:
+                    # Прокручиваем все веса в весовой категории
+                    for w in weight_category.weight.all():
+                        # Если вес пользователь есть в весах у весовой категории,
+                        #                               то меняем значение состояния пользователя
+                        if participant in w.participants.all():
+                            user_in_weight_category_count += 1
+
+                            # Добавляем пользователя в список
+                            weights_for_registration.append({
+                                'id': w.id,
+                                'name': w.name,
+                            })
+
+            # Если значение состояния пользователя больше 0
+            if len(weights_for_registration) > 0:
+                # Заполняем словарь пользователя
+                user['id'] = participant.id
+                user['fio'] = f'{participant.lastName} {participant.firstName} {participant.thirdName}'
+                user['discharge'], user['gender'] = participant.discharge, participant.gender
+                user['year'], user['weights'] = only_year, weights_for_registration
+
+                # Добавляем пользователя в список спортсменов
+                athletes.append(user)
+
+        return JsonResponse({
+            'status': 'success',
+            'athletes': athletes,
+        }, status=200)
+
+    if request.method == 'POST':
+        """
+            Удаляем определенного человека из веса в весовой категории
+        """
+        if check_user_permissions(request.user):
+            # Берем ID спортсмена и ID веса, куда надо его добавить
+            athlete = request.POST.get('athlete', None)
+            weight = request.POST.get('weight', None)
+
+            # Убеждаемся во взятии ID веса и ID спортсмена
+            if weight and athlete:
+                # Проверяем, что спортсмен и вес по данным ID существуют
+                if participant_exists(athlete) and weight_exists(weight):
+                    # Берем вес по ID
+                    weight_category = get_weight_by_id(weight)
+                    # Удаляем ID спортсмена из веса
                     weight_category.participants.remove(athlete)
 
-                    return JsonResponse({
-                        'message': 'Athlete added successfully'
-                    }, status=200)
-                else:
-                    return JsonResponse({
-                        'message': 'Invalid weight'
-                    }, status=400)
-            else:
-                return JsonResponse({
-                    'message': "User don't have any permissions"
-                }, status=401)
-            
-        return JsonResponse({
-            'message': 'Method not allowed',
-        }, status=402)
+                    return create_response('Athlete removed successfully', 200)
+                return create_response('Invalid weight and athlete', 400)
+            return create_response('Invalid weight', 400)
+        return create_response('You don\'t have any permissions', 401)
+    return create_response('Method not allowed', 402)

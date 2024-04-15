@@ -7,7 +7,7 @@ from django.core.files.storage import FileSystemStorage
 
 from ..models import Tournament, Logos, WeightCategory, Sponsors, Participant, Weight
 from ..forms import UpdateTournamentMainInformationForm
-from ..services import get_tournaments
+from ..services_file import get_tournaments
 
 
 @csrf_exempt

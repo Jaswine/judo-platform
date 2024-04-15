@@ -4,9 +4,9 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 
-from ..services import get_user, get_user_profile
+from ..services_file import get_user, get_user_profile
 from ..forms import UpdateUserForm, UpdateProfileForm
-from ..utils import password_checking
+from ..utils_file import password_checking
 from ..models import Participant
 from django.db.models import Q
 

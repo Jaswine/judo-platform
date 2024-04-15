@@ -8,8 +8,8 @@ from django.forms import ValidationError, IntegerField
 
 from ..models import Tournament, Logos, WeightCategory, Sponsors, Weight ,Participant
 from ..forms import CreateTournamentForm, WeightCategoryForm
-from ..utils import slug_generator, checking_slug, generate_slug
-from ..services import get_tournaments, get_all_weight_category, get_user_profile
+from ..utils_file import slug_generator, checking_slug, generate_slug
+from ..services_file import get_tournaments, get_all_weight_category, get_user_profile
 from ..filters import TournamentFilter
 
 """ Вывод всех турниров """
