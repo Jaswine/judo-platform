@@ -5,7 +5,7 @@ from ...models import Tournament, WeightCategory, Participant, Weight
 from django.http import JsonResponse
 
 from base.utils.check_user_permissions import check_user_permissions
-from ...services.participant_service import filter_participants_by_user, participant_exists
+from ...services.participant_services import filter_participants_by_user, participant_exists
 from ...services.tournament_services import get_tournament_by_id
 from ...services.weight_category_services import filter_weight_categories_by_tournament
 from ...services.weight_services import get_weight_by_id, weight_exists
