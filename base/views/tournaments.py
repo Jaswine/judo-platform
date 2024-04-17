@@ -14,7 +14,6 @@ from ..services.weight_category_services import filter_weight_categories_by_tour
 from ..services.weight_services import get_weight_by_id, get_weight_list
 from ..utils.check_user_permissions_util import check_user_permissions
 from ..utils_file import slug_generator, checking_slug, generate_slug
-from ..services_file import get_tournaments, get_all_weight_category, get_user_profile
 from ..filters import TournamentFilter
 
 
