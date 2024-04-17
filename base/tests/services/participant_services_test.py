@@ -1,5 +1,5 @@
 from django.test import TestCase
-from base.services.participant_services import filter_participants_by_user, participant_exists
+from base.services.participant_services import filter_participants_by_user, participant_exists, get_participant
 from base.models import Participant
 from django.contrib.auth.models import User
 
@@ -19,10 +19,16 @@ class ParticipantServicesTestCase(TestCase):
 
     def test_filter_participants_by_user(self):
         # Проверяем, что функция возвращает только текущего пользователя турниры
-        users = filter_participants_by_user(self.user)
+        participants = filter_participants_by_user(self.user)
 
-        self.assertEqual(len(users), 2)
-        self.assertEqual(users[0], self.participant1)
+        self.assertEqual(len(participants), 2)
+        self.assertEqual(participants[0], self.participant1)
+
+    def test_get_participant(self):
+        # Проверяем, что функция возвращает только текущего пользователя турнира по id
+        participant = get_participant(self.participant1.id)
+
+        self.assertEqual(participant, self.participant1)
 
     def test_participant_exists(self):
         # Проверяем, что пользователь существует по id

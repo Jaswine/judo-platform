@@ -1,5 +1,5 @@
 from django.test import TestCase
-from base.services.tournament_services import get_public_tournaments, get_tournament_by_id
+from base.services.tournament_services import get_public_tournaments, get_tournament_by_id, get_tournament_by_slug
 from base.models import Tournament
 from django.contrib.auth.models import User
 import datetime
@@ -34,11 +34,11 @@ class TournamentServicesTestCase(TestCase):
 
         self.assertEquals(tournament, self.tournament1)
 
-    def test_get_tournament_by_id_not_exists(self):
-        # Проверяем, что функция возвращает None, если турнир с заданным id не существует
-        tournament = get_tournament_by_id(self.notExistsId)
+    def test_get_tournament_by_slug_exists(self):
+        # Проверяем, что функция возвращает правильный турнир, если он существует
+        tournament = get_tournament_by_slug(self.tournament1.slug)
 
-        self.assertIsNone(tournament)
+        self.assertEquals(tournament, self.tournament1)
 
     def test_get_public_tournaments(self):
         # Проверяем, что функция возвращает только публичные турниры и отсортированы по дате обновления

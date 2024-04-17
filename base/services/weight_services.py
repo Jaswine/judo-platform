@@ -14,6 +14,7 @@ def get_weight_list() -> list:
     """
     return Weight.objects.all()
 
+
 def weight_exists(id: int) -> bool:
     """
         Проверяет, существует ли вес по id
