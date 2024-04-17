@@ -13,7 +13,7 @@ def tournament_list(request):
     """
     if request.method == 'GET':
         # Создаем пустой словарь турниров и берем все турниры
-        data, tournament_list = [], get_public_tournaments()
+        data, tournament_list = [], get_public_tournaments().order_by('-updated')
 
         # Берем данные поиска и фильтрации
         search = request.GET.get('search')

@@ -4,7 +4,7 @@ from base.models import Tournament, Weight
 from base.services.tournament_services import get_tournament_by_id
 from base.services.weight_category_services import filter_weight_categories_by_tournament
 from base.services.weight_services import get_weight_by_id
-from base.utils.check_user_permissions import check_user_permissions
+from base.utils.check_user_permissions_util import check_user_permissions
 
 
 def show_weight_categories_and_weights(request, id: int):

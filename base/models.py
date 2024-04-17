@@ -11,7 +11,7 @@ class Profile(models.Model):
       ('Секретарь', 'Секретарь'),
       ('Свободный', 'Свободный')
    )
-   user = models.OneToOneField(User, on_delete=models.CASCADE)
+   user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
    
    fullName = models.CharField(max_length=100, blank=True)
    phone = models.CharField(max_length=12, blank=True)
@@ -99,7 +99,7 @@ class Tournament(models.Model):
       ('Регистрация завершенa', 'Регистрация завершенa'),
    )
    
-   user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+   user = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
    title = models.CharField(max_length=300, verbose_name='Title')
    slug = models.SlugField(max_length=300, unique=True, default='')
    logo = models.ImageField(upload_to='tournament_logo', blank=True)

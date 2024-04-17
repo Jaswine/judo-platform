@@ -6,93 +6,101 @@ from django.contrib import messages
 
 from ..models import Participant
 from ..forms import ParticipantForm
+from ..services.participant_services import get_participant
+from ..utils.check_user_permissions_util import check_user_permissions
 
 
-"""
-   Страница добавления нового спортсмена
-"""
 @login_required(login_url='base:login')
 def add_new_athlete(request):
-   page_type = 'add_new_athlete'
-   
-   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
-      form = ParticipantForm()
-      
-      if request.method == 'POST':
-         
-         form = ParticipantForm(request.POST)
-         coach = request.POST.get('coach', request.user.profile.fullName)
-         
-         if form.is_valid():
-            athlete = form.save(commit=False)
-            
-            athlete.user = request.user
-            athlete.coach = coach
-            
-            athlete.save()
-            
-            return redirect('base:show_all_athletes', request.user.username)
-               
-      context = {
-         'page_type': page_type,         
-         'form': form
-      }
-      return render(request, 'base/profile/athlete/add_athlete.html', context)
-   else:
-      messages.error(request, "You don't have permission to create tournament ;)")
-      return redirect('base:show_tournaments')
-   
-"""
-   Страница обновления выбранного спортсмена взятого по ID
-"""
+    """
+        Страница добавления нового спортсмена
+   """
+    if check_user_permissions(request.user):
+        # Инициализируем форму
+        form = ParticipantForm()
+
+        if request.method == 'POST':
+            # Берем данные из формы
+            form = ParticipantForm(request.POST)
+            # Берем тренера
+            coach = request.POST.get('coach', request.user.profile.fullName)
+
+            # Проверяем валидность
+            if form.is_valid():
+                # Сохраняем данные без явного сохранения
+                athlete = form.save(commit=False)
+
+                # Добавляем текущего пользователя и тренера
+                athlete.user = request.user
+                athlete.coach = coach
+
+                # Сохраняем данные
+                athlete.save()
+
+                return redirect('base:show_all_athletes', request.user.username)
+
+        return render(request, 'base/profile/athlete/add_athlete.html', {
+            'page_type': 'add_new_athlete',
+            'form': form
+        })
+    else:
+        messages.error(request, "У вас недостаточно прав")
+        return redirect('base:show_tournaments')
+
+
 @login_required(login_url='base:login')
 def update_athlete(request, athlete_id):
-   page_type = 'update_athlete'
-   athlete = Participant.objects.get(id=athlete_id)
-   
-   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):
-      form = ParticipantForm(instance=athlete)
-      
-      if request.method == 'POST':
-         
-         form = ParticipantForm(request.POST, instance=athlete)
-         coach = request.POST.get('coach', request.user.profile.fullName)
-         
-         if form.is_valid():
-            athlete = form.save(commit=False)
-            athlete.coach = coach
-            athlete.save()
-            
-            return redirect('base:show_all_athletes', request.user.username)
-               
-      context = {
-         'page_type': page_type,
-                  
-         'form': form,
-         'athlete': athlete,         
-      }
-      return render(request, 'base/profile/athlete/add_athlete.html', context)
-   else:
-      messages.error(request, "You don't have permission to create tournament ;)")
-      return redirect('base:show_tournaments')
+    """
+        Страница обновления выбранного спортсмена взятого по ID
+    """
+    # Берем спортсмена по id
+    athlete = get_participant(athlete_id)
 
-"""
-   Страница удаления выбранного спортсмена взятого по ID
-"""
+    if check_user_permissions(request.user):
+        # Инициализируем форму
+        form = ParticipantForm(instance=athlete)
+
+        if request.method == 'POST':
+            # Берем данные из формы
+            form = ParticipantForm(request.POST, instance=athlete)
+            coach = request.POST.get('coach', request.user.profile.fullName)
+
+            if form.is_valid():
+                # Сохраняем данные
+                athlete = form.save(commit=False)
+                athlete.coach = coach
+                athlete.save()
+
+                return redirect('base:show_all_athletes', request.user.username)
+
+        return render(request, 'base/profile/athlete/add_athlete.html', {
+            'page_type': 'update_athlete',
+
+            'form': form,
+            'athlete': athlete,
+        })
+    else:
+        messages.error(request, "У вас недостаточно прав")
+        return redirect('base:show_tournaments')
+
+
 @login_required(login_url='base:login')
 def delete_athlete(request, athlete_id):
-   page_type = 'delete_athlete'
-   athlete = Participant.objects.get(id=athlete_id)
-   
-   if (request.user.profile.userType == 'Админ' or request.user.is_superuser or request.user.profile.userType == 'Секретарь'):      
-      if request.method == 'POST':
-         athlete.delete()
-         return redirect('base:show_all_athletes', request.user.username)
-               
-      context = {
-         'page_type': page_type,
-      }
-      return render(request, 'base/profile/athlete/delete_athlete.html', context)
-   else:
-      messages.error(request, "You don't have permission to create tournament ;)")
-      return redirect('base:show_tournaments')
+    """
+         Страница удаления выбранного спортсмена взятого по ID
+    """
+    # Берем спортсмена по id
+    athlete = get_participant(athlete_id)
+
+    if check_user_permissions(request.user):
+        if request.method == 'POST':
+            # Удаляем пользователя
+            athlete.delete()
+            return redirect('base:show_all_athletes', request.user.username)
+
+        return render(request, 'base/profile/athlete/delete_athlete.html', {
+            'page_type': 'delete_athlete',
+        })
+    else:
+        messages.error(request, "У вас недостаточно прав")
+        return redirect('base:show_tournaments')

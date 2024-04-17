@@ -1,5 +1,5 @@
 from django.test import TestCase
-from base.utils.check_user_permissions import check_user_permissions
+from base.utils.check_user_permissions_util import check_user_permissions
 from django.contrib.auth.models import User
 
 

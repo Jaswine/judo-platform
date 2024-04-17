@@ -53,7 +53,6 @@ urlpatterns = [
    path('tournaments/<str:slug>/panel/delete-tournament', tournament_admin.tournamets_admin_delete, name='tournamets_admin_delete'),
    
    path('tournaments/<str:slug>/panel/categories/<str:year>/<str:gender>/athletes', tournament_admin.athletes_admin_category, name='athletes_admin_category'),
-   # path('tournaments/<str:slug>/panel/categories/<str:category_slug>/toss', tournament_admin.toss_admin_category, name='toss_admin_category'),
 
    # Weight Categoris
    path('tournaments/weight-categories/<str:slug>', tournaments.weight_categories, name='weight_categories'),

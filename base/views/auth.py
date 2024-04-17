@@ -1,91 +1,87 @@
 from django.shortcuts import render, redirect
+
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
-
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import check_password
+
 from ..forms import CreateUserForm
-
-from ..models import Profile
-from django.contrib.auth.models import User
-from ..services_file import get_tournaments
+from ..services.tournament_services import get_public_tournaments
+from ..services.user_services import user_exists_by_email, user_exists_by_username, get_user_by_email
 
 
-"""
-   Главная страница 
-"""
 def index(request):
-   tournaments = get_tournaments().order_by('-updated')[:3]
-   
-   context = {
-      'tournaments': tournaments,     
-   }
-   return render(request, 'base/index.html', context)
+    """
+       Главная страница
+   """
+    # Берем все публичные турниры
+    tournaments = get_public_tournaments().order_by('-updated')[:3]
 
-"""
-   Страница регистрации новых пользователей
-"""
+    return render(request, 'base/index.html', {
+        'tournaments': tournaments,
+    })
+
+
 def registration_view(request):
-   page_type = 'registration'
-   
-   form = CreateUserForm()
-   
-   if request.method == 'POST':
-      # get data from form
-      form = CreateUserForm(request.POST)
-      
-      # check if form is valid
-      if form.is_valid():
-         new_user = form.save(commit=False)
-         new_user.save()
-         
-         # create user profile
-         profile = Profile.objects.create(
-            user = new_user, 
-            userType = 'Свободный'
-         )
-         profile.save()
-         
-         login(request, new_user)
-         
-         # login user
-         return redirect('base:index')
-         
-   context = {
-      'page_type': page_type, 
-      'form': form
-   }
-   return render(request, 'base/auth.html', context)
+    """
+         Регистрация новых пользователей
+    """
+    # Берем форму
+    form = CreateUserForm()
 
-"""
-   Страница аутентификации пользователей
-"""
+    if request.method == 'POST':
+        # Берем данные формы
+        form = CreateUserForm(request.POST)
+
+        # Проверяем форму на валидность
+        if form.is_valid():
+            # Сохраняем данные
+            new_user = form.save(commit=False)
+            # Проверяем, что такого пользователя не существует
+            if user_exists_by_username(new_user.username) or user_exists_by_email(new_user.email):
+                # Возвращаем сообщение об ошибке, если пользователь уже существует
+                messages.error(request, 'Имя пользователя или почта уже занята')
+            else:
+                new_user.save()
+
+                # Вход в аккаунт
+                login(request, new_user)
+                return redirect('base:index')
+
+    return render(request, 'base/auth.html', {
+        'page_type': 'registration',
+        'form': form,
+    })
+
+
 def login_view(request):
-   page_type = 'login'
-   
-   if request.method == 'POST':
-      # get data from form
-      email = request.POST.get('email')
-      password = request.POST.get('password')
-            
-      try:
-         user = User.objects.get(email=email)
-         
-         if check_password(password, user.password):
-            login(request, user)
-            return redirect('base:index')
-         
-      except:
-         messages.error(request, 'Email or Password is incorrect')
-   
-   context = {
-      'page_type': page_type,
-   }
-   return render(request, 'base/auth.html', context)
+    """
+      Вход пользователя в аккаунт
+    """
+    if request.method == 'POST':
+        # Взятие данных из формы
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
-"""
-   Выход пользователя из аккаунта
-"""
+        try:
+            # Взятие пользователя по email
+            user = get_user_by_email(email)
+
+            # Проверка пароля
+            if check_password(password, user.password):
+                # Входим в аккаунт
+                login(request, user)
+                return redirect('base:index')
+        except Exception as e:
+            messages.error(request, 'Email or Password is incorrect')
+
+    return render(request, 'base/auth.html', {
+        'page_type': 'login',
+    })
+
+
 def logout_view(request):
-   logout(request)
-   return redirect('base:index') 
+    """
+      Выход пользователя из аккаунта
+    """
+    logout(request)
+    return redirect('base:index')
