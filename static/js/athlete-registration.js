@@ -1,8 +1,10 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const left_body = document.querySelector('.athlete_regisration__left__body')
     const TournamentID = document.querySelector('#TournamentID').value
 
+    /**
+     *   TODO: Взятие всех не зарегестрированных спортсменов
+     */
     const getAthletes = () => {
         fetch(`/api/athlete-registration/${TournamentID}/`)
             .then((response) => response.json())
@@ -50,6 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
             })
     }
 
+    /*
+        TODO: Возможность зарегестрировать спортсмена, 
+        TODO:                               нажав на спец кнопку
+    */
     left_body.addEventListener('click', (e) => {
         if (e.target.classList.contains('btn')) {
             const athlete  = e.target.parentNode

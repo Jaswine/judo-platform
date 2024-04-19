@@ -7,14 +7,20 @@ const slider__right = document.getElementById('slider__right');
 let item = 0
 let images_count = images.length - 1
 
+ /**
+ *   TODO: Изменение пути изображения
+ */
 const changeSrc = (slider__gallery, images, item) => {
    slider__gallery.src = images[item].src;
 }
 
 changeSrc(slider__gallery, images, 0)
 
+ /**
+ *   TODO: Изменение фото, при нажатии на левую кнопку
+ */
 slider__left.addEventListener('click', () => {
-   if ( item >  0) {
+   if (item >  0) {
       item-=1;
    } else {
       item = images_count
@@ -22,6 +28,10 @@ slider__left.addEventListener('click', () => {
    changeSrc(slider__gallery, images, item)
 })
 
+
+ /**
+ *   TODO: Изменение фото, при нажатии на правую кнопку
+ */
 slider__right.addEventListener('click', () => {
    if (item < images_count) {
       item += 1;

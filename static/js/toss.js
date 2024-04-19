@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const messages = document.querySelector('.global__messages')
     const dateTime = new Date()
 
-    // Query Selector
+    // TODO: Для взятия элемента с помощью querySelector
     const querySelector = (selector) => { return document.querySelector(selector) }
 
     // Tournament Data
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /*
-        TODO: Взятие категорий с апи
+        TODO: Взятие данных с апи
     */
     const getTournamentCategoriesWeights = async () => {
         const response = await fetch(`/api/tournament/${tournamentId}/show-all-categories-weights/`)
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-        TODO: Рендеринг категорий
+        TODO: Рендеринг данных
     */
     function renderTournamentCategoriesData(data, status='') {
         if (status == 'categories') { // TODO: Categories
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* 
         TODO: Генерация базовой сетки, 
-        TODO:               куда будут вставляться пользователи
+        TODO:               куда будут вставляться спортсмены
     */
     function generateContentPlaces(jsonGrid, num) {
         let baseNumber = 4
@@ -251,13 +251,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             const div = document.createElement('div')
             div.classList.add('little-people')
-            div.innerHTML = "Not many people in the area"
+            div.innerHTML = "Слишком мало людей"
             ContentRight.appendChild(div)
         }
     }
 
     /* 
-        TODO: Формирование компонента студента
+        TODO: Формирование компонента спортсмена
     */
     function FormationAthletesData(div, category) {
         div.innerHTML = `
@@ -271,9 +271,11 @@ document.addEventListener('DOMContentLoaded', () => {
         newObj['id'] = category.id
         newObj['fio'] = category.fio
         newObj['elementId'] = id
-
-        div.style.cursor = 'grab'
-        div.draggable = true
+        
+        if (dateTime <= tournamentStartDateFormat) {
+            div.style.cursor = 'grab'
+            div.draggable = true
+        }
 
         div.addEventListener('dragstart', (e) => {
             dragged = e.target;
@@ -284,11 +286,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-        TODO: Добавление DragOver и Drop к чему-то
+        TODO: Добавление DragOver и Drop к спортсменам
     */
    function DropAndDragOverFormation(place, jsonGrid, i, j, key) {
         if (dateTime > tournamentStartDateFormat) {
-            MessageRender('Срок изменения истек!', 'error')
             return
         }
 
@@ -344,12 +345,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     getTournamentCategoriesWeights()
 
+     /*
+        TODO: Проверка, что сетка полностью заполнена
+    */
+    function JsonGridCheckFull(data) {
+        let allFilled = true
+
+        for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < data[i].length; j++) { 
+                for (const key in data[i][j]) {
+                    if (Object.hasOwnProperty.call(data[i][j], key)) {                          
+                        if (!data[i][j][key]) {
+                            allFilled = false
+                            break
+                        }
+                    }
+                }
+            }
+        }
+
+        return allFilled
+    }
+    
+
     /*
-        TODO: Отрисовка
+        TODO: Кнопка с отрисовкой схемы
     */
     DrawSorting.addEventListener('click', () => {
         if (dateTime > tournamentStartDateFormat) {
-            MessageRender('Срок изменения истек!', 'error')
+            MessageRender('Срок возможности изменения истек', 'error')
             return
         }
         
@@ -396,11 +420,11 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     /*
-        TODO: Очистка всех данных в схеме
+        TODO: Кнопка с очисткой всех данных в схеме
     */
     ClearSorting.addEventListener('click', () => {
         if (dateTime > tournamentStartDateFormat) {
-            MessageRender('Срок изменения истек!', 'error')
+            MessageRender('Срок возможности изменения истек!', 'error')
             return
         }
 
@@ -427,12 +451,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+
     /*
-        TODO: Подтверждение и сохранение
+        TODO: Кнопка с подтверждением и сохранением данных
     */
     ConfirmSorting.addEventListener('click', async () => {
         if (dateTime > tournamentStartDateFormat) {
-            MessageRender('Срок изменения истек!', 'error')
+            MessageRender('Срок возможности изменения истек!', 'error')
             return
         }
 
@@ -475,26 +500,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+
     /*
-        TODO: Проверка, что сетка полностью заполнена
+        TODO: Кнопка скрытия 2 списков категорий,
+        TODO:                    при нажатии на кнопку c ID =
     */
-    function JsonGridCheckFull(data) {
-        let allFilled = true
-
-        for (let i = 0; i < data.length; i++) {
-            for (let j = 0; j < data[i].length; j++) { 
-                for (const key in data[i][j]) {
-                    if (Object.hasOwnProperty.call(data[i][j], key)) {                          
-                        if (!data[i][j][key]) {
-                            allFilled = false
-                            break
-                        }
-                    }
-                }
-            }
+    HideContentCategories.addEventListener('click', () => {
+        if (ContentLeft.style.gridTemplateColumns == '' 
+            || ContentLeft.style.gridTemplateColumns == '30% 15% 55%' ) {
+            changeHideContentCategoriesStyles( '0 0 100%', 0, 0)
+        } else {
+            changeHideContentCategoriesStyles('30% 15% 55%', 1, 1)
         }
+    })
 
-        return allFilled
+    /*
+        TODO: Функция изменяющая ширину и прозрачность блоков
+        TODO:                           для кнопки скрытия списков категорий
+    */
+    function changeHideContentCategoriesStyles(gtc, catOpac, weightOpac ) {
+        ContentLeft.style.gridTemplateColumns = gtc
+
+        ContentLeftCategories.style.opacity = catOpac
+        ContentLeftWeights.style.opacity = weightOpac
     }
 
 
@@ -509,7 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch (status) {
             case "success": 
-                div.style.backgroundColor = `#10ef7f`;
+                div.style.backgroundColor = `#44D28B`;
                 break;
             case "error":
                 div.style.backgroundColor = `#ff5b5b`;
@@ -521,36 +549,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 div.style.backgroundColor = `#a1a1a1`;
                 break;
         }
+        
+        messages.appendChild(div)
 
         setTimeout(() => {
             div.style.opacity = 0
 
             setTimeout(() => {
-                div.style.display = 'none'
+                messages.removeChild(div)
             }, 300)
-        }, 3000)
-        
-        messages.appendChild(div)
-   }
-
-
-    /*
-        TODO: Скрытие 2 списков категорий,
-        TODO:                    при нажатии на кнопку c ID =
-    */
-    HideContentCategories.addEventListener('click', () => {
-        if (ContentLeft.style.gridTemplateColumns == '' 
-            || ContentLeft.style.gridTemplateColumns == '30% 15% 55%' ) {
-            changeHideContentCategoriesStyles( '0 0 100%', 0, 0)
-        } else {
-            changeHideContentCategoriesStyles('30% 15% 55%', 1, 1)
-        }
-    })
-
-    function changeHideContentCategoriesStyles(gtc, catOpac, weightOpac ) {
-        ContentLeft.style.gridTemplateColumns = gtc
-
-        ContentLeftCategories.style.opacity = catOpac
-        ContentLeftWeights.style.opacity = weightOpac
+        }, 5000)
     }
+
 })

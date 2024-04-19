@@ -1,14 +1,18 @@
 const messages = document.querySelectorAll('.message');
 const message_closes = document.querySelectorAll('.message_close');
 
-// Close Message When U Click on Button
+/**
+ *  TODO: Закрытие сообщений по нажатию на спец кнопку
+ */
 for (let i=0; i<messages.length; i++) {
    message_closes[i].onclick = () => {
       messages[i].style.display = 'none';
    }
 }
 
-// Close Message When U Click on Escape or Delete
+/**
+ *  TODO: Закрытие сообщений по нажатию на Escape
+ */
 addEventListener('keydown', (e) => {
    for (let i=0; i<messages.length; i++) {
       if (e.key === 'Delete' || e.key === 'Escape') {

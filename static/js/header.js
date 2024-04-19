@@ -13,7 +13,6 @@ mobile__menu.onclick = () => {
          header__right.style.right = '0'
       }, 300)
    } else {
-      console.log('close')
       header__center.style.display = 'none'
       header__right.style.display = 'none'
    }
