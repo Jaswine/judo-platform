@@ -28,10 +28,18 @@
 }
 .toss__participant__content__category__spec {
     background-color: transparent;
+    border: none;
+}
+.toss__participant__content__category__spec:hover {
+    scale: 1;
+    box-shadow: none;
 }
 .toss__participant__content__category h4 {
     font-size: 16px;
     font-weight: 400;
+}
+.toss__participant__content__category__spec h4 {
+    font-weight: bold;
 }
 #ContentRight h2 {
     margin: 2vh 0 3vh ;

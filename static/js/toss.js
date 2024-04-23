@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const ContentLeft = querySelector('#ContentLeft')
     const ContentRight = querySelector('#ContentRight')
+    const Content = querySelector('#TossContent')
 
 
     /*
@@ -97,6 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             jsonGrid = JSON.parse(category.sorting)
                             renderContentPlaces(jsonGrid)
                             renderTournamentCategoriesData([], 'athletes')
+
+                            if (JsonGridCheckFull(jsonGrid)) {
+                                createTournamentOrganizationButton()
+                            }
                         } else {
                             renderTournamentCategoriesData(globalAthletes, 'athletes')
                             renderContentPlaces(generateContentPlaces(jsonGrid, athletes_count))
@@ -288,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /*
         TODO: Добавление DragOver и Drop к спортсменам
     */
-   function DropAndDragOverFormation(place, jsonGrid, i, j, key) {
+    function DropAndDragOverFormation(place, jsonGrid, i, j, key) {
         if (dateTime > tournamentStartDateFormat) {
             return
         }
@@ -327,9 +332,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     let oldObj = {}
                     oldObj['id'] = dropped.parentNode.id.slice(8)
-                    oldObj['fio'] = dropped.innerHTML
+                    oldObj['fio'] = dropped.textContent.trim()
 
                     let dragged_place = dragged.parentNode.id.slice(6).split('-')
+                    console.log("OLD OBJ: ", oldObj)
                     jsonGrid[dragged_place[0]][dragged_place[1]][dragged_place[2]] = oldObj
                 }
             }
@@ -342,8 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
             renderContentPlaces(jsonGrid)
         })
    }
-
-    getTournamentCategoriesWeights()
 
      /*
         TODO: Проверка, что сетка полностью заполнена
@@ -366,8 +370,132 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return allFilled
     }
-    
 
+    getTournamentCategoriesWeights()
+    
+    /*
+        TODO: Кнопка организации турнира по категориям
+    */
+    function createTournamentOrganizationButton() {
+        const button = renderTournamentOrganizationButton('Проведение турнира', 
+                                                            '<i class="fa-solid fa-play"></i>',
+                                                            'btnTournamentOrganization')
+        ContentRight.appendChild(button)
+
+        button.addEventListener('click', () => {
+            openTournamentOrganizationWindow()
+        })
+    }
+
+    /*
+        TODO: Рендеринг кнопки
+    */
+    function renderTournamentOrganizationButton(title, text, selector) {
+        const button = document.createElement('button')
+        button.classList.add('btn', selector)
+        button.title = title
+        button.type = 'button'
+        button.innerHTML = text
+        return button;
+    }
+
+    /*
+        TODO: Открытия окна проведения турнира 
+    */
+    function openTournamentOrganizationWindow() {
+        const div = document.createElement('div')
+        div.classList.add('tournament-organization-window')
+        
+        const button = renderTournamentOrganizationButton('Сортировка', 
+                                                            '<i class="fa-solid fa-play"></i>',
+                                                            'btnTournamentToss')
+        div.appendChild(button)
+
+        renderGridForTournamentOrganization(jsonGrid, div)
+
+        Content.appendChild(div)
+
+        button.addEventListener('click', () => {
+            div.removeChild(button)
+            Content.removeChild(div)
+        })
+    }
+    
+    /*
+        TODO: Рендеринг сетки для проведения турнира
+    */
+    function renderGridForTournamentOrganization(data, place) {
+        console.log("DATA: ", data)
+        ContentRight.innerHTML = ''
+
+        for (let i = 0; i < data.length; i++) {
+            // Создаем резерв
+            const data_reverse = data[i]
+
+            const pre_div = document.createElement('div')
+            pre_div.classList.add('tournament_organization__four__place')
+
+            switch (i) {
+                case 0:
+                    pre_div.innerHTML += "<h4> Резерв A </h4>"
+                    break
+                case 1:
+                    pre_div.innerHTML += "<h4> Резерв B </h4>"
+                    break
+                case 2:
+                    pre_div.innerHTML += "<h4> Резерв C </h4>"
+                    break
+                case 3:
+                    pre_div.innerHTML += "<h4> Резерв D </h4>"
+                    break
+            }
+
+            for (let j = 0; j < data_reverse.length; j++) {
+                // Создаем поединок
+                const div = document.createElement('div')
+                div.classList.add('tournament_organization__two__place')
+                div.id = `Place-${i}-${j}`
+
+                let obj = data_reverse[j]
+                
+                if (Object.keys(obj).length == 2) {
+                    div.classList.add('toss__content__two__place__fight')
+                }
+
+                for (const key in obj) {
+                    // Создаем спортсмена в поединке
+                    if (Object.hasOwnProperty.call(obj, key)) {
+                        const div_el = document.createElement('div')
+                        div_el.classList.add('tournament_organization__participant')
+
+                        const id = `Place-${i}-${j}-${key}`
+                        div_el.id = id
+
+                        if (i % 2 == 0) {
+                            div_el.style.backgroundColor = 'rgb(87,127,220, .2)'
+                        }
+
+                        if (obj[key] && obj[key].length != 0) {
+                            if (Object.keys(obj[key]).length) {
+                                div_el.id = `Element-${obj[key].id}`
+                                div_el.innerHTML = `
+                                    <h3 class='toss__content__category__title'>${obj[key].fio}</h3>
+                                `
+                            }
+                        }
+
+                        div.appendChild(div_el)
+                    }
+
+                }
+
+                pre_div.appendChild(div)
+            }
+
+            place.appendChild(pre_div)
+        }
+    }
+    
     /*
         TODO: Кнопка с отрисовкой схемы
     */
@@ -389,13 +517,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let sorted_athletes = globalAthletes.sort(() => Math.random() - 0.5)
 
-        let data = jsonGrid
-        
-        if (data.length >= 2) {
+        if (jsonGrid.length >= 2) {
             let c = 0
-            for (let i = 0; i < data.length; i++) {
-                for (let j = 0; j < data[i].length; j++) {
-                    let obj = data[i][j]
+            for (let i = 0; i < jsonGrid.length; i++) {
+                for (let j = 0; j < jsonGrid[i].length; j++) {
+                    let obj = jsonGrid[i][j]
 
                     for (const key in obj) {
                         if (Object.hasOwnProperty.call(obj, key)) {
@@ -403,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             const getAthleteFromContentLeftPeopleById = document.querySelector(`#Element-${el.id}`)
                             ContentLeftPeople.querySelector(`#Element-${el.id}`)? 
-                                ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById) : ""
+                            ContentLeftPeople.removeChild(getAthleteFromContentLeftPeopleById) : ""
 
                             obj[key] = el
                             c++
@@ -416,7 +542,7 @@ document.addEventListener('DOMContentLoaded', () => {
             MessageRender('Слишком мало людей для сортировки!', 'error')
         }
 
-        renderContentPlaces(data)
+        renderContentPlaces(jsonGrid)
     })
 
     /*
@@ -482,6 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     formData.append('data', JSON.stringify(jsonGrid))
                     formData.append('csrfmiddlewaretoken', csrfToken.value);
 
+                    console.log('jsonGrid', jsonGrid)
                     fetch(`/api/tournaments/${tournamentId}/weight/${currentWeight}/update`, {
                         method: 'POST',
                         body: formData,
@@ -497,6 +624,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             MessageRender('Слишком мало людей!', 'error')
+        }
+
+        if (JsonGridCheckFull(jsonGrid)) {
+            createTournamentOrganizationButton()
         }
     })
 

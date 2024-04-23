@@ -7,7 +7,7 @@
 {% endblock title %}
    
 {% block content %}
-<div class="toss">
+   <div class="toss" id="Toss">
    <input type="hidden" value='{{ tournament.id }}' id='TournamentId'  />
 
    <input type="hidden" value='{{ tournament.startData }}' id='TournamentStartDate'  />
@@ -50,7 +50,7 @@
       </div>
    </div>
 
-   <div class="toss__content">
+   <div class="toss__content" id="TossContent">
       <div class="toss__content__left" id="ContentLeft" >
          <div class="toss__content__left__category" id="ContentLeftCategories"></div>
          <div class="toss__content__left__category" id="ContentLeftWeights"></div>

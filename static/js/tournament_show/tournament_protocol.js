@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 class='toss__content__category__title'>${category.name}</h3>
                 `
 
-                console.log(category.sorting)
                 if (category.sorting && category.sorting.length > 1) {
                     div.addEventListener('click', () => {
                         currentWeightName = category.name
@@ -85,38 +84,45 @@ document.addEventListener('DOMContentLoaded', () => {
         TODO: Рендеринг сетки в виде полей
     */
     function renderContentPlaces(data) {
+        console.log("DATA: ", data)
         ContentRight.innerHTML = ''
 
         for (let i = 0; i < data.length; i++) {
+            // Создаем резерв
             const data_reverse = data[i]
 
             const pre_div = document.createElement('div')
             pre_div.classList.add('toss__content__four__place')
 
-            console.log(i)
             switch (i) {
                 case 0:
-                    pre_div.innerHTML += "<h4> Pool A </h4>"
+                    pre_div.innerHTML += "<h4> Резерв A </h4>"
                     break
                 case 1:
-                    pre_div.innerHTML += "<h4> Pool B </h4>"
+                    pre_div.innerHTML += "<h4> Резерв B </h4>"
                     break
                 case 2:
-                    pre_div.innerHTML += "<h4> Pool C </h4>"
+                    pre_div.innerHTML += "<h4> Резерв C </h4>"
                     break
                 case 3:
-                    pre_div.innerHTML += "<h4> Pool D </h4>"
+                    pre_div.innerHTML += "<h4> Резерв D </h4>"
                     break
             }
 
             for (let j = 0; j < data_reverse.length; j++) {
+                // Создаем поединок
                 const div = document.createElement('div')
                 div.classList.add('toss__content__two__place')
                 div.id = `Place-${i}-${j}`
 
                 let obj = data_reverse[j]
+                
+                if (Object.keys(obj).length == 2) {
+                    div.classList.add('toss__content__two__place__fight')
+                }
 
                 for (const key in obj) {
+                    // Создаем спортсмена в поединке
                     if (Object.hasOwnProperty.call(obj, key)) {
                         const div_el = document.createElement('div')
                         div_el.classList.add('toss__content__place')
@@ -128,16 +134,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             div_el.style.backgroundColor = 'rgb(87,127,220, .2)'
                         }
 
-                        div_el.innerHTML += `<i class="non-selectable">${key}.</i>`
-
                         if (obj[key] && obj[key].length != 0) {
                             if (Object.keys(obj[key]).length) {
-                                const div_cat = document.createElement('div')
-                                div_cat.classList.add('toss__content__category', 'protocol__content__category')
-
-                                FormationAthletesData(div_cat, obj[key])
-
-                                div_el.appendChild(div_cat)
+                                div_el.id = `Element-${obj[key].id}`
+                                div_el.innerHTML = `
+                                    <h3 class='toss__content__category__title'>${obj[key].fio}</h3>
+                                `
                             }
                         }
 
@@ -151,15 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             ContentRight.appendChild(pre_div)
         }
-    }
-
-    /*
-        TODO: Формирование компонента студента
-    */
-    function FormationAthletesData(div, category) {
-        div.id = `Element-${category.id}`
-        div.innerHTML = `<h3 class='toss__content__category__title'>${category.fio}</h3>`
-        return div
     }
 
     getTournamentCategoriesWeights()

@@ -151,8 +151,8 @@ header form {
 .global__message {
    position: fixed;
 
-   top: 10vh;
-   left: 5vw;
+   top: 15vh;
+   left: 2vw;
    height: 40px;
    border-radius: 6px;
 
@@ -166,6 +166,7 @@ header form {
    font-weight: 600;
 
    transition: all .3s ease-in-out;
+   z-index: 2;
 }
 .global__message_close {
    display: flex;
