@@ -1,0 +1,78 @@
+{% load static i18n  %}
+
+<header>
+   <a href="/" class="link-logo">
+      <b>JUDO</b>
+
+      <span>
+         <span>KZ</span>
+      </span>
+   </a>
+
+   <div class="mobile__menu">
+      <i class="fa-solid fa-bars"></i>
+   </div>
+
+   {% comment %}<div class="header__center">
+      <a href="" class="link">
+         {% trans 'Турниры' %}
+         <i class="fa-solid fa-calendar-days"></i>
+      </a>
+      <a href="" class="link">
+         {% trans 'Медали' %}
+         <i class="fa-solid fa-medal"></i>
+      </a>
+      <a href="" class="link">
+         {% trans 'Сортировка' %}
+         <i class="fa-solid fa-arrow-up-wide-short"></i>
+      </a>
+      <a href="{% url "instructions" %}" class="link">
+         {% trans 'Инструкции' %}
+         <i class="fa-solid fa-circle-info"></i>
+      </a>
+   </div> {% endcomment %}
+
+   <div class="header__right">
+      {% if request.user.is_authenticated  %}
+      {% if request.user.profile.userType == 'Админ' or request.user.profile.userType == 'Секретарь' or request.user.is_superuser %}
+         <a href="" class="link"
+         style="font-size: 30px; font-weight: bold;">
+            +
+            <!-- {% trans 'Add New Tournament' %} -->
+         </a>
+      {% endif %}
+   <a href="{% url 'show_profile' request.user.username %}" class="link">
+      {{ request.user.username }}
+   </a>
+   <a href="{% url 'logout' %}" class="link">
+      {% trans 'Выход' %}
+   </a>
+{% else %}
+   <a href="{% url 'registration' %}" class="link">{% trans 'Регистрация' %}</a>
+   <a href="{% url 'login' %}" class="link">{% trans 'Вход' %}</a>
+{% endif %}
+   <form action="{% url 'set_language' %}" method="post" id="LanguageForm">{% csrf_token %}
+      <input name="next" type="hidden" value="{{ redirect_to }}">
+      <select name="language" id="changeLanguage" class='change__language' >
+         {% get_current_language as LANGUAGE_CODE %}
+         {% get_available_languages as LANGUAGES %}
+         {% get_language_info_list for LANGUAGES as languages %}
+         {% for language in languages %}
+            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+                     selected{% endif %}>
+                  {% comment %} {{ language.name_local }}  {% endcomment %}
+                  {{ language.code }}
+            </option>
+         {% endfor %}
+      </select>
+      <!-- <button type="submit" class="btn">{% trans 'Translate' %}</button> -->
+   </form>
+   </div>
+
+</header>
+
+<script>
+   document.getElementById("changeLanguage").addEventListener("change", function() {
+      document.getElementById("LanguageForm").submit();
+   });
+</script>

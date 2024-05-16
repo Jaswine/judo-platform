@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
 --
--- Host: localhost    Database: judo_platform
+-- Host: localhost    Data judo_platform
 -- ------------------------------------------------------
 -- Server version	8.0.36-0ubuntu0.22.04.1
 

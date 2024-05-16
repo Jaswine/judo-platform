@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -50,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -138,6 +141,18 @@ MEDIA_ROOT =  BASE_DIR / 'media'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
+]
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('ru', 'Russian'),
+    ('kk', 'Kazakh'),
+]
+
+MODELTRANSLATION_LANGUAGES = ( 'en', 'ru', 'kk')
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale'
 ]
 
 # Default primary key field type

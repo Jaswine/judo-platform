@@ -1,0 +1,81 @@
+{% include 'main.html' %}
+{% load static i18n %}
+
+{% block title %}
+   <link rel="stylesheet" href="{% static 'user/css/auth.css' %}">
+   {% if page_type == 'login' %}
+      <title>
+         {% trans 'Вход' %}
+      </title>
+   {% else %}
+      <title>
+         {% trans 'Регистрация' %}
+      </title>
+   {% endif %}
+{% endblock title %}
+
+
+{% block content %}
+   <div class="pre__form">
+      <form method="POST">
+         {% csrf_token %}
+
+         {% if page_type == 'login' %}
+            <h1>{% trans 'Вход' %}</h1>
+            <p>{% trans 'Пожалуйста, введите логин и пароль для продолжения использования сайта.' %}</p>
+
+            <div class = "form__component">
+               <label>{% trans 'Электронная почта' %}:</label>
+               <input type="email" name="email" id="email" required />
+            </div>
+
+            <div class = "form__component">
+               <label>{% trans 'Пароль' %}:</label>
+               <input type="password" name="password" id="password" required />
+            </div>
+         {% else %}
+            <h1>{% trans 'Регистрация' %}</h1>
+            <p>{% trans 'Пожалуйста, зарегестрируйтесь для продолжения использования сайта.' %}</p>
+
+            {% for field in form  %}
+               {% if field.errors %}
+               <ul class="errorlist">
+                  {% for error in field.errors %}
+                  <li>{{ error }}</li>
+                  {% endfor %}
+               </ul>
+               {% endif %}
+            {% endfor %}
+
+            <div class = "form__component">
+               <label>{% trans 'Имя пользователя' %}:</label>
+               {{ form.username }}
+            </div>
+
+            <div class = "form__component">
+               <label>{% trans 'Электронная почта' %}:</label>
+               {{ form.email }}
+            </div>
+
+            <div class = "form__component">
+               <label>{% trans 'Пароль' %}:</label>
+               {{ form.password1 }}
+            </div>
+
+            <div class = "form__component">
+               <label>{% trans 'Подтверждение пароля' %}:</label>
+               {{ form.password2 }}
+            </div>
+
+         {% endif %}
+
+         <button type="submit" class="btn">{% trans 'Продолжить' %}</button>
+
+         {% if page_type == 'login' %}
+            <p>{% trans 'Впервые?' %} <a href="{% url 'registration' %}">{% trans 'Создать аккаунт' %}</a></p>
+         {% else %}
+            <p>{% trans 'Уже имеете аккаунт?' %} <a href="{% url 'login' %}">{% trans 'Войти в созданный' %}</a></p>
+         {% endif %}
+      </form>
+   </div>
+{% endblock content %}
