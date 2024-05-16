@@ -94,6 +94,9 @@ DATABASES = {
         'PASSWORD': 'judo_platform',
         'HOST': 'localhost',
         'PORT': '3306',
+        'TEST': {
+            'NAME': 'test_judo_platform',  # Ensure the test database name is specified here
+        },
     }
 }
 

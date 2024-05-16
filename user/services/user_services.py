@@ -1,6 +1,4 @@
 from django.contrib.auth.models import User
-from user.models import Profile
-
 
 
 def get_user_by_email(email: str) -> User:
@@ -15,13 +13,6 @@ def get_user_by_username(username: str) -> User:
         Берем пользователя по username
     """
     return User.objects.get(username=username)
-
-
-def get_profile_by_user(user: User) -> User:
-    """
-        Берем профиль пользователя по profile
-    """
-    return Profile.objects.get(user=user)
 
 
 def user_exists(id: int) -> bool:
